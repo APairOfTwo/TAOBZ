@@ -11,6 +11,8 @@ public class GamePanel extends JPanel implements Runnable {
 	//mapa 4096 de largura / 16 = 256 tiles
 	//mapa 640 de altura / 16 = 40 tiles
 	
+	// OLA
+	
 	public static final int PANEL_WIDTH = 1024;
 	public static final int PANEL_HEIGHT = 640;
 	public static GamePanel instance;
