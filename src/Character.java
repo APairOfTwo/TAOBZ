@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.math.MathContext;
 
 public class Character extends Sprite {
 	BufferedImage charset = null;
@@ -17,8 +16,8 @@ public class Character extends Sprite {
 	boolean hasJumped = false;
 	boolean isAlive = true;
 	int jumpSpeed = 1100;
-	int jumpReach = 0;
-	int jumpHeight = 150;
+	//int jumpReach = 0;
+	//int jumpHeight = 150;
 	int count;
 	int respawnPosX;
 	
@@ -54,7 +53,6 @@ public class Character extends Sprite {
 		if(CanvasGame.instance.JUMP && onTheFloor){
 			hasJumped = true;
 			animation = 0;
-			jumpReach = (int)y - jumpHeight;
 		}
 		if(CanvasGame.instance.CRYSTAL){
 			destroyBlocks = true;
@@ -71,8 +69,10 @@ public class Character extends Sprite {
 		
 		if(hasJumped){
 			y -= jumpSpeed * diffTime / 1000.0f;
-			if(y <= jumpReach) {
+			jumpSpeed += -1*gravity/15;
+			if(jumpSpeed <= 0) {
 				hasJumped = false;
+				jumpSpeed = 1100;
 			}
 		}
 		
