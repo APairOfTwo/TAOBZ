@@ -20,7 +20,7 @@ public class EventsManager {
 			eventsList.get(i).selfSimulates(diffTime);
 			bx = eventsList.get(i).posX << 4;
 			by = eventsList.get(i).posY << 4;
-			if(CanvasGame.instance.mojo.destroyBlocks && eventsList.get(i).type == 1 && intercept(CanvasGame.MOUSE_X, CanvasGame.MOUSE_Y, bx-CanvasGame.map.MapX, by-CanvasGame.map.MapY, (bx+32)-CanvasGame.map.MapX, (by+32)-CanvasGame.map.MapY) && CanvasGame.MOUSE_PRESSED){
+			if(CanvasGame.instance.billy.destroyBlocks && eventsList.get(i).type == 1 && intercept(CanvasGame.MOUSE_X, CanvasGame.MOUSE_Y, bx-CanvasGame.map.MapX, by-CanvasGame.map.MapY, (bx+32)-CanvasGame.map.MapX, (by+32)-CanvasGame.map.MapY) && CanvasGame.MOUSE_PRESSED){
 				eventsList.get(i).active = false;
 			}
 			if(!eventsList.get(i).active){
@@ -29,7 +29,7 @@ public class EventsManager {
 		}
 	}
 	
-	public void selfDrawns(Graphics2D dbg, int mapX, int mapY){
+	public void selfDraws(Graphics2D dbg, int mapX, int mapY){
 		for(int i = 0; i < eventsList.size(); i++){ 
 			eventsList.get(i).selfDraws(dbg, mapX, mapY);
 			bx = eventsList.get(i).posX << 4;

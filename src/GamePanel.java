@@ -11,8 +11,6 @@ public class GamePanel extends JPanel implements Runnable {
 	//mapa 4096 de largura / 16 = 256 tiles
 	//mapa 640 de altura / 16 = 40 tiles
 	
-	// OLA
-	
 	public static final int PANEL_WIDTH = 1024;
 	public static final int PANEL_HEIGHT = 640;
 	public static GamePanel instance;
@@ -23,6 +21,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public static int fps, sfps, fpscount, seconds;
 	long diffTime, previousTime;
 	public static Canvas canvasActive = null;
+	public boolean gameOver = false;
 
 	public GamePanel(){
 		instance = this;
@@ -121,7 +120,7 @@ public class GamePanel extends JPanel implements Runnable {
 		diffTime = 0;
 		previousTime = System.currentTimeMillis();
 
-		while (running) {
+		while (!gameOver) {
 			gameUpdate(diffTime);
 			gameRender();
 			paintImmediately(0, 0, PANEL_WIDTH, PANEL_HEIGHT);

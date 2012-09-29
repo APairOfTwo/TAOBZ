@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 
@@ -7,17 +8,17 @@ public class Projectile extends Sprite {
 	int anim = 0;
 	int animspd = 500;
 	int timeAnimSum = 0;
-	float speedX = 0;
-	float speedY = 0;
+	float velX = 0;
+	float velY = 0;
 	Object pai = null;
 	float radius = 2;
 	
-	public Projectile(float x, float y, float speedX, float speedY, Object pai) {
+	public Projectile(float x, float y, float velX, float velY, Object pai) {
 		super();
 		this.x = x;
 		this.y = y;
-		this.speedX = speedX;
-		this.speedY = speedY;
+		this.velX = velX;
+		this.velY = velY;
 		this.pai = pai;
 	}
 	
@@ -26,9 +27,8 @@ public class Projectile extends Sprite {
 		timeAnimSum += diftime;
 		frame = (timeAnimSum/animspd)%3;
 		
-		x += speedX*diftime/1000.0f;
-		y += speedY*diftime/1000.0f;
-		
+		x += velX*diftime/1000.0f;
+		y += velY*diftime/1000.0f;
 		int bx = (int)((x)/16);
 		int by = (int)((y)/16);
 		if(x<0){
@@ -47,7 +47,10 @@ public class Projectile extends Sprite {
 	}
 	
 	@Override
-	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {}
+	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
+		dbg.setColor(Color.WHITE);
+		dbg.fillOval((int)(x-mapX-2), (int)(y-mapY-2), 4, 4);
+	}
 	
 	public boolean colisaoCircular(Character c){
 		float dx = (c.x + c.centerX) - (x) ;

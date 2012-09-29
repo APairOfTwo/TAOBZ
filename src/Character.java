@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -10,6 +9,8 @@ public class Character extends Sprite {
 	int timeAnimating = 0;
 	int charsetX = 0;
 	int charsetY = 0;
+	int fireTimer = 0;
+	int moveDirection = 1;
 	
 	int gravity = 500;
 	boolean onTheFloor = false;
@@ -45,6 +46,10 @@ public class Character extends Sprite {
 	
 	@Override
 	public void selfSimulates(long diffTime){
+		if(this.life <= 0) {
+			GamePanel.instance.gameOver = true;
+		}
+		fireTimer += diffTime;
 		timeAnimating += diffTime;
 		frame = (timeAnimating / animeSpeed) % 7;
 		oldX = x;
@@ -60,9 +65,11 @@ public class Character extends Sprite {
 		if(CanvasGame.instance.RIGHT){
 			x += speed * diffTime / 1000.0f;
 			animation = 0;
+			moveDirection = 1;
 		} else if(CanvasGame.instance.LEFT){
 			x -= speed * diffTime / 1000.0f;
 			animation = 1;
+			moveDirection = -1;
 		}else{
 			timeAnimating = 0;
 		}

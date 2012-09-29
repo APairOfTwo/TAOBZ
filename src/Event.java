@@ -23,10 +23,10 @@ public class Event {
 	
 	public void selfSimulates(long diffTime){	
 		active = false;
-		colision(CanvasGame.mojo);
+		colision(CanvasGame.billy);
 		if(type == 1){
-			if(collidedRight && !collidedUp) { CanvasGame.mojo.x = CanvasGame.mojo.oldX; }
-			if(collidedLeft && !collidedUp)  { CanvasGame.mojo.x = CanvasGame.mojo.oldX; }
+			if(collidedRight && !collidedUp) { CanvasGame.billy.x = CanvasGame.billy.oldX; }
+			if(collidedLeft && !collidedUp)  { CanvasGame.billy.x = CanvasGame.billy.oldX; }
 		}
 		if(Pvar != -1){
 			switch (Pop) {
