@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.math.MathContext;
 
 public class Character extends Sprite {
 	BufferedImage charset = null;
