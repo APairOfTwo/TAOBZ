@@ -16,7 +16,7 @@ public class CanvasGame extends Canvas {
 	public static ArrayList<Effect> effectsList = new ArrayList<Effect>();
 	public ArrayList<Projectile> projectilesList = new ArrayList<Projectile>();
 	Random rand = new Random();
-	boolean LEFT, RIGHT, JUMP, FIRE, CRYSTAL;
+	boolean LEFT, RIGHT, JUMP, FIRE;
 	public static int MOUSE_X, MOUSE_Y;
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
 	public static boolean MOUSE_PRESSED;
@@ -88,7 +88,6 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_D)		{ RIGHT = true; }
 		if(keyCode == KeyEvent.VK_W)		{ JUMP = true; }
 		if(keyCode == KeyEvent.VK_SPACE)	{ FIRE = true; }
-		if(keyCode == KeyEvent.VK_1) 		{ CRYSTAL = true; }
 	}
 
 	@Override
@@ -98,7 +97,6 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_D)     { RIGHT = false; }
 		if(keyCode == KeyEvent.VK_W)     { JUMP = false; }
 		if(keyCode == KeyEvent.VK_SPACE) { FIRE = false; }
-		if(keyCode == KeyEvent.VK_SHIFT) { CRYSTAL = false; }
 	}
 
 	@Override

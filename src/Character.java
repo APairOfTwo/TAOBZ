@@ -57,10 +57,8 @@ public class Character extends Sprite {
 		y += gravity * diffTime / 1000.0f;
 		if(CanvasGame.instance.JUMP && onTheFloor){
 			hasJumped = true;
-			animation = 0;
-		}
-		if(CanvasGame.instance.CRYSTAL){
-			destroyBlocks = true;
+			if(moveDirection == 1) animation = 0;
+			if(moveDirection == -1) animation = 1;
 		}
 		if(CanvasGame.instance.RIGHT){
 			x += speed * diffTime / 1000.0f;
