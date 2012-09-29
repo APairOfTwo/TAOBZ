@@ -15,7 +15,7 @@ public class CanvasMenu extends Canvas {
 	public void selfSimulates(long diffTime){ }
 
 	@Override
-	public void selfDrawns(Graphics2D dbg){
+	public void selfDraws(Graphics2D dbg){
 		dbg.setColor(Color.blue);
 		dbg.fillRect(0, 0, GamePanel.PANEL_WIDTH, GamePanel.PANEL_HEIGHT);
 	}

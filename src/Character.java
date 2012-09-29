@@ -110,7 +110,7 @@ public class Character extends Sprite {
 	}
 
 	@Override
-	public void selfDrawns(Graphics2D dbg, int mapX, int mapY) {
+	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
 		int largura = 49;
 		int altura = 55;
 		int largSpriteSheet = 342;

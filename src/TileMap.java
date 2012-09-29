@@ -344,7 +344,7 @@ public class TileMap {
 
 	}
 
-	public void selfDrawns(Graphics2D dbg) {
+	public void selfDraws(Graphics2D dbg) {
 		int offx = MapX & 0x0f;
 		int offy = MapY & 0x0f;
 		int somax, somay;

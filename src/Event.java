@@ -54,7 +54,7 @@ public class Event {
 		}
 	}
 	
-	public void selfDrawns(Graphics2D dbg, int mapX, int mapY){
+	public void selfDraws(Graphics2D dbg, int mapX, int mapY){
 		if(active) {
 			if(sprite != null) {
 				dbg.drawImage(sprite, ((posX<<4)-mapX), ((posY<<4)-mapY), ((posX<<4)+sprite.getWidth())-mapX, ((posY<<4)+sprite.getHeight())-mapY, 0, 0, sprite.getWidth(), sprite.getHeight(), null);

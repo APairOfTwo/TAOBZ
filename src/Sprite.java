@@ -7,5 +7,5 @@ abstract public class Sprite {
 	public boolean active = true;
 	
 	public abstract void selfSimulates(long diffTime);
-	public abstract void selfDrawns(Graphics2D dbg, int mapX, int mapY);
+	public abstract void selfDraws(Graphics2D dbg, int mapX, int mapY);
 }

@@ -151,7 +151,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	private void gameRender(){
 		if(canvasActive != null) {
-			canvasActive.selfDrawns(dbg);
+			canvasActive.selfDraws(dbg);
 		}
 	}
 

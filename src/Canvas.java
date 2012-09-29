@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 public abstract class Canvas {
 	
 	public abstract void selfSimulates(long diffTime);
-	public abstract void selfDrawns(Graphics2D dbg);
+	public abstract void selfDraws(Graphics2D dbg);
 		
 	public abstract void keyPressed(KeyEvent k);
 	public abstract void keyReleased(KeyEvent k);

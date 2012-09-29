@@ -62,12 +62,12 @@ public class CanvasGame extends Canvas {
 	}
 
 	@Override
-	public void selfDrawns(Graphics2D dbg){
-		map.selfDrawns(dbg);
+	public void selfDraws(Graphics2D dbg){
+		map.selfDraws(dbg);
 		events.selfDrawns(dbg, map.MapX, map.MapY);
-		mojo.selfDrawns(dbg, map.MapX, map.MapY);
+		mojo.selfDraws(dbg, map.MapX, map.MapY);
 		for(int i = 0; i < effectsList.size(); i++){
-			effectsList.get(i).selfDrawns(dbg, map.MapX, map.MapY);
+			effectsList.get(i).selfDraws(dbg, map.MapX, map.MapY);
 		}
 	}
 

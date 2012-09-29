@@ -31,7 +31,7 @@ public class EventsManager {
 	
 	public void selfDrawns(Graphics2D dbg, int mapX, int mapY){
 		for(int i = 0; i < eventsList.size(); i++){ 
-			eventsList.get(i).selfDrawns(dbg, mapX, mapY);
+			eventsList.get(i).selfDraws(dbg, mapX, mapY);
 			bx = eventsList.get(i).posX << 4;
 			by = eventsList.get(i).posY << 4;
 			if(eventsList.get(i).type == 1 && intercept(CanvasGame.MOUSE_X, CanvasGame.MOUSE_Y, bx-mapX, by-mapY, (bx+32)-mapX, (by+32)-mapY)){
