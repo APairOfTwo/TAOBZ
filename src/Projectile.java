@@ -37,12 +37,22 @@ public class Projectile extends Sprite {
 			active = false;
 		}else if(x>=(CanvasGame.map.Largura<<4)-1){
 			active = false;
-		}else if(y>=(CanvasGame.map.Altura<<4)-1){
-			active = false;
 		}else if(CanvasGame.map.mapLayer1[by][bx]>0){
 			active = false;
-			//Colisão com layer 2 do mapa
-			//geraEfeitoSimples(300, 255, 255, 255);
+		}
+		
+		if(CanvasGame.billy.x <= GamePanel.PANEL_WIDTH/2) {
+			if(x > GamePanel.PANEL_WIDTH) {
+				active = false;
+			}
+		} else if(CanvasGame.billy.x >= CanvasGame.map.Largura*16 - GamePanel.PANEL_WIDTH/2) {
+			if(x < CanvasGame.map.Largura*16 - GamePanel.PANEL_WIDTH) {
+				active = false;
+			}
+		} else {
+			if((x < CanvasGame.billy.x - GamePanel.PANEL_WIDTH/2) || (x > CanvasGame.billy.x + GamePanel.PANEL_WIDTH/2)) {
+				active = false;
+			}
 		}
 	}
 	
@@ -53,8 +63,8 @@ public class Projectile extends Sprite {
 	}
 	
 	public boolean colisaoCircular(Character c){
-		float dx = (c.x + c.centerX) - (x) ;
-		float dy = (c.y + c.centerY) - (y) ;
+		float dx = (c.x + c.centerX) - x;
+		float dy = (c.y + c.centerY) - y;
 		float r2 = c.radius + radius;
 		r2 = r2*r2;
 		if(r2 > ((dx*dx)+(dy*dy))){

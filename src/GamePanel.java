@@ -152,6 +152,8 @@ public class GamePanel extends JPanel implements Runnable {
 		if(canvasActive != null) {
 			canvasActive.selfDraws(dbg);
 		}
+		dbg.setColor(Color.WHITE);
+		dbg.drawString("FPS: "+fps, 10, 20);
 	}
 
 	public void paintComponent(Graphics g) {

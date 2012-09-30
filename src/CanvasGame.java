@@ -75,7 +75,7 @@ public class CanvasGame extends Canvas {
 		for(int i = 0; i < projectilesList.size(); i++){
 			projectilesList.get(i).selfDraws(dbg, map.MapX, map.MapY);
 		}
-		System.out.println(projectilesList.size());
+		//System.out.println(projectilesList.size());
 		for(int i = 0; i < effectsList.size(); i++){
 			effectsList.get(i).selfDraws(dbg, map.MapX, map.MapY);
 		}

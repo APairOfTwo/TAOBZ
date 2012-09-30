@@ -3,18 +3,16 @@ import java.awt.image.BufferedImage;
 
 
 public class CharBilly extends Character {
-	int fireRate = 200;
-	static float armor = 0.5f;
-	float contador = 0;
+	int fireRate = 800;
+	//static float armor = 0.5f;
+	//float contador = 0;
 	
-	public CharBilly(float x, float y, BufferedImage charset, int charsetX,
-			int charsetY) {
+	public CharBilly(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY);
 	}
 
 	@Override
 	public void selfSimulates(long diffTime){
-
 		if(CanvasGame.instance.FIRE && fireTimer>fireRate){
 			fireTimer = 0;
 			float vproj = 1000;
@@ -24,7 +22,7 @@ public class CharBilly extends Character {
 			
 			float vx = vproj * moveDirection;
 			
-			Projectile proj = new Projectile(x+centerX, y+centerY, vx, 0, this);
+			Projectile proj = new ProjBone(x+centerX, y+centerY, vx, 0, this);
 			CanvasGame.instance.projectilesList.add(proj);
 		}
 		
