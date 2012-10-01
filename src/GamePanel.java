@@ -165,7 +165,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public static void main(String args[]){
 		GamePanel ttPanel = new GamePanel();
-		JFrame app = new JFrame("Mojo The Treasure Hunter");
+		JFrame app = new JFrame("The Adventures of Billy Bones and Z the Zombie");
 		app.getContentPane().add(ttPanel, BorderLayout.CENTER);
 		app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		app.pack();

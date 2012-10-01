@@ -20,14 +20,20 @@ public class CanvasGame extends Canvas {
 	public static int MOUSE_X, MOUSE_Y;
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
 	public static boolean MOUSE_PRESSED;
+	BufferedImage charsetDemon;
+	public ArrayList<Character> enemiesList = new ArrayList<Character>();
 	
 	@SuppressWarnings("unused")
 	public CanvasGame(){
 		instance = this;
 		charset = GamePanel.loadImage("Mojo.png");
 		billy = new CharBilly(100, 100, charset, 0, 0);
-		tileset = GamePanel.loadImage("area01_tileset.png");
 		
+		charsetDemon = GamePanel.loadImage("demon_spritesheet.png");
+		EnemyDemon demon = new EnemyDemon(800, 200, charsetDemon, 0, 0, 100);
+		enemiesList.add(demon);
+		
+		tileset = GamePanel.loadImage("area01_tileset.png");
 		map = new TileMap(tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
 		map.OpenMap("stage_intro.map");
 		events.loadEvents(this.getClass().getResourceAsStream("eventosStageIntro.csv"));
@@ -46,8 +52,8 @@ public class CanvasGame extends Canvas {
 			map.Positions((int)billy.x-GamePanel.PANEL_WIDTH/2, (int)billy.y-GamePanel.PANEL_HEIGHT/2);
 			events.selfSimulates(diffTime);
 		} else {	
-			billy.count+=diffTime;
-			if(billy.count >= 3000) {
+			billy.respawnCountTime+=diffTime;
+			if(billy.respawnCountTime >= 3000) {
 				billy.respawn();
 			}
 		}
@@ -57,6 +63,9 @@ public class CanvasGame extends Canvas {
 				projectilesList.remove(i);
 				i--;
 			}
+		}
+		for(int i = 0; i < enemiesList.size(); i++) {
+			enemiesList.get(i).selfSimulates(diffTime);
 		}
 		for(int i = 0; i < effectsList.size(); i++){
 			effectsList.get(i).selfSimulates(diffTime);
@@ -75,7 +84,9 @@ public class CanvasGame extends Canvas {
 		for(int i = 0; i < projectilesList.size(); i++){
 			projectilesList.get(i).selfDraws(dbg, map.MapX, map.MapY);
 		}
-		//System.out.println(projectilesList.size());
+		for(int i = 0; i < enemiesList.size(); i++) {
+			enemiesList.get(i).selfDraws(dbg, map.MapX, map.MapY);
+		}
 		for(int i = 0; i < effectsList.size(); i++){
 			effectsList.get(i).selfDraws(dbg, map.MapX, map.MapY);
 		}
