@@ -62,14 +62,22 @@ public class Projectile extends Sprite {
 		dbg.fillOval((int)(x-mapX-2), (int)(y-mapY-2), 4, 4);
 	}
 	
-	public boolean colisaoCircular(Character c){
-		float dx = (c.x + c.centerX) - x;
-		float dy = (c.y + c.centerY) - y;
-		float r2 = c.radius + radius;
-		r2 = r2*r2;
-		if(r2 > ((dx*dx)+(dy*dy))){
-			return true;
-		}
-		return false;
+//	public boolean colisaoCircular(Character c){
+//		float dx = (c.x + c.centerX) - x;
+//		float dy = (c.y + c.centerY) - y;
+//		float r2 = c.radius + radius;
+//		r2 = r2*r2;
+//		if(r2 > ((dx*dx)+(dy*dy))){
+//			return true;
+//		}
+//		return false;
+//	}
+	
+	public boolean rectCollider(Character c) {
+		if(x + radius < c.x) return false;
+        if(x > c.x + c.frameWidth) return false;
+        if(y + radius < c.y) return false;
+        if(y > c.y + c.frameHeight) return false;
+        return true;
 	}
 }

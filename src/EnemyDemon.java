@@ -3,12 +3,10 @@ import java.awt.image.BufferedImage;
 
 
 public class EnemyDemon extends Character {
-	float velX;
 	float speed = 150;
 	
-	public EnemyDemon(float x, float y, BufferedImage charset, int charsetX, int charsetY, float velX) {
+	public EnemyDemon(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 71, 84, 6, 425, 168);
-		this.velX = velX;
 	}
 
 	@Override
@@ -39,10 +37,18 @@ public class EnemyDemon extends Character {
 		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - 50) || hasCollidedWithLayer1((int)((x+10)/16), (int)((x+60)/16), (int)((y+75)/16))) {
 			moveDirection *= -1;
 		}
+		
 	}
 	
 	@Override
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
 		super.selfDraws(dbg, mapX, mapY);
+	}
+	
+	@Override
+	public void hitByProjectile(Projectile p) {
+		super.hitByProjectile(p);
+		speed = 0;
+		//TODO - animação de tontura ou comendo dependendo do projétil
 	}
 }

@@ -31,8 +31,6 @@ public class CharBilly extends Character {
 			CanvasGame.instance.projectilesList.add(proj);
 		}
 		
-		super.selfSimulates(diffTime);
-		
 		oldX = x;
 		oldY = y;
 		y += gravity * diffTime / 1000.0f;
@@ -94,6 +92,15 @@ public class CharBilly extends Character {
 			isAlive = false;
 			respawnPosX = blockX*16 - 250;
 		}
+		
+		for(int i = 0; i < CanvasGame.instance.enemiesList.size(); i++) {
+			Character c = CanvasGame.instance.enemiesList.get(i);
+			if(rectCollider(c)){
+				System.out.println("colidiu");
+			}
+		}
+		
+		super.selfSimulates(diffTime);
 	}
 	
 	@Override

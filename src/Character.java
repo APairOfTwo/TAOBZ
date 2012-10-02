@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -59,6 +60,10 @@ public class Character extends Sprite {
 		dbg.drawImage(charset, (int)(x-mapX), (int)(y-mapY), (int)((x+frameWidth)-mapX), (int)((y+frameHeight)-mapY),
 				(frameWidth*frame+charsetX*charsetWidth), (frameHeight*animation+charsetY*charsetHeight),
 				(frameWidth*frame+frameWidth+charsetX*charsetWidth), (frameHeight*animation+frameHeight+charsetY*charsetHeight), null);
+		
+		dbg.setColor(Color.RED);
+		dbg.drawOval((int)(x-CanvasGame.map.MapX-radius+centerX), (int)(y-CanvasGame.map.MapY-radius+centerY), (int)(radius*2),(int)(radius*2));
+		dbg.drawRect((int)(x-CanvasGame.map.MapX), (int)(y-CanvasGame.map.MapY), this.frameWidth, this.frameHeight);
 	}
 	
 	public boolean hasCollidedWithLayer1(int by) {
@@ -66,13 +71,21 @@ public class Character extends Sprite {
 		return false;
 	}
 	
-	public boolean hasCollidedWithLayer1(int bxi, int bxf) {
-		if((CanvasGame.map.mapLayer1[0][bxi]>0) || (CanvasGame.map.mapLayer1[0][bxf]>0)) return true;
-		return false;
-	}
-	
 	public boolean hasCollidedWithLayer1(int bxi, int bxf, int by) {
 		if((CanvasGame.map.mapLayer1[by][bxi]>0) || (CanvasGame.map.mapLayer1[by][bxf]>0)) return true;
 		return false;
 	}
+
+	public boolean rectCollider(Character c) {
+		if(x + frameWidth < c.x) return false;
+        if(x > c.x + c.frameWidth) return false;
+        if(y + frameHeight < c.y) return false;
+        if(y > c.y + c.frameHeight) return false;
+        return true;
+	}
+	
+	public void hitByProjectile(Projectile p) {
+		System.out.println(p.getClass());
+	}
+	
 }

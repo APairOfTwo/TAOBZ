@@ -30,7 +30,7 @@ public class CanvasGame extends Canvas {
 		billy = new CharBilly(100, 100, charset, 0, 0);
 		
 		charsetDemon = GamePanel.loadImage("demon_spritesheet.png");
-		EnemyDemon demon = new EnemyDemon(800, 200, charsetDemon, 0, 0, 100);
+		EnemyDemon demon = new EnemyDemon(800, 200, charsetDemon, 0, 0);
 		enemiesList.add(demon);
 		
 		tileset = GamePanel.loadImage("area01_tileset.png");
