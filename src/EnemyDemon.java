@@ -3,6 +3,7 @@ import java.awt.image.BufferedImage;
 
 
 public class EnemyDemon extends Character {
+	final float DEFAULT_SPEED = 150;
 	float speed = 150;
 	
 	public EnemyDemon(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
@@ -17,15 +18,33 @@ public class EnemyDemon extends Character {
 		oldY = y;
 		y += gravity * diffTime / 1000.0f;
 		
-		if(moveDirection == 1) {
-			animation = 0;
-			x += speed * diffTime / 1000.0f;
-		} else if(moveDirection == -1) {
-			animation = 1;
-			x -= speed * diffTime / 1000.0f;
+		if(!this.isStunned) {
+			if(moveDirection == 1) {
+				animation = 0;
+				x += speed * diffTime / 1000.0f;
+			} else if(moveDirection == -1) {
+				animation = 1;
+				x -= speed * diffTime / 1000.0f;
+			} else {
+				timeAnimating = 0;
+			}
 		} else {
-			timeAnimating = 0;
-		}
+			stunCountTime += diffTime;
+			animeSpeed = 300;
+			if(moveDirection == 1) {
+				animation = 2;
+			} else if(moveDirection == -1) {
+				animation = 3;
+			} else {
+				timeAnimating = 0;
+			}
+			if(stunCountTime >= 5000) {
+				isStunned = false;
+				animeSpeed = 100;
+				speed = DEFAULT_SPEED;
+				stunCountTime = 0;
+			}
+		}	
 		
 		if(hasCollidedWithLayer1((int)((y+75)/16))) {
 			y = oldY;
@@ -49,6 +68,6 @@ public class EnemyDemon extends Character {
 	public void hitByProjectile(Projectile p) {
 		super.hitByProjectile(p);
 		speed = 0;
-		//TODO - animação de tontura ou comendo dependendo do projétil
+		isStunned = true;
 	}
 }

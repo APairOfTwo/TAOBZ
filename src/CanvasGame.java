@@ -29,7 +29,7 @@ public class CanvasGame extends Canvas {
 		charset = GamePanel.loadImage("Mojo.png");
 		billy = new CharBilly(100, 100, charset, 0, 0);
 		
-		charsetDemon = GamePanel.loadImage("demon_spritesheet.png");
+		charsetDemon = GamePanel.loadImage("demon_stun.png");
 		EnemyDemon demon = new EnemyDemon(800, 200, charsetDemon, 0, 0);
 		enemiesList.add(demon);
 		

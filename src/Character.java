@@ -34,6 +34,9 @@ public class Character extends Sprite {
 	float oldX = 0;
 	float oldY = 0;
 	
+	boolean isStunned = false;
+	int stunCountTime = 0;
+	
 	public Character(float x, float y, BufferedImage charset, int charsetX, int charsetY, int frameWidth, 
 						int frameHeight, int numberOfFrames, int charsetWidth, int charsetHeight) {
 		this.x = x;
