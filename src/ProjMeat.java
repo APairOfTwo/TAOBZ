@@ -3,21 +3,55 @@ import java.awt.Graphics2D;
 
 
 public class ProjMeat extends Projectile {
+	float Xspeed, Yspeed;
+	float speed = 550;
+	double gravity = 700;
+	double angle, angle2;
+	float oldX, oldY;
+	boolean hitTheGround;
 	
-	float flightTime;
-	float projectileStartPositionX;
-	float projectileStartPositionY;
-	float projectileVelocityX = 100;
-	float projectileVelocityY = 100;
-	float projectileRotation;
-
 	public ProjMeat(float x, float y, float velX, float velY, Object pai) {
 		super(x, y, velX, velY, pai);
+		angle = Math.atan2(100, 1);
+		angle += Math.PI;
+		
+		angle2 = angle - (Math.PI / 4) + (Math.PI / 2);
+		
+		Xspeed = (float)(Math.cos(angle2) * speed);
+		Yspeed = (float)(Math.sin(angle2) * speed);
+		hitTheGround = false;
 	}
 	
 	public void selfSimulates(long diffTime) {
-		x += velX*diffTime/1000.0f;
-		y += velY*diffTime/1000.0f;
+		if(!hitTheGround) {
+			super.selfSimulates(diffTime);
+			oldX = x;
+			oldY = y;
+			
+			bx = (int)((x)/16);
+			by = (int)((y)/16);
+			
+			x += Xspeed * diffTime / 1000;
+			y += Yspeed * diffTime / 1000;
+			Yspeed += gravity * diffTime / 1000;
+			
+			for(int i = 0; i < CanvasGame.instance.enemiesList.size(); i++){
+				Character enemy = CanvasGame.instance.enemiesList.get(i);
+				if(enemy != pai){
+					if(rectCollider(enemy)){
+						active = false;
+						enemy.hitByProjectile(this);
+						break;
+					}
+				}
+			}
+			
+			if(active && CanvasGame.map.mapLayer1[by][bx]>0){
+				hitTheGround = true;
+				x = oldX;
+				y = oldY;
+			}
+		}
 	}
 
 	@Override

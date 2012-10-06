@@ -11,20 +11,25 @@ public class ProjBone extends Projectile {
 	@Override
 	public void selfSimulates(long diffTime) {
 		super.selfSimulates(diffTime);
+		x += velX*diffTime/1000.0f;
+		y += velY*diffTime/1000.0f;
+		bx = (int)((x)/16);
+		by = (int)((y)/16);
 		
 		for(int i = 0; i < CanvasGame.instance.enemiesList.size();i++){
 			Character ene = CanvasGame.instance.enemiesList.get(i);
 			if(ene!=pai){
-				//if(colisaoCircular(ene)){
 				if(rectCollider(ene)) {
 					active = false;
 					ene.hitByProjectile(this);
 					System.out.println("tiro");
-					//Efeito de sangue quando um projetil atinge um inimigo
-					//super.geraEfeitoSimples(400, 255, 0, 0);
 					break;
 				}
 			}
+		}
+		
+		if(CanvasGame.map.mapLayer1[by][bx]>0){
+			active = false;
 		}
 	}
 	
