@@ -46,7 +46,7 @@ public class EnemyDemon extends Character {
 			}
 		}	
 		
-		if(hasCollidedWithLayer1((int)((y+75)/16))) {
+		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+75)/16))) {
 			y = oldY;
 			onTheFloor = true;
 		} else {

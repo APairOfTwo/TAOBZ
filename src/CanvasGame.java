@@ -29,9 +29,11 @@ public class CanvasGame extends Canvas {
 		charset = GamePanel.loadImage("Mojo.png");
 		billy = new CharBilly(100, 100, charset, 0, 0);
 		
-		charsetDemon = GamePanel.loadImage("demon_stun.png");
-		EnemyDemon demon = new EnemyDemon(800, 200, charsetDemon, 0, 0);
+		charsetDemon = GamePanel.loadImage("spritesheet_demon.png");
+		Character demon = new EnemyDemon(800, 200, charsetDemon, 0, 0);
 		enemiesList.add(demon);
+		Character gargoyle = new EnemyGargoyle(800, 100, charsetDemon, 0, 0);
+		enemiesList.add(gargoyle);
 		
 		tileset = GamePanel.loadImage("area01_tileset.png");
 		map = new TileMap(tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
@@ -80,7 +82,6 @@ public class CanvasGame extends Canvas {
 	public void selfDraws(Graphics2D dbg){
 		map.selfDraws(dbg);
 		events.selfDraws(dbg, map.MapX, map.MapY);
-		billy.selfDraws(dbg, map.MapX, map.MapY);
 		for(int i = 0; i < projectilesList.size(); i++){
 			projectilesList.get(i).selfDraws(dbg, map.MapX, map.MapY);
 		}
@@ -90,6 +91,7 @@ public class CanvasGame extends Canvas {
 		for(int i = 0; i < effectsList.size(); i++){
 			effectsList.get(i).selfDraws(dbg, map.MapX, map.MapY);
 		}
+		billy.selfDraws(dbg, map.MapX, map.MapY);
 	}
 
 	@Override

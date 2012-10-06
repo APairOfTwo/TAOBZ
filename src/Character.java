@@ -69,11 +69,6 @@ public class Character extends Sprite {
 		dbg.drawRect((int)(x-CanvasGame.map.MapX), (int)(y-CanvasGame.map.MapY), this.frameWidth, this.frameHeight);
 	}
 	
-	public boolean hasCollidedWithLayer1(int by) {
-		if(CanvasGame.map.mapLayer1[by][0]>0) return true;
-		return false;
-	}
-	
 	public boolean hasCollidedWithLayer1(int bxi, int bxf, int by) {
 		if((CanvasGame.map.mapLayer1[by][bxi]>0) || (CanvasGame.map.mapLayer1[by][bxf]>0)) return true;
 		return false;
