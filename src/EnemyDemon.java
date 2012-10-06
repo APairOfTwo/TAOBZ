@@ -4,10 +4,10 @@ import java.awt.image.BufferedImage;
 
 public class EnemyDemon extends Character {
 	final float DEFAULT_SPEED = 150;
-	float speed = 150;
 	
 	public EnemyDemon(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 71, 84, 6, 425, 168);
+		speed = DEFAULT_SPEED;
 	}
 
 	@Override
@@ -18,7 +18,7 @@ public class EnemyDemon extends Character {
 		oldY = y;
 		y += gravity * diffTime / 1000.0f;
 		
-		if(!this.isStunned) {
+		if(!this.isStunned && !this.isEating) {
 			if(moveDirection == 1) {
 				animation = 0;
 				x += speed * diffTime / 1000.0f;
@@ -67,7 +67,5 @@ public class EnemyDemon extends Character {
 	@Override
 	public void hitByProjectile(Projectile p) {
 		super.hitByProjectile(p);
-		speed = 0;
-		isStunned = true;
 	}
 }

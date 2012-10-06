@@ -17,6 +17,7 @@ public class Character extends Sprite {
 	int charsetWidth;
 	int charsetHeight;
 	int numberOfFrames;
+	float speed;
 	
 	int gravity = 500;
 	boolean onTheFloor = false;
@@ -35,6 +36,7 @@ public class Character extends Sprite {
 	float oldY = 0;
 	
 	boolean isStunned = false;
+	boolean isEating = false;
 	int stunCountTime = 0;
 	
 	public Character(float x, float y, BufferedImage charset, int charsetX, int charsetY, int frameWidth, 
@@ -83,7 +85,13 @@ public class Character extends Sprite {
 	}
 	
 	public void hitByProjectile(Projectile p) {
-		System.out.println(p.getClass());
+		speed = 0;
+		if(p.getClass() == ProjMeat.class){
+			isEating = true;
+		}
+		if(p.getClass() == ProjBone.class){
+			isStunned = true;
+		}
 	}
 	
 }

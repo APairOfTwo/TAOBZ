@@ -16,7 +16,7 @@ public class CanvasGame extends Canvas {
 	public static ArrayList<Effect> effectsList = new ArrayList<Effect>();
 	public ArrayList<Projectile> projectilesList = new ArrayList<Projectile>();
 	Random rand = new Random();
-	boolean LEFT, RIGHT, JUMP, FIRE;
+	public static boolean LEFT, RIGHT, JUMP, FIRE;
 	public static int MOUSE_X, MOUSE_Y;
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
 	public static boolean MOUSE_PRESSED;
