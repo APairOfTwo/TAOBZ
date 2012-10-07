@@ -4,13 +4,13 @@ import java.awt.image.BufferedImage;
 
 public class EnemyGargoyle extends Character {
 	final float DEFAULT_SPEED = 150;
-	final int VISION_RADIUS = 300;
-	float oriX, oriY;
+	final int FIELD_OF_VIEW = 300;
+	float spawnX, spawnY;
 	
 	public EnemyGargoyle(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 71, 84, 6, 425, 168);
-		oriX = x;
-		oriY = y;
+		spawnX = x;
+		spawnY = y;
 		speed = DEFAULT_SPEED;
 	}
 
@@ -23,70 +23,76 @@ public class EnemyGargoyle extends Character {
 		double dy = CanvasGame.billy.y - y;
 		double dist = Math.hypot(dx,dy);
 		
-		double odx = oriX - x;
-		double ody = oriY - y;
-		double odist = Math.hypot(odx,ody);
+		double spawnDx = spawnX - x;
+		double spawnDy = spawnY - y;
+		double spawnDist = Math.hypot(spawnDx, spawnDy);
 		
-		double velx = speed*diffTime/1000.0f;
-		double vely = speed*diffTime/1000.0f;
-		
-		if(dist <= VISION_RADIUS) {
-			x += velx*dx/dist;
-			y += vely*dy/dist;
-		} else if(odist >= 1) {
-			x += velx*odx/odist;
-			y += vely*ody/odist;
-			System.out.println(odist);
-		} else if(odist < 1) {
-			x = oriX;
-			y = oriY;
-		}
+		double velX = speed * diffTime / 1000.0f;
+		double velY = speed * diffTime / 1000.0f;
 		
 		if(!this.isStunned && !this.isEating) {
-			if(dx > 0) {
-				animation = 0;
-			} else if(dx < 0) {
-				animation = 1;
+			if(dist <= FIELD_OF_VIEW) {					// herói dentro do campo de visão, início da perseguição
+				x += velX * dx / dist;
+				y += velY * dy / dist;
+				if(dx >= 0) {
+					animation = 0;
+					moveDirection = 1;
+				} else if(dx < 0) {
+					animation = 1;
+					moveDirection = -1;
+				}
 			} else {
-				timeAnimating = 0;
-			}
-		} else {
-			if(this.isStunned) {
-				System.out.println("Bones");
-				y += gravity * diffTime / 1000.0f;
-				countTime += diffTime;
-				animeSpeed = 300;
-				if(moveDirection == 1) {
-					animation = 2;
-				} else if(moveDirection == -1) {
-					animation = 3;
-				} else {
-					timeAnimating = 0;
-				}
-				if(countTime >= 5000) {
-					isStunned = false;
-					animeSpeed = 100;
-					speed = DEFAULT_SPEED;
-					countTime = 0;
+				if(spawnDist >= 1) {					// herói saiu do campo de visão, início da volta para spawn point
+					x += velX * spawnDx / spawnDist;
+					y += velY * spawnDy / spawnDist;
+					if((x - spawnX) >= 0) {
+						animation = 1;
+					} else {
+						animation = 0;
+					}
+				} 
+				if(spawnDist < 1) {						// this está no spawn point
+					x = spawnX;
+					y = spawnY;
+					if(moveDirection == 1) {
+						animation = 0;
+					} else if(moveDirection == -1) {
+						animation = 1;
+					}
 				}
 			}
-			if(this.isEating){
-				System.out.println("Meat");
-				countTime += diffTime;
-				animeSpeed = 300;
-				if(moveDirection == 1) {
-					animation = 2;
-				} else if(moveDirection == -1) {
-					animation = 3;
-				} else {
-					timeAnimating = 0;
-				}
-				if(countTime >= 5000) {
-					isEating = false;
-					animeSpeed = 100;
-					speed = DEFAULT_SPEED;
-					countTime = 0;
-				}
+		} 
+		if(this.isStunned) {
+			System.out.println("Bones");
+			y += gravity * diffTime / 1000.0f;
+			countTime += diffTime;
+			animeSpeed = 300;
+			if(moveDirection == 1) {
+				animation = 2;
+			} else if(moveDirection == -1) {
+				animation = 3;
+			}
+			if(countTime >= 5000) {
+				isStunned = false;
+				animeSpeed = 100;
+				speed = DEFAULT_SPEED;
+				countTime = 0;
+			}
+		}
+		if(this.isEating){
+			System.out.println("Meat");
+			countTime += diffTime;
+			animeSpeed = 300;
+			if(moveDirection == 1) {
+				animation = 2;
+			} else if(moveDirection == -1) {
+				animation = 3;
+			}
+			if(countTime >= 5000) {
+				isEating = false;
+				animeSpeed = 100;
+				speed = DEFAULT_SPEED;
+				countTime = 0;
 			}
 		}
 		

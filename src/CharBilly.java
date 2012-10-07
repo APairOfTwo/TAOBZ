@@ -96,7 +96,8 @@ public class CharBilly extends Character {
 		for(int i = 0; i < CanvasGame.instance.enemiesList.size(); i++) {
 			Character c = CanvasGame.instance.enemiesList.get(i);
 			if(rectCollider(c)){
-				System.out.println("colidiu");
+				//System.out.println("colidiu");
+				// TODO
 			}
 		}
 		
