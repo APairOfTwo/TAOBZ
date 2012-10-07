@@ -29,20 +29,39 @@ public class EnemyDemon extends Character {
 				timeAnimating = 0;
 			}
 		} else {
-			stunCountTime += diffTime;
-			animeSpeed = 300;
-			if(moveDirection == 1) {
-				animation = 2;
-			} else if(moveDirection == -1) {
-				animation = 3;
-			} else {
-				timeAnimating = 0;
+			if(this.isStunned){
+				countTime += diffTime;
+				animeSpeed = 300;
+				if(moveDirection == 1) {
+					animation = 2;
+				} else if(moveDirection == -1) {
+					animation = 3;
+				} else {
+					timeAnimating = 0;
+				}
+				if(countTime >= 5000) {
+					isStunned = false;
+					animeSpeed = 100;
+					speed = DEFAULT_SPEED;
+					countTime = 0;
+				}
 			}
-			if(stunCountTime >= 5000) {
-				isStunned = false;
-				animeSpeed = 100;
-				speed = DEFAULT_SPEED;
-				stunCountTime = 0;
+			if(this.isEating){
+				countTime += diffTime;
+				animeSpeed = 300;
+				if(moveDirection == 1) {
+					animation = 2;
+				} else if(moveDirection == -1) {
+					animation = 3;
+				} else {
+					timeAnimating = 0;
+				}
+				if(countTime >= 5000) {
+					isEating = false;
+					animeSpeed = 100;
+					speed = DEFAULT_SPEED;
+					countTime = 0;
+				}
 			}
 		}	
 		

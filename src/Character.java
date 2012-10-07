@@ -27,17 +27,17 @@ public class Character extends Sprite {
 	
 	boolean destroyBlocks = false;
 	
-	float radius = 10;
+	float radius = 30;
 	
-	int centerX = 16;
-	int centerY = 24;
+	int centerX;
+	int centerY;
 	
 	float oldX = 0;
 	float oldY = 0;
 	
 	boolean isStunned = false;
 	boolean isEating = false;
-	int stunCountTime = 0;
+	int countTime = 0;
 	
 	public Character(float x, float y, BufferedImage charset, int charsetX, int charsetY, int frameWidth, 
 						int frameHeight, int numberOfFrames, int charsetWidth, int charsetHeight) {
@@ -51,6 +51,8 @@ public class Character extends Sprite {
 		this.charsetWidth = charsetWidth;
 		this.charsetHeight = charsetHeight;
 		this.numberOfFrames = numberOfFrames;
+		this.centerX = frameWidth / 2;
+		this.centerY = (frameHeight / 2) + 10;
 	}
 	
 	@Override

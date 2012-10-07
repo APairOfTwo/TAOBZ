@@ -5,13 +5,13 @@ import java.awt.image.BufferedImage;
 public class EnemyGargoyle extends Character {
 	final float DEFAULT_SPEED = 150;
 	final int VISION_RADIUS = 300;
-	float speed = 150;
 	float oriX, oriY;
 	
 	public EnemyGargoyle(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 71, 84, 6, 425, 168);
 		oriX = x;
 		oriY = y;
+		speed = DEFAULT_SPEED;
 	}
 
 	@Override
@@ -31,12 +31,9 @@ public class EnemyGargoyle extends Character {
 		double vely = speed*diffTime/1000.0f;
 		
 		if(dist <= VISION_RADIUS) {
-			//colisaoLayer2(dx, dy);
 			x += velx*dx/dist;
 			y += vely*dy/dist;
 		} else if(odist >= 1) {
-			//dx = oriX - x;
-			//dy = oriY - y;
 			x += velx*odx/odist;
 			y += vely*ody/odist;
 			System.out.println(odist);
@@ -45,7 +42,7 @@ public class EnemyGargoyle extends Character {
 			y = oriY;
 		}
 		
-		if(!this.isStunned) {
+		if(!this.isStunned && !this.isEating) {
 			if(dx > 0) {
 				animation = 0;
 			} else if(dx < 0) {
@@ -53,23 +50,43 @@ public class EnemyGargoyle extends Character {
 			} else {
 				timeAnimating = 0;
 			}
-			//System.out.println(dx);
 		} else {
-			y += gravity * diffTime / 1000.0f;
-			stunCountTime += diffTime;
-			animeSpeed = 300;
-			if(moveDirection == 1) {
-				animation = 2;
-			} else if(moveDirection == -1) {
-				animation = 3;
-			} else {
-				timeAnimating = 0;
+			if(this.isStunned) {
+				System.out.println("Bones");
+				y += gravity * diffTime / 1000.0f;
+				countTime += diffTime;
+				animeSpeed = 300;
+				if(moveDirection == 1) {
+					animation = 2;
+				} else if(moveDirection == -1) {
+					animation = 3;
+				} else {
+					timeAnimating = 0;
+				}
+				if(countTime >= 5000) {
+					isStunned = false;
+					animeSpeed = 100;
+					speed = DEFAULT_SPEED;
+					countTime = 0;
+				}
 			}
-			if(stunCountTime >= 5000) {
-				isStunned = false;
-				animeSpeed = 100;
-				speed = DEFAULT_SPEED;
-				stunCountTime = 0;
+			if(this.isEating){
+				System.out.println("Meat");
+				countTime += diffTime;
+				animeSpeed = 300;
+				if(moveDirection == 1) {
+					animation = 2;
+				} else if(moveDirection == -1) {
+					animation = 3;
+				} else {
+					timeAnimating = 0;
+				}
+				if(countTime >= 5000) {
+					isEating = false;
+					animeSpeed = 100;
+					speed = DEFAULT_SPEED;
+					countTime = 0;
+				}
 			}
 		}
 		
@@ -100,7 +117,5 @@ public class EnemyGargoyle extends Character {
 	@Override
 	public void hitByProjectile(Projectile p) {
 		super.hitByProjectile(p);
-		speed = 0;
-		isStunned = true;
 	}
 }

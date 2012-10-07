@@ -50,7 +50,7 @@ public class ProjMeat extends Projectile {
 		for(int i = 0; i < CanvasGame.instance.enemiesList.size(); i++){
 			Character enemy = CanvasGame.instance.enemiesList.get(i);
 			if(enemy != pai){
-				if(rectCollider(enemy)){
+				if(circleCollision(enemy)){
 					active = false;
 					enemy.hitByProjectile(this);
 					break;
