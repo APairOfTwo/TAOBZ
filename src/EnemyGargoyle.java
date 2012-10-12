@@ -6,6 +6,8 @@ public class EnemyGargoyle extends Character {
 	final float DEFAULT_SPEED = 150;
 	final int FIELD_OF_VIEW = 300;
 	float spawnX, spawnY;
+	double projDx, projDy, projDist;
+	Projectile proj;
 	
 	public EnemyGargoyle(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 71, 84, 6, 425, 168);
@@ -19,6 +21,7 @@ public class EnemyGargoyle extends Character {
 		oldX = x;
 		oldY = y;
 		
+		
 		double dx = CanvasGame.billy.x - x;
 		double dy = CanvasGame.billy.y - y;
 		double dist = Math.hypot(dx,dy);
@@ -26,6 +29,18 @@ public class EnemyGargoyle extends Character {
 		double spawnDx = spawnX - x;
 		double spawnDy = spawnY - y;
 		double spawnDist = Math.hypot(spawnDx, spawnDy);
+		
+//		if(CanvasGame.FIRE) {
+//			if(CanvasGame.instance.projectilesList.get(0) != null) {
+//				proj = CanvasGame.instance.projectilesList.get(0);
+//			}
+//		}
+		
+		if(proj != null) {
+			projDx = proj.x - x;
+			projDy = proj.y - y;
+			projDist = Math.hypot(projDx, projDy);
+		}
 		
 		double velX = speed * diffTime / 1000.0f;
 		double velY = speed * diffTime / 1000.0f;
@@ -79,8 +94,18 @@ public class EnemyGargoyle extends Character {
 				countTime = 0;
 			}
 		}
+		
 		if(this.isEating){
-			System.out.println("Meat");
+			x += velX * projDx / projDist;
+			y += velY * projDy / projDist;
+			
+			if(projDx >= 0) {
+				animation = 0;
+				moveDirection = 1;
+			} else if(projDx < 0) {
+				animation = 1;
+				moveDirection = -1;
+			}
 			countTime += diffTime;
 			animeSpeed = 300;
 			if(moveDirection == 1) {
@@ -89,6 +114,7 @@ public class EnemyGargoyle extends Character {
 				animation = 3;
 			}
 			if(countTime >= 5000) {
+				proj.active = false;
 				isEating = false;
 				animeSpeed = 100;
 				speed = DEFAULT_SPEED;
@@ -123,5 +149,6 @@ public class EnemyGargoyle extends Character {
 	@Override
 	public void hitByProjectile(Projectile p) {
 		super.hitByProjectile(p);
+		proj = p;
 	}
 }

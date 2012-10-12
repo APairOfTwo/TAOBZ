@@ -87,12 +87,12 @@ public class Character extends Sprite {
 	}
 	
 	public void hitByProjectile(Projectile p) {
-		speed = 0;
 		if(p.getClass() == ProjMeat.class){
 			isEating = true;
 		}
 		if(p.getClass() == ProjBone.class){
 			isStunned = true;
+			speed = 0;
 		}
 	}
 	

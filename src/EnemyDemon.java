@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 
 public class EnemyDemon extends Character {
 	final float DEFAULT_SPEED = 150;
+	double projDx, projDy, projDist;
+	Projectile proj;
 	
 	public EnemyDemon(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 71, 84, 6, 425, 168);
@@ -17,6 +19,15 @@ public class EnemyDemon extends Character {
 		oldX = x;
 		oldY = y;
 		y += gravity * diffTime / 1000.0f;
+		
+		double velX = speed * diffTime / 1000.0f;
+		double velY = speed * diffTime / 1000.0f;
+		
+		if(proj != null) {
+			projDx = proj.x - x;
+			projDy = proj.y - y;
+			projDist = Math.hypot(projDx, projDy);
+		}
 		
 		if(!this.isStunned && !this.isEating) {
 			if(moveDirection == 1) {
@@ -47,16 +58,25 @@ public class EnemyDemon extends Character {
 				}
 			}
 			if(this.isEating){
+				x += velX * projDx / projDist;
+				y += velY * projDy / projDist;
+				
+				if(projDx >= 0) {
+					animation = 0;
+					moveDirection = 1;
+				} else if(projDx < 0) {
+					animation = 1;
+					moveDirection = -1;
+				}
 				countTime += diffTime;
 				animeSpeed = 300;
 				if(moveDirection == 1) {
 					animation = 2;
 				} else if(moveDirection == -1) {
 					animation = 3;
-				} else {
-					timeAnimating = 0;
 				}
 				if(countTime >= 5000) {
+					proj.active = false;
 					isEating = false;
 					animeSpeed = 100;
 					speed = DEFAULT_SPEED;
@@ -86,5 +106,6 @@ public class EnemyDemon extends Character {
 	@Override
 	public void hitByProjectile(Projectile p) {
 		super.hitByProjectile(p);
+		proj = p;
 	}
 }
