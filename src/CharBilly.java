@@ -53,7 +53,8 @@ public class CharBilly extends Character {
 		
 		if(hasJumped){
 			y -= jumpSpeed * diffTime / 1000.0f;
-			jumpSpeed += -1*gravity/15;
+			//jumpSpeed += -1*gravity/15;
+			jumpSpeed += -3*gravity*(diffTime / 1000.0f);
 			if(jumpSpeed <= 0) {
 				hasJumped = false;
 				jumpSpeed = 1100;
