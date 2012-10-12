@@ -7,12 +7,15 @@ public class EnemyBerserker extends Character {
 	final float DEFAULT_SPEED = 200;
 	final int FIELD_OF_VIEW = 300;
 	float spawnX, spawnY;
+	double projDx, projDy, projDist;
+	Projectile proj;
 	
 	public EnemyBerserker(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 71, 84, 6, 425, 168);
 		spawnX = x;
 		spawnY = y;
 		speed = DEFAULT_SPEED;
+		moveDirection = -1;
 	}
 
 	@Override
@@ -32,7 +35,13 @@ public class EnemyBerserker extends Character {
 		
 		double velX = speed * diffTime / 1000.0f;
 		
-		if(!this.isStunned && !this.isEating) {
+		if(proj != null) {
+			projDx = proj.x - x;
+			projDy = proj.y - y;
+			projDist = Math.hypot(projDx, projDy);
+		}
+		
+		if(!this.isEating) {
 			if(dist <= FIELD_OF_VIEW) {					// herói dentro do campo de visão, início da perseguição
 				x += velX * dx / dist;
 				if(dx >= 0) {
@@ -53,6 +62,7 @@ public class EnemyBerserker extends Character {
 				} 
 				if(spawnDist < 1) {						// this está no spawn point
 					x = spawnX;
+					frame = 5;
 					if(moveDirection == 1) {
 						animation = 0;
 					} else if(moveDirection == -1) {
@@ -62,24 +72,16 @@ public class EnemyBerserker extends Character {
 			}
 		}
 		
-		if(this.isStunned) {
-			System.out.println("Bones");
-			countTime += diffTime;
-			animeSpeed = 300;
-			if(moveDirection == 1) {
-				animation = 2;
-			} else if(moveDirection == -1) {
-				animation = 3;
-			}
-			if(countTime >= 5000) {
-				isStunned = false;
-				animeSpeed = 100;
-				speed = DEFAULT_SPEED;
-				countTime = 0;
-			}
-		}
 		if(this.isEating){
-			System.out.println("Meat");
+			x += velX * projDx / projDist;
+			
+			if(projDx >= 0) {
+				animation = 0;
+				moveDirection = 1;
+			} else if(projDx < 0) {
+				animation = 1;
+				moveDirection = -1;
+			}
 			countTime += diffTime;
 			animeSpeed = 300;
 			if(moveDirection == 1) {
@@ -88,6 +90,7 @@ public class EnemyBerserker extends Character {
 				animation = 3;
 			}
 			if(countTime >= 5000) {
+				proj.active = false;
 				isEating = false;
 				animeSpeed = 100;
 				speed = DEFAULT_SPEED;
@@ -130,6 +133,9 @@ public class EnemyBerserker extends Character {
 	
 	@Override
 	public void hitByProjectile(Projectile p) {
-		super.hitByProjectile(p);
+		if(p.getClass() == ProjMeat.class){
+			isEating = true;
+			proj = p;
+		}
 	}
 }

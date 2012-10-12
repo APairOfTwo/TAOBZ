@@ -27,7 +27,7 @@ public class CharBilly extends Character {
 			
 			float vx = vproj * moveDirection;
 			
-			Projectile proj = new ProjBone(x+centerX, y+centerY, vx/2, 0, this);
+			Projectile proj = new ProjMeat(x+centerX, y+centerY, vx/2, 0, this);
 			CanvasGame.instance.projectilesList.add(proj);
 		}
 		
