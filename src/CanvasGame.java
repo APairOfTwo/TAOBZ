@@ -36,6 +36,8 @@ public class CanvasGame extends Canvas {
 		enemiesList.add(zombie);
 		Character gargoyle = new EnemyGargoyle(800, 100, charsetDemon, 0, 0);
 		enemiesList.add(gargoyle);
+		Character berserker = new EnemyBerserker(3500, 100, charsetDemon, 0, 0);
+		enemiesList.add(berserker);
 		
 		tileset = GamePanel.loadImage("area01_tileset.png");
 		map = new TileMap(tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
@@ -70,6 +72,10 @@ public class CanvasGame extends Canvas {
 		}
 		for(int i = 0; i < enemiesList.size(); i++) {
 			enemiesList.get(i).selfSimulates(diffTime);
+			if(!enemiesList.get(i).isAlive){
+				enemiesList.remove(i);
+				i--;
+			}
 		}
 		for(int i = 0; i < effectsList.size(); i++){
 			effectsList.get(i).selfSimulates(diffTime);

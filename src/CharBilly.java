@@ -27,7 +27,7 @@ public class CharBilly extends Character {
 			
 			float vx = vproj * moveDirection;
 			
-			Projectile proj = new ProjMeat(x+centerX, y+centerY, vx/2, 0, this);
+			Projectile proj = new ProjBone(x+centerX, y+centerY, vx/2, 0, this);
 			CanvasGame.instance.projectilesList.add(proj);
 		}
 		
@@ -53,7 +53,6 @@ public class CharBilly extends Character {
 		
 		if(hasJumped){
 			y -= jumpSpeed * diffTime / 1000.0f;
-			//jumpSpeed += -1*gravity/15;
 			jumpSpeed += -3*gravity*(diffTime / 1000.0f);
 			if(jumpSpeed <= 0) {
 				hasJumped = false;
@@ -88,7 +87,7 @@ public class CharBilly extends Character {
 				float vel = (float)(100+100*Math.random());
 				float vx = (float)(Math.cos(ang2)*vel);
 				float vy = (float)(Math.sin(ang2)*vel);
-				CanvasGame.effectsList.add(new Effect(x+26, y+40, vx, vy, 900, 255, 0, 0));
+				CanvasGame.effectsList.add(new Effect(x, y, vx, vy, 900, 255, 0, 0));
 			}
 			isAlive = false;
 			respawnPosX = blockX*16 - 250;

@@ -2,14 +2,13 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 
-public class EnemyGargoyle extends Character {
-	final float DEFAULT_SPEED = 150;
+public class EnemyBerserker extends Character {
+
+	final float DEFAULT_SPEED = 200;
 	final int FIELD_OF_VIEW = 300;
 	float spawnX, spawnY;
-	double projDx, projDy, projDist;
-	Projectile proj;
 	
-	public EnemyGargoyle(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
+	public EnemyBerserker(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 71, 84, 6, 425, 168);
 		spawnX = x;
 		spawnY = y;
@@ -17,38 +16,25 @@ public class EnemyGargoyle extends Character {
 	}
 
 	@Override
-	public void selfSimulates(long diffTime){
+	public void selfSimulates(long diffTime){	
+		super.selfSimulates(diffTime);
+		
 		oldX = x;
 		oldY = y;
-		
+		y += gravity * diffTime / 1000.0f;
 		
 		double dx = CanvasGame.billy.x - x;
 		double dy = CanvasGame.billy.y - y;
-		double dist = Math.hypot(dx,dy);
+		double dist = Math.hypot(dx, dy);
 		
 		double spawnDx = spawnX - x;
-		double spawnDy = spawnY - y;
-		double spawnDist = Math.hypot(spawnDx, spawnDy);
-		
-//		if(CanvasGame.FIRE) {
-//			if(CanvasGame.instance.projectilesList.get(0) != null) {
-//				proj = CanvasGame.instance.projectilesList.get(0);
-//			}
-//		}
-		
-		if(proj != null) {
-			projDx = proj.x - x;
-			projDy = proj.y - y;
-			projDist = Math.hypot(projDx, projDy);
-		}
+		double spawnDist = Math.hypot(spawnDx, 0);
 		
 		double velX = speed * diffTime / 1000.0f;
-		double velY = speed * diffTime / 1000.0f;
 		
 		if(!this.isStunned && !this.isEating) {
 			if(dist <= FIELD_OF_VIEW) {					// herói dentro do campo de visão, início da perseguição
 				x += velX * dx / dist;
-				y += velY * dy / dist;
 				if(dx >= 0) {
 					animation = 0;
 					moveDirection = 1;
@@ -59,7 +45,6 @@ public class EnemyGargoyle extends Character {
 			} else {
 				if(spawnDist >= 1) {					// herói saiu do campo de visão, início da volta para spawn point
 					x += velX * spawnDx / spawnDist;
-					y += velY * spawnDy / spawnDist;
 					if((x - spawnX) >= 0) {
 						animation = 1;
 					} else {
@@ -68,7 +53,6 @@ public class EnemyGargoyle extends Character {
 				} 
 				if(spawnDist < 1) {						// this está no spawn point
 					x = spawnX;
-					y = spawnY;
 					if(moveDirection == 1) {
 						animation = 0;
 					} else if(moveDirection == -1) {
@@ -77,9 +61,9 @@ public class EnemyGargoyle extends Character {
 				}
 			}
 		}
+		
 		if(this.isStunned) {
 			System.out.println("Bones");
-			y += gravity * diffTime / 1000.0f;
 			countTime += diffTime;
 			animeSpeed = 300;
 			if(moveDirection == 1) {
@@ -94,18 +78,8 @@ public class EnemyGargoyle extends Character {
 				countTime = 0;
 			}
 		}
-		
 		if(this.isEating){
-			x += velX * projDx / projDist;
-			y += velY * projDy / projDist;
-			
-			if(projDx >= 0) {
-				animation = 0;
-				moveDirection = 1;
-			} else if(projDx < 0) {
-				animation = 1;
-				moveDirection = -1;
-			}
+			System.out.println("Meat");
 			countTime += diffTime;
 			animeSpeed = 300;
 			if(moveDirection == 1) {
@@ -114,7 +88,6 @@ public class EnemyGargoyle extends Character {
 				animation = 3;
 			}
 			if(countTime >= 5000) {
-				proj.active = false;
 				isEating = false;
 				animeSpeed = 100;
 				speed = DEFAULT_SPEED;
@@ -128,17 +101,26 @@ public class EnemyGargoyle extends Character {
 		} else {
 			onTheFloor = false;
 		}
-		
-		if(hasCollidedWithLayer1((int)((x+5)/16), (int)((x+70)/16), (int)((y+50)/16))) {
-			x = oldX;
+
+		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) || hasCollidedWithLayer1((int)((x+10)/16), (int)((x+60)/16), (int)((y+75)/16))) {
+			moveDirection *= -1;
 		}
 		
-		if(x < 0) x = oldX;
-		if(y < 0) y = oldY;
-		if(x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) x = oldX;
-		if(y >= (CanvasGame.map.Altura << 4) - this.frameHeight+1) y = oldY;
+		int blockX = (int)((x+35)/16);
+		int blockY = (int)((y+75)/16);
 		
-		super.selfSimulates(diffTime);
+		if(CanvasGame.map.mapLayer2[blockY][blockX]>0) {
+			double ang = Math.atan2(100, 1);
+			ang+=Math.PI;
+			for(int j = 0; j < 20; j++){
+				double ang2 = ang - (Math.PI/4)+((Math.PI/2)*Math.random());
+				float vel = (float)(100+100*Math.random());
+				float vx = (float)(Math.cos(ang2)*vel);
+				float vy = (float)(Math.sin(ang2)*vel);
+				CanvasGame.effectsList.add(new Effect(x+26, y+40, vx, vy, 900, 255, 0, 0));
+			}
+			isAlive = false;
+		}
 	}
 	
 	@Override
@@ -149,6 +131,5 @@ public class EnemyGargoyle extends Character {
 	@Override
 	public void hitByProjectile(Projectile p) {
 		super.hitByProjectile(p);
-		proj = p;
 	}
 }
