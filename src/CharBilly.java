@@ -109,10 +109,13 @@ public class CharBilly extends Character {
 	@Override
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
 		super.selfDraws(dbg, mapX, mapY);
+		dbg.drawString("Bones: "+numShotsBone, 10, 40);
 	}
 	
 	public void respawn() {
 		isAlive = true;
+		hasJumped = false;
+		numShotsBone = 5;
 		x = 100;
 		y = 100;
 		respawnCountTime = 0;
