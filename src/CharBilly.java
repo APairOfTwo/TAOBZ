@@ -6,7 +6,6 @@ public class CharBilly extends Character {
 	int fireRate = 800;
 	int life = 100;
 	int respawnCountTime;
-	int respawnPosX;
 	float speed = 300;
 	
 	public CharBilly(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
@@ -27,7 +26,7 @@ public class CharBilly extends Character {
 			
 			float vx = vproj * moveDirection;
 			
-			Projectile proj = new ProjMeat(x+centerX, y+centerY, vx/2, 0, this);
+			Projectile proj = new ProjBone(x+centerX, y+centerY, vx/2, 0, this);
 			CanvasGame.instance.projectilesList.add(proj);
 		}
 		
@@ -90,14 +89,14 @@ public class CharBilly extends Character {
 				CanvasGame.effectsList.add(new Effect(x, y, vx, vy, 900, 255, 0, 0));
 			}
 			isAlive = false;
-			respawnPosX = blockX*16 - 250;
 		}
 		
 		for(int i = 0; i < CanvasGame.instance.enemiesList.size(); i++) {
 			Character c = CanvasGame.instance.enemiesList.get(i);
-			if(rectCollider(c)){
-				//System.out.println("colidiu");
-				// TODO
+			if(!c.isEating && !c.isStunned) {
+				if(rectCollider(c)) {
+					isAlive = false;
+				}
 			}
 		}
 		
@@ -111,7 +110,7 @@ public class CharBilly extends Character {
 	
 	public void respawn() {
 		isAlive = true;
-		x = respawnPosX;
+		x = 100;
 		y = 100;
 		respawnCountTime = 0;
 	}
