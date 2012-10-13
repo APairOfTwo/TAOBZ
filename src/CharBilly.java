@@ -7,6 +7,7 @@ public class CharBilly extends Character {
 	int life = 100;
 	int respawnCountTime;
 	float speed = 300;
+	int numShotsBone = 5;
 	
 	public CharBilly(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 49, 55, 7, 342, 110);
@@ -14,8 +15,9 @@ public class CharBilly extends Character {
 
 	@Override
 	public void selfSimulates(long diffTime){
-		if(this.life <= 0) {
-			GamePanel.instance.gameOver = true;
+		
+		if(numShotsBone <= 0) {
+			isAlive = false;
 		}
 		if(CanvasGame.instance.FIRE && fireTimer>fireRate){
 			fireTimer = 0;
@@ -28,6 +30,7 @@ public class CharBilly extends Character {
 			
 			Projectile proj = new ProjBone(x+centerX, y+centerY, vx/2, 0, this);
 			CanvasGame.instance.projectilesList.add(proj);
+			numShotsBone--;
 		}
 		
 		oldX = x;
