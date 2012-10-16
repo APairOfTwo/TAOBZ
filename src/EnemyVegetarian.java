@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class EnemyVegetarian extends Character {
 	final float DEFAULT_SPEED = 100;
-	
+	Projectile proj;
 	
 	public EnemyVegetarian(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 71, 84, 6, 425, 168);
@@ -70,6 +70,9 @@ public class EnemyVegetarian extends Character {
 	
 	@Override
 	public void hitByProjectile(Projectile p) {
-		super.hitByProjectile(p);
+		if(p.getClass() == ProjBone.class){
+			isEating = true;
+			proj = p;
+		}
 	}
 }

@@ -11,6 +11,7 @@ public class CanvasGame extends Canvas {
 	BufferedImage charset;
 	BufferedImage charsetDemon;
 	BufferedImage charsetBerserker;
+	BufferedImage charsetGargoyle;
 	public static TileMap map;
 	public BufferedImage tileset;
 	public static int variables[] = new int[100];
@@ -24,6 +25,10 @@ public class CanvasGame extends Canvas {
 	public static boolean MOUSE_PRESSED;
 	public ArrayList<Character> enemiesList = new ArrayList<Character>();
 	
+	// variáveis temporárias pra facilitar testes de tiro
+	public static boolean projIsBone = true;
+	public static boolean projIsMeat = false;
+	
 	@SuppressWarnings("unused")
 	public CanvasGame(){
 		instance = this;
@@ -35,7 +40,8 @@ public class CanvasGame extends Canvas {
 		Character zombie = new EnemyVegetarian(500, 200, charsetDemon, 0, 0);
 		enemiesList.add(demon);
 		enemiesList.add(zombie);
-		Character gargoyle = new EnemyGargoyle(800, 100, charsetDemon, 0, 0);
+		charsetGargoyle = GamePanel.loadImage("spritesheet_gargoyle.png");
+		Character gargoyle = new EnemyGargoyle(800, 100, charsetGargoyle, 0, 0);
 		enemiesList.add(gargoyle);
 		charsetBerserker = GamePanel.loadImage("spritesheet_berserker.png");
 		Character berserker = new EnemyBerserker(3500, 100, charsetBerserker, 0, 0);
@@ -111,6 +117,10 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_D)		{ RIGHT = true; }
 		if(keyCode == KeyEvent.VK_W)		{ JUMP = true; }
 		if(keyCode == KeyEvent.VK_SPACE)	{ FIRE = true; }
+		
+		// para facilitar testes de tiro
+		if(keyCode == KeyEvent.VK_1)		{ projIsBone = true; projIsMeat = false; }
+		if(keyCode == KeyEvent.VK_2)		{ projIsBone = false; projIsMeat = true; }
 	}
 
 	@Override

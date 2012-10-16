@@ -8,6 +8,7 @@ public class CharBilly extends Character {
 	int respawnCountTime;
 	float speed = 300;
 	int numShotsBone = 5;
+	Projectile proj;
 	
 	public CharBilly(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 49, 55, 7, 342, 110);
@@ -28,7 +29,12 @@ public class CharBilly extends Character {
 			
 			float vx = vproj * moveDirection;
 			
-			Projectile proj = new ProjBone(x+centerX, y+centerY, vx/2, 0, this);
+			// TODO desfazer seleção de projétil após implementar os 2 heróis
+			if(CanvasGame.projIsBone) {
+				proj = new ProjBone(x+centerX, y+centerY, vx/2, 0, this);
+			} else {
+				proj = new ProjMeat(x+centerX, y+centerY, vx/2, 0, this);
+			}
 			CanvasGame.instance.projectilesList.add(proj);
 			numShotsBone--;
 		}

@@ -10,7 +10,7 @@ public class EnemyGargoyle extends Character {
 	Projectile proj;
 	
 	public EnemyGargoyle(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 71, 84, 6, 425, 168);
+		super(x, y, charset, charsetX, charsetY, 71, 70, 6, 425, 140);
 		spawnX = x;
 		spawnY = y;
 		speed = DEFAULT_SPEED;
@@ -21,9 +21,8 @@ public class EnemyGargoyle extends Character {
 		oldX = x;
 		oldY = y;
 		
-		
-		double dx = CanvasGame.billy.x - x;
-		double dy = CanvasGame.billy.y - y;
+		double dx = (CanvasGame.billy.x + CanvasGame.billy.centerX) - (x + centerX);
+		double dy = (CanvasGame.billy.y) - (y + centerY);
 		double dist = Math.hypot(dx,dy);
 		
 		double spawnDx = spawnX - x;
