@@ -11,7 +11,7 @@ public class EnemyBerserker extends Character {
 	Projectile proj;
 	
 	public EnemyBerserker(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 71, 84, 6, 425, 168);
+		super(x, y, charset, charsetX, charsetY, 71, 85, 6, 425, 168);
 		spawnX = x;
 		spawnY = y;
 		speed = DEFAULT_SPEED;
@@ -62,11 +62,10 @@ public class EnemyBerserker extends Character {
 				} 
 				if(spawnDist < 1) {						// this está no spawn point
 					x = spawnX;
-					frame = 5;
 					if(moveDirection == 1) {
-						animation = 0;
+						animation = 2;
 					} else if(moveDirection == -1) {
-						animation = 1;
+						animation = 3;
 					}
 				}
 			}

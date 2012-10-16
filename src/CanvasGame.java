@@ -9,6 +9,8 @@ public class CanvasGame extends Canvas {
 	public static CanvasGame instance = null;
 	static public CharBilly billy;
 	BufferedImage charset;
+	BufferedImage charsetDemon;
+	BufferedImage charsetBerserker;
 	public static TileMap map;
 	public BufferedImage tileset;
 	public static int variables[] = new int[100];
@@ -20,7 +22,6 @@ public class CanvasGame extends Canvas {
 	public static int MOUSE_X, MOUSE_Y;
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
 	public static boolean MOUSE_PRESSED;
-	BufferedImage charsetDemon;
 	public ArrayList<Character> enemiesList = new ArrayList<Character>();
 	
 	@SuppressWarnings("unused")
@@ -36,7 +37,8 @@ public class CanvasGame extends Canvas {
 		enemiesList.add(zombie);
 		Character gargoyle = new EnemyGargoyle(800, 100, charsetDemon, 0, 0);
 		enemiesList.add(gargoyle);
-		Character berserker = new EnemyBerserker(3500, 100, charsetDemon, 0, 0);
+		charsetBerserker = GamePanel.loadImage("spritesheet_berserker.png");
+		Character berserker = new EnemyBerserker(3500, 100, charsetBerserker, 0, 0);
 		enemiesList.add(berserker);
 		
 		tileset = GamePanel.loadImage("area01_tileset.png");
