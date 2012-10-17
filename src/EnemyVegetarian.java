@@ -3,11 +3,11 @@ import java.awt.image.BufferedImage;
 
 
 public class EnemyVegetarian extends Character {
-	final float DEFAULT_SPEED = 100;
+	final float DEFAULT_SPEED = 75;
 	Projectile proj;
 	
 	public EnemyVegetarian(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 71, 84, 6, 425, 168);
+		super(x, y, charset, charsetX, charsetY, 62, 81, 12, 744, 81);
 		speed = DEFAULT_SPEED;
 		animeSpeed = 150;
 	}
@@ -43,7 +43,7 @@ public class EnemyVegetarian extends Character {
 				}
 				if(countTime >= 5000) {
 					isStunned = false;
-					animeSpeed = 100;
+					animeSpeed = 150;
 					speed = DEFAULT_SPEED;
 					countTime = 0;
 				}
@@ -71,7 +71,7 @@ public class EnemyVegetarian extends Character {
 	@Override
 	public void hitByProjectile(Projectile p) {
 		if(p.getClass() == ProjBone.class){
-			isEating = true;
+			isStunned = true;
 			proj = p;
 		}
 	}

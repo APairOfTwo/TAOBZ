@@ -12,6 +12,7 @@ public class CanvasGame extends Canvas {
 	BufferedImage charsetDemon;
 	BufferedImage charsetBerserker;
 	BufferedImage charsetGargoyle;
+	BufferedImage charsetVegetarian;
 	public static TileMap map;
 	public BufferedImage tileset;
 	public static int variables[] = new int[100];
@@ -37,9 +38,10 @@ public class CanvasGame extends Canvas {
 		
 		charsetDemon = GamePanel.loadImage("spritesheet_demon.png");
 		Character demon = new EnemyDemon(800, 200, charsetDemon, 0, 0);
-		Character zombie = new EnemyVegetarian(500, 200, charsetDemon, 0, 0);
 		enemiesList.add(demon);
-		enemiesList.add(zombie);
+		charsetVegetarian = GamePanel.loadImage("spritesheet_vegetarian.png");
+		Character vegetarian = new EnemyVegetarian(500, 200, charsetVegetarian, 0, 0);
+		enemiesList.add(vegetarian);
 		charsetGargoyle = GamePanel.loadImage("spritesheet_gargoyle.png");
 		Character gargoyle = new EnemyGargoyle(800, 100, charsetGargoyle, 0, 0);
 		enemiesList.add(gargoyle);
