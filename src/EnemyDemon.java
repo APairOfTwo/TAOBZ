@@ -8,7 +8,7 @@ public class EnemyDemon extends Character {
 	Projectile proj;
 	
 	public EnemyDemon(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 71, 84, 6, 425, 168);
+		super(x, y, charset, charsetX, charsetY, 71, 85, 6, 425, 168);
 		speed = DEFAULT_SPEED;
 	}
 
@@ -24,8 +24,8 @@ public class EnemyDemon extends Character {
 		double velY = speed * diffTime / 1000.0f;
 		
 		if(proj != null) {
-			projDx = proj.x - x;
-			projDy = proj.y - y;
+			projDx = proj.x - (x + centerX);
+			projDy = proj.y - (y + centerY);
 			projDist = Math.hypot(projDx, projDy);
 		}
 		
@@ -85,14 +85,14 @@ public class EnemyDemon extends Character {
 			}
 		}	
 		
-		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+75)/16))) {
+		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16))) {
 			y = oldY;
 			onTheFloor = true;
 		} else {
 			onTheFloor = false;
 		}
 
-		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) || hasCollidedWithLayer1((int)((x+10)/16), (int)((x+60)/16), (int)((y+75)/16))) {
+		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) || hasCollidedWithLayer1((int)((x+10)/16), (int)((x+60)/16), (int)((y+frameHeight-10)/16))) {
 			moveDirection *= -1;
 		}
 		

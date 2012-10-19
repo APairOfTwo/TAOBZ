@@ -11,7 +11,7 @@ public class EnemyBerserker extends Character {
 	Projectile proj;
 	
 	public EnemyBerserker(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 71, 85, 6, 425, 168);
+		super(x, y, charset, charsetX, charsetY, 71, 64, 6, 425, 256);
 		spawnX = x;
 		spawnY = y;
 		speed = DEFAULT_SPEED;
@@ -26,8 +26,8 @@ public class EnemyBerserker extends Character {
 		oldY = y;
 		y += gravity * diffTime / 1000.0f;
 		
-		double dx = CanvasGame.billy.x - x;
-		double dy = CanvasGame.billy.y - y;
+		double dx = (CanvasGame.billy.x + CanvasGame.billy.centerX) - (x + centerX);
+		double dy = CanvasGame.billy.y - (y + centerY);
 		double dist = Math.hypot(dx, dy);
 		
 		double spawnDx = spawnX - x;
@@ -36,8 +36,8 @@ public class EnemyBerserker extends Character {
 		double velX = speed * diffTime / 1000.0f;
 		
 		if(proj != null) {
-			projDx = proj.x - x;
-			projDy = proj.y - y;
+			projDx = proj.x - (x + centerX);
+			projDy = proj.y - (y + centerY);
 			projDist = Math.hypot(projDx, projDy);
 		}
 		
@@ -97,14 +97,14 @@ public class EnemyBerserker extends Character {
 			}
 		}
 		
-		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+75)/16))) {
+		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16))) {
 			y = oldY;
 			onTheFloor = true;
 		} else {
 			onTheFloor = false;
 		}
 
-		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) || hasCollidedWithLayer1((int)((x+10)/16), (int)((x+60)/16), (int)((y+75)/16))) {
+		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) || hasCollidedWithLayer1((int)((x+10)/16), (int)((x+60)/16), (int)((y+frameHeight-10)/16))) {
 			moveDirection *= -1;
 		}
 		

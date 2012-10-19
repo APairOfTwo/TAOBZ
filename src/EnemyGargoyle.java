@@ -10,7 +10,7 @@ public class EnemyGargoyle extends Character {
 	Projectile proj;
 	
 	public EnemyGargoyle(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 71, 70, 6, 425, 140);
+		super(x, y, charset, charsetX, charsetY, 72, 70, 6, 425, 140);
 		spawnX = x;
 		spawnY = y;
 		speed = DEFAULT_SPEED;
@@ -22,7 +22,7 @@ public class EnemyGargoyle extends Character {
 		oldY = y;
 		
 		double dx = (CanvasGame.billy.x + CanvasGame.billy.centerX) - (x + centerX);
-		double dy = (CanvasGame.billy.y) - (y + centerY);
+		double dy = CanvasGame.billy.y - (y + centerY);
 		double dist = Math.hypot(dx,dy);
 		
 		double spawnDx = spawnX - x;
@@ -36,8 +36,8 @@ public class EnemyGargoyle extends Character {
 //		}
 		
 		if(proj != null) {
-			projDx = proj.x - x;
-			projDy = proj.y - y;
+			projDx = proj.x - (x + centerX);
+			projDy = proj.y - (y + centerY);
 			projDist = Math.hypot(projDx, projDy);
 		}
 		
@@ -77,7 +77,6 @@ public class EnemyGargoyle extends Character {
 			}
 		}
 		if(this.isStunned) {
-			System.out.println("Bones");
 			y += gravity * diffTime / 1000.0f;
 			countTime += diffTime;
 			animeSpeed = 300;
@@ -121,7 +120,7 @@ public class EnemyGargoyle extends Character {
 			}
 		}
 		
-		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+75)/16))) {
+		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16))) {
 			y = oldY;
 			onTheFloor = true;
 		} else {

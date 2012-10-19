@@ -19,10 +19,10 @@ public class ProjBone extends Projectile {
 		for(int i = 0; i < CanvasGame.instance.enemiesList.size();i++){
 			Character ene = CanvasGame.instance.enemiesList.get(i);
 			if(ene!=pai){
-				if(rectCollider(ene)) {
+				//if(rectCollider(ene)) {
+				if(circleCollision(ene)) {
 					active = false;
 					ene.hitByProjectile(this);
-					System.out.println("tiro");
 					break;
 				}
 			}

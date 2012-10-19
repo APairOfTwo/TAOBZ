@@ -65,15 +65,4 @@ public class ProjMeat extends Projectile {
 		dbg.fillOval((int)(x-mapX-2), (int)(y-mapY-2), 8, 8);
 		dbg.drawOval((int)(x-CanvasGame.map.MapX-radius), (int)(y-CanvasGame.map.MapY-radius), (int)(radius*2),(int)(radius*2));
 	}
-	
-	public boolean circleCollision(Character c) {
-		float dx = (c.x + c.centerX) - x;
-		float dy = (c.y + c.centerY) - y;
-		float r2 = c.radius + radius;
-		r2 = r2*r2;
-		if(r2 > ((dx*dx)+(dy*dy))){
-			return true;
-		}
-		return false;
-	}
 }

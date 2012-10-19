@@ -27,7 +27,7 @@ public class Character extends Sprite {
 	
 	boolean destroyBlocks = false;
 	
-	float radius = 30;
+	float radius = 24;
 	
 	int centerX;
 	int centerY;
@@ -69,8 +69,8 @@ public class Character extends Sprite {
 				(frameWidth*frame+frameWidth+charsetX*charsetWidth), (frameHeight*animation+frameHeight+charsetY*charsetHeight), null);
 		
 		dbg.setColor(Color.RED);
-		dbg.drawOval((int)(x-CanvasGame.map.MapX-radius+centerX), (int)(y-CanvasGame.map.MapY-radius+centerY), (int)(radius*2),(int)(radius*2));
-		dbg.drawRect((int)(x-CanvasGame.map.MapX), (int)(y-CanvasGame.map.MapY), this.frameWidth, this.frameHeight);
+		//dbg.drawOval((int)(x-CanvasGame.map.MapX-radius+centerX), (int)(y-CanvasGame.map.MapY-radius+centerY), (int)(radius*2),(int)(radius*2));
+		//dbg.drawRect((int)(x-CanvasGame.map.MapX+10), (int)(y-CanvasGame.map.MapY+10), this.frameWidth-20, this.frameHeight-10);
 	}
 	
 	public boolean hasCollidedWithLayer1(int bxi, int bxf, int by) {
@@ -79,10 +79,10 @@ public class Character extends Sprite {
 	}
 
 	public boolean rectCollider(Character c) {
-		if(x + frameWidth < c.x) return false;
-        if(x > c.x + c.frameWidth) return false;
-        if(y + frameHeight < c.y) return false;
-        if(y > c.y + c.frameHeight) return false;
+		if(x + (frameWidth-20) < c.x) return false;
+        if(x > c.x + (c.frameWidth-20)) return false;
+        if(y + (frameHeight-10) < c.y) return false;
+        if(y > c.y + (c.frameHeight-10)) return false;
         return true;
 	}
 	

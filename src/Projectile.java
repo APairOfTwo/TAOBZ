@@ -45,14 +45,17 @@ public class Projectile extends Sprite {
 	@Override
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
 		dbg.setColor(Color.WHITE);
-		dbg.fillOval((int)(x-mapX-2), (int)(y-mapY-2), 4, 4);
+		dbg.fillOval((int)(x-mapX-2), (int)(y-mapY-2), (int)radius*2, (int)radius*2);
 	}
 	
-	public boolean rectCollider(Character c) {
-		if(x + radius < c.x) return false;
-        if(x > c.x + c.frameWidth) return false;
-        if(y + radius < c.y) return false;
-        if(y > c.y + c.frameHeight) return false;
-        return true;
+	public boolean circleCollision(Character c) {
+		float dx = (c.x + c.centerX) - x;
+		float dy = (c.y + c.centerY) - y;
+		float r2 = c.radius + radius;
+		r2 = r2*r2;
+		if(r2 > ((dx*dx)+(dy*dy))){
+			return true;
+		}
+		return false;
 	}
 }

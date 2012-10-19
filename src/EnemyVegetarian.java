@@ -7,7 +7,7 @@ public class EnemyVegetarian extends Character {
 	Projectile proj;
 	
 	public EnemyVegetarian(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 62, 81, 12, 744, 81);
+		super(x, y, charset, charsetX, charsetY, 62, 81, 12, 744, 324);
 		speed = DEFAULT_SPEED;
 		animeSpeed = 150;
 	}
@@ -33,7 +33,7 @@ public class EnemyVegetarian extends Character {
 		} else {
 			if(this.isStunned){
 				countTime += diffTime;
-				animeSpeed = 300;
+				//animeSpeed = 300;
 				if(moveDirection == 1) {
 					animation = 2;
 				} else if(moveDirection == -1) {
@@ -50,14 +50,14 @@ public class EnemyVegetarian extends Character {
 			}
 		}	
 		
-		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+75)/16))) {
+		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-5)/16))) {
 			y = oldY;
 			onTheFloor = true;
 		} else {
 			onTheFloor = false;
 		}
 
-		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - 50) || hasCollidedWithLayer1((int)((x+10)/16), (int)((x+60)/16), (int)((y+75)/16))) {
+		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - 50) || hasCollidedWithLayer1((int)((x+10)/16), (int)((x+60)/16), (int)((y+frameHeight-5)/16))) {
 			moveDirection *= -1;
 		}
 		
