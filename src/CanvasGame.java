@@ -130,7 +130,7 @@ public class CanvasGame extends Canvas {
 		int keyCode = k.getKeyCode();
 		if(keyCode == KeyEvent.VK_A)     { LEFT = false; }
 		if(keyCode == KeyEvent.VK_D)     { RIGHT = false; }
-		if(keyCode == KeyEvent.VK_W)     { JUMP = false; }
+		if(keyCode == KeyEvent.VK_W)     { JUMP = false; billy.jumpSpeed = billy.jumpSpeed / 2; }
 		if(keyCode == KeyEvent.VK_SPACE) { FIRE = false; }
 	}
 

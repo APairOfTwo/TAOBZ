@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class EnemyBerserker extends Character {
 
-	final float DEFAULT_SPEED = 200;
+	final float DEFAULT_SPEED = 146;
 	final int FIELD_OF_VIEW = 300;
 	float spawnX, spawnY;
 	double projDx, projDy, projDist;

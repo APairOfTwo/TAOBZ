@@ -6,7 +6,7 @@ public class CharBilly extends Character {
 	int fireRate = 800;
 	int life = 100;
 	int respawnCountTime;
-	float speed = 300;
+	float speed = 220;
 	int numShotsBone = 5;
 	Projectile proj;
 	
@@ -43,6 +43,7 @@ public class CharBilly extends Character {
 		oldY = y;
 		y += gravity * diffTime / 1000.0f;
 		if(CanvasGame.instance.JUMP && onTheFloor){
+			jumpSpeed = 1100;
 			hasJumped = true;
 			if(moveDirection == 1) animation = 0;
 			if(moveDirection == -1) animation = 1;
@@ -61,7 +62,7 @@ public class CharBilly extends Character {
 		
 		if(hasJumped){
 			y -= jumpSpeed * diffTime / 1000.0f;
-			jumpSpeed += -3*gravity*(diffTime / 1000.0f);
+			jumpSpeed -= 3*gravity*(diffTime / 1000.0f);
 			if(jumpSpeed <= 0) {
 				hasJumped = false;
 				jumpSpeed = 1100;

@@ -69,8 +69,8 @@ public class Character extends Sprite {
 				(frameWidth*frame+frameWidth+charsetX*charsetWidth), (frameHeight*animation+frameHeight+charsetY*charsetHeight), null);
 		
 		dbg.setColor(Color.RED);
-		//dbg.drawOval((int)(x-CanvasGame.map.MapX-radius+centerX), (int)(y-CanvasGame.map.MapY-radius+centerY), (int)(radius*2),(int)(radius*2));
-		//dbg.drawRect((int)(x-CanvasGame.map.MapX+10), (int)(y-CanvasGame.map.MapY+10), this.frameWidth-20, this.frameHeight-10);
+		dbg.drawOval((int)(x-CanvasGame.map.MapX-radius+centerX), (int)(y-CanvasGame.map.MapY-radius+centerY), (int)(radius*2),(int)(radius*2));
+		dbg.drawRect((int)(x-CanvasGame.map.MapX+10), (int)(y-CanvasGame.map.MapY+10), this.frameWidth-20, this.frameHeight-10);
 	}
 	
 	public boolean hasCollidedWithLayer1(int bxi, int bxf, int by) {

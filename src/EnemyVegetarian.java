@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 
 
 public class EnemyVegetarian extends Character {
-	final float DEFAULT_SPEED = 75;
+	final float DEFAULT_SPEED = 55;
 	Projectile proj;
 	
 	public EnemyVegetarian(float x, float y, BufferedImage charset, int charsetX, int charsetY) {

@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 
 
 public class EnemyGargoyle extends Character {
-	final float DEFAULT_SPEED = 150;
+	final float DEFAULT_SPEED = 109;
 	final int FIELD_OF_VIEW = 300;
 	float spawnX, spawnY;
 	double projDx, projDy, projDist;

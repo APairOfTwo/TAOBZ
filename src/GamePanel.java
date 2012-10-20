@@ -119,7 +119,6 @@ public class GamePanel extends JPanel implements Runnable {
 		seconds = 0;
 		diffTime = 0;
 		previousTime = System.currentTimeMillis();
-
 		while (!gameOver) {
 			gameUpdate(diffTime);
 			gameRender();

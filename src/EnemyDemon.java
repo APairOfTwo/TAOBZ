@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 
 
 public class EnemyDemon extends Character {
-	final float DEFAULT_SPEED = 150;
+	final float DEFAULT_SPEED = 109;
 	double projDx, projDy, projDist;
 	Projectile proj;
 	
