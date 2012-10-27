@@ -21,24 +21,11 @@ public class Projectile extends Sprite {
 	public void selfSimulates(long diffTime){
 		if(x<0){
 			active = false;
-		}else if(y<0){
-			active = false;
-		}else if(x>=(CanvasGame.map.Largura<<4)-1){
+		} else if(x>=(CanvasGame.map.Largura<<4)){
 			active = false;
 		}
-		
-		if(CanvasGame.billy.x <= GamePanel.PANEL_WIDTH/2) {
-			if(x > GamePanel.PANEL_WIDTH) {
-				active = false;
-			}
-		} else if(CanvasGame.billy.x >= CanvasGame.map.Largura*16 - GamePanel.PANEL_WIDTH/2) {
-			if(x < CanvasGame.map.Largura*16 - GamePanel.PANEL_WIDTH) {
-				active = false;
-			}
-		} else {
-			if((x < CanvasGame.billy.x - GamePanel.PANEL_WIDTH/2) || (x > CanvasGame.billy.x + GamePanel.PANEL_WIDTH/2)) {
-				active = false;
-			}
+		if(y<0){
+			active = false;
 		}
 	}
 	

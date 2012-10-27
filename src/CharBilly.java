@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 
@@ -11,7 +12,7 @@ public class CharBilly extends Character {
 	Projectile proj;
 	
 	public CharBilly(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 49, 55, 7, 342, 110);
+		super(x, y, charset, charsetX, charsetY, 49, 55, 7);
 	}
 
 	@Override
@@ -76,6 +77,10 @@ public class CharBilly extends Character {
 		
 		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+44)/16))) {
 			y = oldY;
+			// Corrige a posicao do billy de forma a sempre coloca-lo na mesma altura
+			if((int)oldY % 16 != 0) {
+				y -= 1;
+			}
 			onTheFloor = true;
 		} else {
 			onTheFloor = false;
@@ -104,7 +109,7 @@ public class CharBilly extends Character {
 		for(int i = 0; i < CanvasGame.instance.enemiesList.size(); i++) {
 			Character c = CanvasGame.instance.enemiesList.get(i);
 			if(!c.isEating && !c.isStunned) {
-				if(rectCollider(c)) {
+				if(this.getBounds().intersects(c.getBounds())) {
 					isAlive = false;
 				}
 			}
@@ -118,6 +123,12 @@ public class CharBilly extends Character {
 		super.selfDraws(dbg, mapX, mapY);
 		dbg.drawString("Bones: "+numShotsBone, 10, 40);
 	}
+	
+	//retangulo delimitador
+	public Rectangle getBounds() {
+		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+10), (int)(y-CanvasGame.map.MapY+5), 25, 45);
+		return r;
+	} 
 	
 	public void respawn() {
 		isAlive = true;

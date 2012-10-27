@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Character extends Sprite {
@@ -40,7 +41,7 @@ public class Character extends Sprite {
 	int countTime = 0;
 	
 	public Character(float x, float y, BufferedImage charset, int charsetX, int charsetY, int frameWidth, 
-						int frameHeight, int numberOfFrames, int charsetWidth, int charsetHeight) {
+						int frameHeight, int numberOfFrames) {
 		this.x = x;
 		this.y = y;
 		this.charset = charset;
@@ -48,8 +49,8 @@ public class Character extends Sprite {
 		this.charsetY = charsetY;
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
-		this.charsetWidth = charsetWidth;
-		this.charsetHeight = charsetHeight;
+		this.charsetWidth = charset.getWidth();
+		this.charsetHeight = charset.getHeight();
 		this.numberOfFrames = numberOfFrames;
 		this.centerX = frameWidth / 2;
 		this.centerY = (frameHeight / 2) + 10;
@@ -69,21 +70,17 @@ public class Character extends Sprite {
 				(frameWidth*frame+frameWidth+charsetX*charsetWidth), (frameHeight*animation+frameHeight+charsetY*charsetHeight), null);
 		
 		dbg.setColor(Color.RED);
+		if(getBounds() != null)	dbg.draw(getBounds());
 		dbg.drawOval((int)(x-CanvasGame.map.MapX-radius+centerX), (int)(y-CanvasGame.map.MapY-radius+centerY), (int)(radius*2),(int)(radius*2));
-		dbg.drawRect((int)(x-CanvasGame.map.MapX+10), (int)(y-CanvasGame.map.MapY+10), this.frameWidth-20, this.frameHeight-10);
 	}
 	
 	public boolean hasCollidedWithLayer1(int bxi, int bxf, int by) {
 		if((CanvasGame.map.mapLayer1[by][bxi]>0) || (CanvasGame.map.mapLayer1[by][bxf]>0)) return true;
 		return false;
 	}
-
-	public boolean rectCollider(Character c) {
-		if(x + (frameWidth-20) < c.x) return false;
-        if(x > c.x + (c.frameWidth-20)) return false;
-        if(y + (frameHeight-10) < c.y) return false;
-        if(y > c.y + (c.frameHeight-10)) return false;
-        return true;
+	
+	public Rectangle getBounds() {
+		return null;
 	}
 	
 	public void hitByProjectile(Projectile p) {

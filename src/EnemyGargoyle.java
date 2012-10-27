@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 
@@ -10,7 +11,7 @@ public class EnemyGargoyle extends Character {
 	Projectile proj;
 	
 	public EnemyGargoyle(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 72, 70, 6, 425, 140);
+		super(x, y, charset, charsetX, charsetY, 87, 77, 6);
 		spawnX = x;
 		spawnY = y;
 		speed = DEFAULT_SPEED;
@@ -142,6 +143,12 @@ public class EnemyGargoyle extends Character {
 	@Override
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
 		super.selfDraws(dbg, mapX, mapY);
+	}
+	
+	//retangulo delimitador
+	public Rectangle getBounds() {
+		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+28), (int)(y-CanvasGame.map.MapY+30), 28, 40);
+		return r;
 	}
 	
 	@Override

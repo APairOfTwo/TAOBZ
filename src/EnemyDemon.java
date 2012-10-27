@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 
@@ -8,7 +9,7 @@ public class EnemyDemon extends Character {
 	Projectile proj;
 	
 	public EnemyDemon(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 71, 85, 6, 425, 168);
+		super(x, y, charset, charsetX, charsetY, 71, 85, 6);
 		speed = DEFAULT_SPEED;
 	}
 
@@ -87,6 +88,9 @@ public class EnemyDemon extends Character {
 		
 		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16))) {
 			y = oldY;
+			if((int)oldY % 16 != 0) {
+				y -= 1;
+			}
 			onTheFloor = true;
 		} else {
 			onTheFloor = false;
@@ -101,6 +105,12 @@ public class EnemyDemon extends Character {
 	@Override
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
 		super.selfDraws(dbg, mapX, mapY);
+	}
+	
+	//retangulo delimitador
+	public Rectangle getBounds() {
+		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+20), (int)(y-CanvasGame.map.MapY+30), 30, 50);
+		return r;
 	}
 	
 	@Override
