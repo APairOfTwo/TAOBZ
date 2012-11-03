@@ -90,6 +90,15 @@ public class CharBilly extends Character {
 			x = oldX;
 		}
 		
+		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y)/16))) {
+			y = oldY;
+			CanvasGame.billy.jumpSpeed = CanvasGame.billy.jumpSpeed / 2;
+			// Corrige a posicao do billy de forma a sempre coloca-lo na mesma altura
+//			if((int)oldY % 16 != 0) {
+//				y -= 1;
+//			}
+		}
+		
 		int blockX = (int)((x+35)/16);
 		int blockY = (int)((y+42)/16);
 		

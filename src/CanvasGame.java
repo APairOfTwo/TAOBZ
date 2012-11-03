@@ -36,22 +36,22 @@ public class CanvasGame extends Canvas {
 		charset = GamePanel.loadImage("Mojo.png");
 		billy = new CharBilly(100, 100, charset, 0, 0);
 		
-		charsetDemon = GamePanel.loadImage("spritesheet_demon.png");
-		Character demon = new EnemyDemon(800, 200, charsetDemon, 0, 0);
-		enemiesList.add(demon);
-		charsetVegetarian = GamePanel.loadImage("spritesheet_vegetarian.png");
-		Character vegetarian = new EnemyVegetarian(500, 200, charsetVegetarian, 0, 0);
-		enemiesList.add(vegetarian);
-		charsetGargoyle = GamePanel.loadImage("spritesheet_gargoyle.png");
-		Character gargoyle = new EnemyGargoyle(800, 100, charsetGargoyle, 0, 0);
-		enemiesList.add(gargoyle);
-		charsetBerserker = GamePanel.loadImage("spritesheet_berserker.png");
-		Character berserker = new EnemyBerserker(3500, 100, charsetBerserker, 0, 0);
-		enemiesList.add(berserker);
+//		charsetDemon = GamePanel.loadImage("spritesheet_demon.png");
+//		Character demon = new EnemyDemon(800, 200, charsetDemon, 0, 0);
+//		enemiesList.add(demon);
+//		charsetVegetarian = GamePanel.loadImage("spritesheet_vegetarian.png");
+//		Character vegetarian = new EnemyVegetarian(500, 200, charsetVegetarian, 0, 0);
+//		enemiesList.add(vegetarian);
+//		charsetGargoyle = GamePanel.loadImage("spritesheet_gargoyle.png");
+//		Character gargoyle = new EnemyGargoyle(800, 100, charsetGargoyle, 0, 0);
+//		enemiesList.add(gargoyle);
+//		charsetBerserker = GamePanel.loadImage("spritesheet_berserker.png");
+//		Character berserker = new EnemyBerserker(3500, 100, charsetBerserker, 0, 0);
+//		enemiesList.add(berserker);
 		
-		tileset = GamePanel.loadImage("area01_tileset.png");
+		tileset = GamePanel.loadImage("maps/hell16.png");
 		map = new TileMap(tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
-		map.OpenMap("stage_intro.map");
+		map.OpenMap("maps/Hell.map");
 		events.loadEvents(this.getClass().getResourceAsStream("eventosStageIntro.csv"));
 		events.loadSprite();
 		MOUSE_X = 0;
