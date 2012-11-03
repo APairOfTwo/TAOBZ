@@ -119,8 +119,13 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_D)		{ RIGHT = true; }
 		if(keyCode == KeyEvent.VK_W)		{ JUMP = true; }
 		if(keyCode == KeyEvent.VK_SPACE)	{ FIRE = true; }
+		if(keyCode == KeyEvent.VK_ESCAPE){
+			if(CanvasMenu.instance == null) {
+				CanvasMenu menu = new CanvasMenu();
+			}
+			GamePanel.canvasActive = CanvasMenu.instance;
+		}
 		
-		// para facilitar testes de tiro
 		if(keyCode == KeyEvent.VK_1)		{ projIsBone = true; projIsMeat = false; }
 		if(keyCode == KeyEvent.VK_2)		{ projIsBone = false; projIsMeat = true; }
 	}

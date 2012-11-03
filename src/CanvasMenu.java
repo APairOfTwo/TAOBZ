@@ -7,24 +7,28 @@ public class CanvasMenu extends Canvas {
 
 	public static CanvasMenu instance = null;
 	
-	public CanvasMenu(){
+	public CanvasMenu() {
 		instance = this;
 	}
 	
 	@Override
-	public void selfSimulates(long diffTime){ }
+	public void selfSimulates(long diffTime) { }
 
 	@Override
-	public void selfDraws(Graphics2D dbg){
+	public void selfDraws(Graphics2D dbg) {
 		dbg.setColor(Color.blue);
-		dbg.fillRect(0, 0, GamePanel.PANEL_WIDTH, GamePanel.PANEL_HEIGHT);
+		dbg.fillRect(GamePanel.PANEL_WIDTH/2 - 200, GamePanel.PANEL_HEIGHT/2 - 200, 400, 400);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent k){
 		int keyCode = k.getKeyCode();
-		if(keyCode == KeyEvent.VK_SPACE){
+		if(keyCode == KeyEvent.VK_ESCAPE){
 			GamePanel.canvasActive = CanvasGame.instance;
+			CanvasGame.LEFT = false;
+			CanvasGame.RIGHT = false;
+			CanvasGame.JUMP = false; 
+			CanvasGame.FIRE = false;
 		}
 	}
 
