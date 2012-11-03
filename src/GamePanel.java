@@ -8,14 +8,11 @@ import javax.imageio.ImageIO;
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable {
 	
-	//mapa 4096 de largura / 16 = 256 tiles
-	//mapa 640 de altura / 16 = 40 tiles
-	
 	public static final int PANEL_WIDTH = 800;
 	public static final int PANEL_HEIGHT = 600;
 	public static GamePanel instance;
 	private Thread gameThread;
-	private boolean running = false;
+	public static boolean running = false;
 	private BufferedImage buffImage;
 	private Graphics2D dbg;
 	public static int fps, sfps, fpscount, seconds;
@@ -110,7 +107,7 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 
-	public void stopGame() {
+	public static void stopGame() {
 		running = false;
 	}
 
@@ -119,12 +116,12 @@ public class GamePanel extends JPanel implements Runnable {
 		seconds = 0;
 		diffTime = 0;
 		previousTime = System.currentTimeMillis();
-		while (!gameOver) {
+		while (running) {
 			gameUpdate(diffTime);
 			gameRender();
 			paintImmediately(0, 0, PANEL_WIDTH, PANEL_HEIGHT);
 			try {
-				Thread.sleep(0);
+				Thread.sleep(1);
 			} catch (InterruptedException ex){ }
 			diffTime = System.currentTimeMillis() - previousTime;
 			previousTime = System.currentTimeMillis();

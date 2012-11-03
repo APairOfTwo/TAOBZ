@@ -119,7 +119,8 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_D)		{ RIGHT = true; }
 		if(keyCode == KeyEvent.VK_W)		{ JUMP = true; }
 		if(keyCode == KeyEvent.VK_SPACE)	{ FIRE = true; }
-		if(keyCode == KeyEvent.VK_S)	{ SaveGame.save(); }
+		if(keyCode == KeyEvent.VK_S)	{ GamePanel.stopGame(); }
+		if(keyCode == KeyEvent.VK_F1)	{ SaveGame.save(); }
 		if(keyCode == KeyEvent.VK_L)	{ LoadGame.load(); }
 		if(keyCode == KeyEvent.VK_ESCAPE){
 			if(CanvasMenu.instance == null) {
