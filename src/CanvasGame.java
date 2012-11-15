@@ -13,8 +13,6 @@ public class CanvasGame extends Canvas {
 	BufferedImage charsetBerserker;
 	BufferedImage charsetGargoyle;
 	BufferedImage charsetVegetarian;
-	BufferedImage taobzClouds;
-	BufferedImage billboardNewGame;
 	public static TileMap map;
 	public BufferedImage tileset;
 	public static int variables[] = new int[100];
@@ -42,16 +40,13 @@ public class CanvasGame extends Canvas {
 		charsetGargoyle = GamePanel.loadImage("spritesheet_gargoyle.png");
 		charsetBerserker = GamePanel.loadImage("spritesheet_berserker.png");
 		
-		taobzClouds = GamePanel.loadImage("taobz-clouds.png");
-		billboardNewGame = GamePanel.loadImage("billboard_newGame.png");
-		
-		//tileset = GamePanel.loadImage("maps/area01_tileset.png");
-		tileset = GamePanel.loadImage("maps/tileset_intro.png");
+		tileset = GamePanel.loadImage("maps/area01_tileset.png");
+		//tileset = GamePanel.loadImage("maps/hell16.png");
 		map = new TileMap(tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
-		//map.OpenMap("maps/stage_intro.map");
-		map.OpenMap("maps/StageIntro.map");
+		map.OpenMap("maps/stage_intro.map");
+		//map.OpenMap("maps/Hell.map");
 		
-		elements.loadElements(this.getClass().getResourceAsStream("csv/stage_intro.csv"));
+		elements.loadElements(this.getClass().getResourceAsStream("csv/stage01.csv"));
 		for(Element ele : elements.elementsList) {
 			switch (ele.itemId) {
 			case 1:
@@ -127,9 +122,6 @@ public class CanvasGame extends Canvas {
 	public void selfDraws(Graphics2D dbg){
 		map.selfDraws(dbg);
 		
-		dbg.drawImage(taobzClouds, 10, 8, null);
-		dbg.drawImage(billboardNewGame, 580, 336, null);
-		
 		for(int i = 0; i < projectilesList.size(); i++){
 			projectilesList.get(i).selfDraws(dbg, map.MapX, map.MapY);
 		}
@@ -153,10 +145,10 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_F1)		{ SaveGame.save(); }
 		if(keyCode == KeyEvent.VK_L)		{ LoadGame.load(); }
 		if(keyCode == KeyEvent.VK_ESCAPE) {
-			if(CanvasMenu.instance == null) {
-				CanvasMenu menu = new CanvasMenu();
+			if(CanvasPause.instance == null) {
+				CanvasPause menu = new CanvasPause();
 			}
-			GamePanel.canvasActive = CanvasMenu.instance;
+			GamePanel.canvasActive = CanvasPause.instance;
 		}
 		
 		if(keyCode == KeyEvent.VK_1)		{ projIsBone = true; projIsMeat = false; }

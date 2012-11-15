@@ -92,7 +92,7 @@ public class GamePanel extends JPanel implements Runnable {
 			@Override
 			public void mouseClicked(MouseEvent m){ }
 		});
-		canvasActive = new CanvasGame();
+		canvasActive = new CanvasMainMenu();
 	}
 
 	public void addNotify() {

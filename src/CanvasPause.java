@@ -3,15 +3,15 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class CanvasMenu extends Canvas {
+public class CanvasPause extends Canvas {
 
-	public static CanvasMenu instance = null;
+	public static CanvasPause instance = null;
 	private GameButton btnResume, btnExit;
 	public static int MOUSE_X, MOUSE_Y;
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
 	public static boolean MOUSE_PRESSED;
 	
-	public CanvasMenu() {
+	public CanvasPause() {
 		instance = this;
 		btnResume = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 - 100, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");
 		btnExit = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 100, "buttons/btnExitOn.png", "buttons/btnExitOff.png");
