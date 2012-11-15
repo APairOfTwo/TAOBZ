@@ -19,8 +19,11 @@ public class GamePanel extends JPanel implements Runnable {
 	long diffTime, previousTime;
 	public static Canvas canvasActive = null;
 	public boolean gameOver = false;
+	public ElementManager elements = new ElementManager();
 
+	
 	public GamePanel(){
+		elements.loadElements(this.getClass().getResourceAsStream("csv/stage_intro.csv"));
 		instance = this;
 		setBackground(Color.white);
 		setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));

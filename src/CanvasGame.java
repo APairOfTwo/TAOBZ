@@ -8,13 +8,13 @@ import java.util.Random;
 public class CanvasGame extends Canvas {
 	public static CanvasGame instance = null;
 	static public CharBilly billy;
-	BufferedImage charsetBilly;
-	BufferedImage charsetDemon;
-	BufferedImage charsetBerserker;
-	BufferedImage charsetGargoyle;
-	BufferedImage charsetVegetarian;
+	static BufferedImage charsetBilly;
+	static BufferedImage charsetDemon;
+	static BufferedImage charsetBerserker;
+	static BufferedImage charsetGargoyle;
+	static BufferedImage charsetVegetarian;
 	public static TileMap map;
-	public BufferedImage tileset;
+	public static BufferedImage tileset;
 	public static int variables[] = new int[100];
 	public static ArrayList<Effect> effectsList = new ArrayList<Effect>();
 	public ArrayList<Projectile> projectilesList = new ArrayList<Projectile>();
@@ -23,8 +23,8 @@ public class CanvasGame extends Canvas {
 	public static int MOUSE_X, MOUSE_Y;
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
 	public static boolean MOUSE_PRESSED;
-	public ArrayList<Character> enemiesList = new ArrayList<Character>();
-	private ElementManager elements = new ElementManager();
+	public static ArrayList<Character> enemiesList = new ArrayList<Character>();
+	public ElementManager elements = new ElementManager();
 	
 	// variáveis temporárias pra facilitar testes de tiro
 	public static boolean projIsBone = true;
@@ -40,42 +40,7 @@ public class CanvasGame extends Canvas {
 		charsetGargoyle = GamePanel.loadImage("spritesheet_gargoyle.png");
 		charsetBerserker = GamePanel.loadImage("spritesheet_berserker.png");
 		
-		tileset = GamePanel.loadImage("maps/area01_tileset.png");
-		//tileset = GamePanel.loadImage("maps/hell16.png");
-		map = new TileMap(tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
-		map.OpenMap("maps/stage_intro.map");
-		//map.OpenMap("maps/Hell.map");
-		
-		elements.loadElements(this.getClass().getResourceAsStream("csv/stage01.csv"));
-		for(Element ele : elements.elementsList) {
-			switch (ele.itemId) {
-			case 1:
-				billy = new CharBilly(ele.blockX<<4, ele.blockY<<4, charsetBilly, 0, 0);
-				break;
-			case 2:
-				// TODO - Instanciar o Z
-				break;
-			case 3:
-				// TODO - Checkpoints
-				break;
-			case 4:
-				Character demon = new EnemyDemon(ele.blockX<<4, ele.blockY<<4, charsetDemon, 0, 0);
-				enemiesList.add(demon);
-				break;
-			case 5:
-				Character gargoyle = new EnemyGargoyle(ele.blockX<<4, ele.blockY<<4, charsetGargoyle, 0, 0);
-				enemiesList.add(gargoyle);
-				break;
-			case 6:
-				Character vegetarian = new EnemyVegetarian(ele.blockX<<4, ele.blockY<<4, charsetVegetarian, 0, 0);
-				enemiesList.add(vegetarian);
-				break;
-			case 7:
-				Character berserker = new EnemyBerserker(ele.blockX<<4, ele.blockY<<4, charsetBerserker, 0, 0);
-				enemiesList.add(berserker);
-				break;
-			}
-		}
+		setGameLevel(1, "maps/area01_tileset.png", "maps/stage_intro.map", "csv/stage01.csv");
 		
 		MOUSE_X = 0;
 		MOUSE_Y = 0;
@@ -141,7 +106,7 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_D)		{ RIGHT = true; }
 		if(keyCode == KeyEvent.VK_W)		{ JUMP = true; }
 		if(keyCode == KeyEvent.VK_SPACE)	{ FIRE = true; }
-		if(keyCode == KeyEvent.VK_S)		{ GamePanel.stopGame(); }
+		if(keyCode == KeyEvent.VK_S)		{ setGameLevel(1, "maps/hell16.png", "maps/Hell.map", "csv/stage_intro.csv"); }
 		if(keyCode == KeyEvent.VK_F1)		{ SaveGame.save(); }
 		if(keyCode == KeyEvent.VK_L)		{ LoadGame.load(); }
 		if(keyCode == KeyEvent.VK_ESCAPE) {
@@ -185,6 +150,17 @@ public class CanvasGame extends Canvas {
 		MOUSE_PRESSED = true;
 		MOUSE_CLICK_X = m.getX();
 		MOUSE_CLICK_Y = m.getY();
+	}
+	
+	public static void setGameLevel(int levelId, String tilesetSource, String mapSource, String elementsSource) {
+		if(levelId == 1) {
+			enemiesList.clear();
+			tileset = GamePanel.loadImage(tilesetSource);
+			map = new TileMap(CanvasGame.tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
+			map.OpenMap(mapSource);
+			ElementManager.decodeElements(elementsSource);
+			
+		}
 	}
 
 }

@@ -26,7 +26,7 @@ public class LoadGame {
 				loadOut = new BufferedReader(txtReader);
 				str = loadOut.readLine();
 				posX = new Integer(str);
-				CanvasGame.billy.x = posX;
+				System.out.println(posX);
 			    
 			    //Close the output stream
 			    loadOut.close();

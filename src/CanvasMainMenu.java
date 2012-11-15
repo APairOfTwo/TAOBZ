@@ -43,7 +43,7 @@ public class CanvasMainMenu extends Canvas {
 		}
 		
 		if(MOUSE_PRESSED && btnLoadGame.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
-			closeThisCanvas();
+			LoadGame.load();
 			MOUSE_PRESSED = false;
 		}
 		
