@@ -10,6 +10,10 @@ public class ElementManager {
 	int bx;
 	int by;
 	
+	public ElementManager(){
+		elementsList = new ArrayList<Element>();
+	}
+	
 	public ElementManager(String elementsSource){
 		elementsList = new ArrayList<Element>();
 		loadElements(this.getClass().getResourceAsStream(elementsSource));

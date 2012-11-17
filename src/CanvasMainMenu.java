@@ -15,7 +15,7 @@ public class CanvasMainMenu extends Canvas {
 	
 	public CanvasMainMenu() {
 		instance = this;
-		background = GamePanel.loadImage("menu_background.png");
+		background = GamePanel.loadImage("backgrounds/menu_background.png");
 		btnNewGame = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 - 200, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");
 		btnLoadGame = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 - 100, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");
 		btnOptions = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");

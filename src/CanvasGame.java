@@ -8,47 +8,59 @@ import java.util.Random;
 
 public class CanvasGame extends Canvas {
 	public static CanvasGame instance = null;
-	static public CharBilly billy;
-	static BufferedImage charsetBilly;
-	static BufferedImage charsetDemon;
-	static BufferedImage charsetBerserker;
-	static BufferedImage charsetGargoyle;
-	static BufferedImage charsetVegetarian;
+	public static ElementManager gameElements = new ElementManager();
+	public static CharBilly billy;
 	public static TileMap map;
-	public static BufferedImage tileset;
-	public static int variables[] = new int[100];
-	public static ArrayList<Effect> effectsList = new ArrayList<Effect>();
-	public static ArrayList<Projectile> projectilesList = new ArrayList<Projectile>();
-	Random rand = new Random();
-	public static boolean LEFT, RIGHT, JUMP, FIRE;
-	public static int MOUSE_X, MOUSE_Y;
-	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
-	public static boolean MOUSE_PRESSED;
-	public static ArrayList<Character> enemiesList = new ArrayList<Character>();
-	public static ElementManager gameElements;
 	
-	// variáveis temporárias pra facilitar testes de tiro
+	public static BufferedImage charsetBilly;
+	public static BufferedImage charsetDemon;
+	public static BufferedImage charsetBerserker;
+	public static BufferedImage charsetGargoyle;
+	public static BufferedImage charsetVegetarian;
+	public static BufferedImage tileset;
+	
+	public static String strMap01 = new String("maps/stage_intro.map");
+	public static String strMap02 = new String();
+	public static String strMap03 = new String();
+	
+	public static String strTileset01 = new String("maps/area01_tileset.png");
+	public static String strTileset02 = new String();
+	public static String strTileset03 = new String();
+	
+	public static String strElements01 = new String("csv/teste2.csv");
+	public static String strElements02 = new String();
+	public static String strElements03 = new String();
+	
+	Random rand = new Random();
+	public static int variables[] = new int[100];
+	
+	public static ArrayList<Character> enemiesList = new ArrayList<Character>();
+	public static ArrayList<Projectile> projectilesList = new ArrayList<Projectile>();
+	public static ArrayList<Effect> effectsList = new ArrayList<Effect>();
+	
 	public static boolean projIsBone = true;
 	public static boolean projIsMeat = false;
+	public static boolean LEFT, RIGHT, JUMP, FIRE;
+	public static boolean MOUSE_PRESSED;
+	public static int MOUSE_X, MOUSE_Y;
+	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
 	
-	@SuppressWarnings("unused")
 	public CanvasGame(){
 		instance = this;
 		
-		charsetBilly = GamePanel.loadImage("Mojo.png");
-		charsetDemon = GamePanel.loadImage("spritesheet_demon.png");
-		charsetVegetarian = GamePanel.loadImage("spritesheet_vegetarian.png");
-		charsetGargoyle = GamePanel.loadImage("spritesheet_gargoyle.png");
-		charsetBerserker = GamePanel.loadImage("spritesheet_berserker.png");
-		
-		gameElements = new ElementManager("csv/teste2.csv");
-		setGameLevel(1, "maps/area01_tileset.png", "maps/stage_intro.map");
+		charsetBilly = GamePanel.loadImage("sprites/mojo.png");
+		charsetDemon = GamePanel.loadImage("sprites/spritesheet_demon.png");
+		charsetVegetarian = GamePanel.loadImage("sprites/spritesheet_vegetarian.png");
+		charsetGargoyle = GamePanel.loadImage("sprites/spritesheet_gargoyle.png");
+		charsetBerserker = GamePanel.loadImage("sprites/spritesheet_berserker.png");
 		
 		MOUSE_X = 0;
 		MOUSE_Y = 0;
 		MOUSE_CLICK_X = 0;
 		MOUSE_CLICK_Y = 0;
 		MOUSE_PRESSED = false;
+		
+		setGameLevel(1);
 	}
 	
 	@Override
@@ -114,7 +126,7 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_D)		{ RIGHT = true; }
 		if(keyCode == KeyEvent.VK_W)		{ JUMP = true; }
 		if(keyCode == KeyEvent.VK_SPACE)	{ FIRE = true; }
-		if(keyCode == KeyEvent.VK_S)		{ setGameLevel(1, "maps/hell16.png", "maps/Hell.map"); }
+		if(keyCode == KeyEvent.VK_S)		{ setGameLevel(1); }
 		if(keyCode == KeyEvent.VK_F1)		{ SaveGame.save(); }
 		if(keyCode == KeyEvent.VK_L)		{ LoadGame.load(); }
 		if(keyCode == KeyEvent.VK_ESCAPE) {
@@ -160,15 +172,16 @@ public class CanvasGame extends Canvas {
 		MOUSE_CLICK_Y = m.getY();
 	}
 	
-	public static void setGameLevel(int levelId, String tilesetSource, String mapSource) {
+	public static void setGameLevel(int levelId) {
 		if(levelId == 1) {
 			enemiesList.clear();
 			projectilesList.clear();
-			tileset = GamePanel.loadImage(tilesetSource);
+			gameElements.elementsList.clear();
+			tileset = GamePanel.loadImage(strTileset01);
 			map = new TileMap(CanvasGame.tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
-			map.OpenMap(mapSource);
+			map.OpenMap(strMap01);
+			gameElements = new ElementManager(strElements01);
 			gameElements.decodeElements();
 		}
 	}
-
 }
