@@ -102,19 +102,6 @@ public class CharBilly extends Character {
 		int blockX = (int)((x+35)/16);
 		int blockY = (int)((y+42)/16);
 		
-		if(CanvasGame.map.mapLayer2[blockY][blockX]>0) {
-			double ang = Math.atan2(100, 1);
-			ang+=Math.PI;
-			for(int j = 0; j < 20; j++){
-				double ang2 = ang - (Math.PI/4)+((Math.PI/2)*Math.random());
-				float vel = (float)(100+100*Math.random());
-				float vx = (float)(Math.cos(ang2)*vel);
-				float vy = (float)(Math.sin(ang2)*vel);
-				CanvasGame.effectsList.add(new Effect(x, y, vx, vy, 900, 255, 0, 0));
-			}
-			isAlive = false;
-		}
-		
 		for(int i = 0; i < CanvasGame.instance.enemiesList.size(); i++) {
 			Character c = CanvasGame.instance.enemiesList.get(i);
 			if(!c.isEating && !c.isStunned) {
