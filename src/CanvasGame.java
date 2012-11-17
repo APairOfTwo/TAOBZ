@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -24,7 +25,7 @@ public class CanvasGame extends Canvas {
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
 	public static boolean MOUSE_PRESSED;
 	public static ArrayList<Character> enemiesList = new ArrayList<Character>();
-	public ElementManager elements = new ElementManager();
+	public static ElementManager gameElements;
 	
 	// variáveis temporárias pra facilitar testes de tiro
 	public static boolean projIsBone = true;
@@ -40,7 +41,8 @@ public class CanvasGame extends Canvas {
 		charsetGargoyle = GamePanel.loadImage("spritesheet_gargoyle.png");
 		charsetBerserker = GamePanel.loadImage("spritesheet_berserker.png");
 		
-		setGameLevel(1, "maps/area01_tileset.png", "maps/stage_intro.map", "csv/stage01.csv");
+		gameElements = new ElementManager("csv/teste2.csv");
+		setGameLevel(1, "maps/area01_tileset.png", "maps/stage_intro.map");
 		
 		MOUSE_X = 0;
 		MOUSE_Y = 0;
@@ -86,6 +88,12 @@ public class CanvasGame extends Canvas {
 	@Override
 	public void selfDraws(Graphics2D dbg){
 		map.selfDraws(dbg);
+		for(Element e : gameElements.elementsList) {
+			if(e.itemId == 8) {
+				dbg.setColor(Color.MAGENTA);
+				dbg.fillRect((e.blockX<<4)-map.MapX, (e.blockY<<4)-map.MapY, 16, 64);
+			}
+		}
 		
 		for(int i = 0; i < projectilesList.size(); i++){
 			projectilesList.get(i).selfDraws(dbg, map.MapX, map.MapY);
@@ -106,7 +114,7 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_D)		{ RIGHT = true; }
 		if(keyCode == KeyEvent.VK_W)		{ JUMP = true; }
 		if(keyCode == KeyEvent.VK_SPACE)	{ FIRE = true; }
-		if(keyCode == KeyEvent.VK_S)		{ setGameLevel(1, "maps/hell16.png", "maps/Hell.map", "csv/stage_intro.csv"); }
+		if(keyCode == KeyEvent.VK_S)		{ setGameLevel(1, "maps/hell16.png", "maps/Hell.map"); }
 		if(keyCode == KeyEvent.VK_F1)		{ SaveGame.save(); }
 		if(keyCode == KeyEvent.VK_L)		{ LoadGame.load(); }
 		if(keyCode == KeyEvent.VK_ESCAPE) {
@@ -152,14 +160,14 @@ public class CanvasGame extends Canvas {
 		MOUSE_CLICK_Y = m.getY();
 	}
 	
-	public static void setGameLevel(int levelId, String tilesetSource, String mapSource, String elementsSource) {
+	public static void setGameLevel(int levelId, String tilesetSource, String mapSource) {
 		if(levelId == 1) {
 			enemiesList.clear();
 			projectilesList.clear();
 			tileset = GamePanel.loadImage(tilesetSource);
 			map = new TileMap(CanvasGame.tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
 			map.OpenMap(mapSource);
-			ElementManager.decodeElements(elementsSource);
+			gameElements.decodeElements();
 		}
 	}
 

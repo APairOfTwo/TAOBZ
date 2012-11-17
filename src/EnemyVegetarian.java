@@ -65,6 +65,13 @@ public class EnemyVegetarian extends Character {
 			moveDirection *= -1;
 		}
 		
+		for(Element e : CanvasGame.gameElements.elementsList) {
+			if(e.itemId == 8) {
+				if(this.getBounds().intersects((e.blockX<<4)-CanvasGame.map.MapX, (e.blockY<<4)-CanvasGame.map.MapY, 16, 64)) {
+					this.moveDirection *= -1;
+				}
+			}
+		}
 	}
 	
 	@Override

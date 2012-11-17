@@ -10,8 +10,9 @@ public class ElementManager {
 	int bx;
 	int by;
 	
-	public ElementManager(){
+	public ElementManager(String elementsSource){
 		elementsList = new ArrayList<Element>();
+		loadElements(this.getClass().getResourceAsStream(elementsSource));
 	}
 	
 	public void loadElements(InputStream input) {
@@ -33,11 +34,8 @@ public class ElementManager {
 		}
 	}
 	
-	public static void decodeElements(String elementsSource) {
-		ElementManager elements = new ElementManager();
-		elements.loadElements(elements.getClass().getResourceAsStream(elementsSource));
-		
-		for(Element ele : elements.elementsList) {
+	public void decodeElements() {
+		for(Element ele : this.elementsList) {
 			switch (ele.itemId) {
 			case 1:
 				CanvasGame.billy = new CharBilly(ele.blockX<<4, ele.blockY<<4, CanvasGame.charsetBilly, 0, 0);
@@ -63,6 +61,8 @@ public class ElementManager {
 			case 7:
 				Character berserker = new EnemyBerserker(ele.blockX<<4, ele.blockY<<4, CanvasGame.charsetBerserker, 0, 0);
 				CanvasGame.enemiesList.add(berserker);
+				break;
+			case 8:
 				break;
 			}
 		}
