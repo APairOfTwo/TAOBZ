@@ -6,7 +6,6 @@ public class Projectile extends Sprite {
 	float velY = 0;
 	int bx, by;
 	Object pai = null;
-	float radius = 2;
 	
 	public Projectile(float x, float y, float velX, float velY, Object pai) {
 		super();
@@ -26,16 +25,15 @@ public class Projectile extends Sprite {
 		}
 		if(y<0){
 			active = false;
+		} else if(y>=(CanvasGame.map.Altura<<4)) {
+			active = false;
 		}
 	}
 	
 	@Override
-	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
-		dbg.setColor(Color.WHITE);
-		dbg.fillOval((int)(x-mapX-2), (int)(y-mapY-2), (int)radius*2, (int)radius*2);
-	}
+	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {}
 	
-	public boolean circleCollision(Character c) {
+	public boolean circleCollision(Character c, float radius) {
 		float dx = (c.x + c.centerX) - x;
 		float dy = (c.y + c.centerY) - y;
 		float r2 = c.radius + radius;

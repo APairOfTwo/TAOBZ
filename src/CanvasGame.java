@@ -17,7 +17,7 @@ public class CanvasGame extends Canvas {
 	public static BufferedImage tileset;
 	public static int variables[] = new int[100];
 	public static ArrayList<Effect> effectsList = new ArrayList<Effect>();
-	public ArrayList<Projectile> projectilesList = new ArrayList<Projectile>();
+	public static ArrayList<Projectile> projectilesList = new ArrayList<Projectile>();
 	Random rand = new Random();
 	public static boolean LEFT, RIGHT, JUMP, FIRE;
 	public static int MOUSE_X, MOUSE_Y;
@@ -155,11 +155,11 @@ public class CanvasGame extends Canvas {
 	public static void setGameLevel(int levelId, String tilesetSource, String mapSource, String elementsSource) {
 		if(levelId == 1) {
 			enemiesList.clear();
+			projectilesList.clear();
 			tileset = GamePanel.loadImage(tilesetSource);
 			map = new TileMap(CanvasGame.tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
 			map.OpenMap(mapSource);
 			ElementManager.decodeElements(elementsSource);
-			
 		}
 	}
 

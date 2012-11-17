@@ -3,6 +3,7 @@ import java.awt.Graphics2D;
 
 
 public class ProjBone extends Projectile {
+	float boneRadius = 2;
 
 	public ProjBone(float x, float y, float velX, float velY, Object pai) {
 		super(x, y, velX, velY, pai);
@@ -34,14 +35,14 @@ public class ProjBone extends Projectile {
 		for(int i = 0; i < CanvasGame.instance.enemiesList.size();i++){
 			Character ene = CanvasGame.instance.enemiesList.get(i);
 			if(ene!=pai){
-				if(circleCollision(ene)) {
+				if(circleCollision(ene, boneRadius)) {
 					active = false;
 					ene.hitByProjectile(this);
 					break;
 				}
 			}
 		}
-		if(bx < 256) {
+		if(bx > 0 && bx < CanvasGame.map.Largura) {
 			if(CanvasGame.map.mapLayer1[by][bx]>0){
 				active = false;
 			}

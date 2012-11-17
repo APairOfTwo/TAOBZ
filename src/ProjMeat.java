@@ -10,6 +10,8 @@ public class ProjMeat extends Projectile {
 	float oldX, oldY;
 	boolean hitTheGround;
 	Character shooter;
+	float meatBigRadius = 100;
+	float meatSmallRadius = 20;
 	
 	public ProjMeat(float x, float y, float velX, float velY, Object pai) {
 		super(x, y, velX, velY, pai);
@@ -23,7 +25,6 @@ public class ProjMeat extends Projectile {
 		hitTheGround = false;
 		shooter = CanvasGame.billy;
 		Xspeed *= shooter.moveDirection;
-		radius = 100;
 	}
 	
 	public void selfSimulates(long diffTime) {
@@ -50,10 +51,22 @@ public class ProjMeat extends Projectile {
 		for(int i = 0; i < CanvasGame.instance.enemiesList.size(); i++){
 			Character enemy = CanvasGame.instance.enemiesList.get(i);
 			if(enemy != pai){
-				if(circleCollision(enemy)){
-					enemy.hitByProjectile(this);
-					break;
+				if(!enemy.isFollowing) {
+					if(circleCollision(enemy, meatBigRadius)){
+						enemy.hitByProjectile(this);
+						break;
+					}
 				}
+				if(!enemy.isEating && hitTheGround) {
+					if(circleCollision(enemy, meatSmallRadius)){
+						enemy.isEating = true;
+						break;
+					}
+				}
+			}
+			if(!this.active) {
+				enemy.isEating = false;
+				enemy.isFollowing = false;
 			}
 		}
 	}
@@ -62,6 +75,6 @@ public class ProjMeat extends Projectile {
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
 		dbg.setColor(Color.RED);
 		dbg.fillOval((int)(x-mapX-2), (int)(y-mapY-2), 8, 8);
-		dbg.drawOval((int)(x-CanvasGame.map.MapX-radius), (int)(y-CanvasGame.map.MapY-radius), (int)(radius*2),(int)(radius*2));
+		dbg.drawOval((int)(x-CanvasGame.map.MapX-meatBigRadius), (int)(y-CanvasGame.map.MapY-meatBigRadius), (int)(meatBigRadius*2),(int)(meatBigRadius*2));
 	}
 }

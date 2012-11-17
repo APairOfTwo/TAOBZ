@@ -30,12 +30,6 @@ public class EnemyGargoyle extends Character {
 		double spawnDy = spawnY - y;
 		double spawnDist = Math.hypot(spawnDx, spawnDy);
 		
-//		if(CanvasGame.FIRE) {
-//			if(CanvasGame.instance.projectilesList.get(0) != null) {
-//				proj = CanvasGame.instance.projectilesList.get(0);
-//			}
-//		}
-		
 		if(proj != null) {
 			projDx = proj.x - (x + centerX);
 			projDy = proj.y - (y + centerY);
@@ -45,7 +39,7 @@ public class EnemyGargoyle extends Character {
 		double velX = speed * diffTime / 1000.0f;
 		double velY = speed * diffTime / 1000.0f;
 		
-		if(!this.isStunned && !this.isEating) {
+		if(!this.isStunned && !this.isEating && !this.isFollowing) {
 			if(dist <= FIELD_OF_VIEW) {					// herói dentro do campo de visão, início da perseguição
 				x += velX * dx / dist;
 				y += velY * dy / dist;
@@ -93,8 +87,7 @@ public class EnemyGargoyle extends Character {
 				countTime = 0;
 			}
 		}
-		
-		if(this.isEating){
+		if(this.isFollowing && proj.active) {
 			x += velX * projDx / projDist;
 			y += velY * projDy / projDist;
 			
@@ -105,6 +98,8 @@ public class EnemyGargoyle extends Character {
 				animation = 1;
 				moveDirection = -1;
 			}
+		}
+		if(this.isEating){
 			countTime += diffTime;
 			animeSpeed = 300;
 			if(moveDirection == 1) {
@@ -114,7 +109,6 @@ public class EnemyGargoyle extends Character {
 			}
 			if(countTime >= 5000) {
 				proj.active = false;
-				isEating = false;
 				animeSpeed = 100;
 				speed = DEFAULT_SPEED;
 				countTime = 0;

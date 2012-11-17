@@ -42,7 +42,7 @@ public class EnemyBerserker extends Character {
 			projDist = Math.hypot(projDx, projDy);
 		}
 		
-		if(!this.isEating) {
+		if(!this.isEating && !this.isFollowing) {
 			if(dist <= FIELD_OF_VIEW) {					// herói dentro do campo de visão, início da perseguição
 				x += velX * dx / dist;
 				if(dx >= 0) {
@@ -72,7 +72,7 @@ public class EnemyBerserker extends Character {
 			}
 		}
 		
-		if(this.isEating){
+		if(this.isFollowing && proj.active) {
 			x += velX * projDx / projDist;
 			
 			if(projDx >= 0) {
@@ -82,6 +82,8 @@ public class EnemyBerserker extends Character {
 				animation = 1;
 				moveDirection = -1;
 			}
+		}
+		if(this.isEating){
 			countTime += diffTime;
 			animeSpeed = 300;
 			if(moveDirection == 1) {
@@ -91,7 +93,6 @@ public class EnemyBerserker extends Character {
 			}
 			if(countTime >= 5000) {
 				proj.active = false;
-				isEating = false;
 				animeSpeed = 100;
 				speed = DEFAULT_SPEED;
 				countTime = 0;
@@ -140,7 +141,7 @@ public class EnemyBerserker extends Character {
 	@Override
 	public void hitByProjectile(Projectile p) {
 		if(p.getClass() == ProjMeat.class){
-			isEating = true;
+			isFollowing = true;
 			proj = p;
 		}
 	}

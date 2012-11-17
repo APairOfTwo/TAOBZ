@@ -39,6 +39,7 @@ public class Character extends Sprite {
 	
 	boolean isStunned = false;
 	boolean isEating = false;
+	boolean isFollowing = false;
 	int countTime = 0;
 	
 	public Character(float x, float y, BufferedImage charset, int charsetX, int charsetY, int frameWidth, 
@@ -86,7 +87,7 @@ public class Character extends Sprite {
 	
 	public void hitByProjectile(Projectile p) {
 		if(p.getClass() == ProjMeat.class){
-			isEating = true;
+			isFollowing = true;
 		}
 		if(p.getClass() == ProjBone.class){
 			isStunned = true;

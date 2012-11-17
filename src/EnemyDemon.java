@@ -30,7 +30,7 @@ public class EnemyDemon extends Character {
 			projDist = Math.hypot(projDx, projDy);
 		}
 		
-		if(!this.isStunned && !this.isEating) {
+		if(!this.isStunned && !this.isEating && !this.isFollowing) {
 			if(moveDirection == 1) {
 				animation = 0;
 				x += speed * diffTime / 1000.0f;
@@ -58,7 +58,7 @@ public class EnemyDemon extends Character {
 					countTime = 0;
 				}
 			}
-			if(this.isEating){
+			if(this.isFollowing && proj.active){
 				x += velX * projDx / projDist;
 				y += velY * projDy / projDist;
 				
@@ -69,6 +69,8 @@ public class EnemyDemon extends Character {
 					animation = 1;
 					moveDirection = -1;
 				}
+			}
+			if(this.isEating){
 				countTime += diffTime;
 				animeSpeed = 300;
 				if(moveDirection == 1) {
@@ -78,14 +80,12 @@ public class EnemyDemon extends Character {
 				}
 				if(countTime >= 5000) {
 					proj.active = false;
-					isEating = false;
 					animeSpeed = 100;
 					speed = DEFAULT_SPEED;
 					countTime = 0;
 				}
 			}
-		}	
-		
+		}
 		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16))) {
 			y = oldY;
 			if((int)oldY % 16 != 0) {
