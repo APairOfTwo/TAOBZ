@@ -15,7 +15,7 @@ public class CanvasMainMenu extends Canvas {
 	
 	public CanvasMainMenu() {
 		instance = this;
-		background = GamePanel.loadImage("backgrounds/menu_background.png");
+		background = GamePanel.loadImage("backgrounds/mainMenu_background.png");
 		btnNewGame = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 - 200, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");
 		btnLoadGame = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 - 100, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");
 		btnOptions = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");
@@ -38,7 +38,7 @@ public class CanvasMainMenu extends Canvas {
 		
 		
 		if(MOUSE_PRESSED && btnNewGame.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
-			GamePanel.canvasActive = new CanvasGame();
+			GamePanel.canvasActive = new CanvasGameMode();
 			MOUSE_PRESSED = false;
 		}
 		
@@ -48,7 +48,7 @@ public class CanvasMainMenu extends Canvas {
 		}
 		
 		if(MOUSE_PRESSED && btnOptions.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
-			closeThisCanvas();
+			// TODO CanvasOptions
 			MOUSE_PRESSED = false;
 		}
 		
@@ -70,7 +70,7 @@ public class CanvasMainMenu extends Canvas {
 	public void keyPressed(KeyEvent k){
 		int keyCode = k.getKeyCode();
 		if(keyCode == KeyEvent.VK_ESCAPE){
-			closeThisCanvas();
+			//closeThisCanvas();
 		}
 	}
 
@@ -96,13 +96,5 @@ public class CanvasMainMenu extends Canvas {
 		MOUSE_PRESSED = true;
 		MOUSE_CLICK_X = m.getX();
 		MOUSE_CLICK_Y = m.getY();
-	}
-	
-	public void closeThisCanvas() {
-		GamePanel.canvasActive = CanvasGame.instance;
-		CanvasGame.LEFT = false;
-		CanvasGame.RIGHT = false;
-		CanvasGame.JUMP = false; 
-		CanvasGame.FIRE = false;
 	}
 }
