@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 public class GamePanel extends JPanel implements Runnable {
 	
 	public static final int PANEL_WIDTH = 800;
-	public static final int PANEL_HEIGHT = 600;
+	public static final int PANEL_HEIGHT = 610;
 	public static GamePanel instance;
 	private Thread gameThread;
 	public static boolean running = false;

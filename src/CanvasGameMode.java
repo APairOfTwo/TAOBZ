@@ -16,9 +16,9 @@ public class CanvasGameMode extends Canvas {
 	public CanvasGameMode() {
 		instance = this;
 		background = GamePanel.loadImage("backgrounds/mainMenu_background.png");
-		btn1P = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 - 200, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");
-		btn2P = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 - 100, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");
-		btnBack = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");
+		btn1P = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 0, "buttons/btn1POn.png", "buttons/btn1POff.png");
+		btn2P = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 100, "buttons/btn2POn.png", "buttons/btn2POff.png");
+		btnBack = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 200, "buttons/btnBackOn.png", "buttons/btnBackOff.png");
 	}
 	
 	@Override

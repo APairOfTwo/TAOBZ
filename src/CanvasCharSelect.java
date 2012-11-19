@@ -18,7 +18,7 @@ public class CanvasCharSelect extends Canvas {
 		background = GamePanel.loadImage("backgrounds/charSelect_background.png");
 		btnBilly = new GameButton(GamePanel.PANEL_WIDTH/2 - 250, GamePanel.PANEL_HEIGHT/2 - 150, "buttons/btnBillyOn.png", "buttons/btnBillyOff.png");
 		btnZombie = new GameButton(GamePanel.PANEL_WIDTH/2 + 50, GamePanel.PANEL_HEIGHT/2 - 150, "buttons/btnZombieOn.png", "buttons/btnZombieOff.png");
-		btnBack = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 150, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");
+		btnBack = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 150, "buttons/btnBackOn.png", "buttons/btnBackOff.png");
 	}
 	
 	@Override

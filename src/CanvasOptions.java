@@ -20,7 +20,7 @@ public class CanvasOptions extends Canvas {
 		background = GamePanel.loadImage("backgrounds/options_background.png");
 		btnMinus = new GameButton(GamePanel.PANEL_WIDTH/2 - 100, GamePanel.PANEL_HEIGHT/2 - 80, "buttons/btnMinusOn.png", "buttons/btnMinusOff.png");
 		btnPlus = new GameButton(GamePanel.PANEL_WIDTH/2 + 50, GamePanel.PANEL_HEIGHT/2 - 80, "buttons/btnPlusOn.png", "buttons/btnPlusOff.png");
-		btnBack = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 200, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");
+		btnBack = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 200, "buttons/btnBackOn.png", "buttons/btnBackOff.png");
 	}
 	
 	@Override
