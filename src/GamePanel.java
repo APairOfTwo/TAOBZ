@@ -19,7 +19,8 @@ public class GamePanel extends JPanel implements Runnable {
 	long diffTime, previousTime;
 	public static Canvas canvasActive = null;
 	public boolean gameOver = false;
-
+	public static Audio bgMusic;
+	public static float volume = 1.0f;
 	
 	public GamePanel(){
 		instance = this;
@@ -27,6 +28,10 @@ public class GamePanel extends JPanel implements Runnable {
 		setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
 		setFocusable(true);
 		requestFocus();
+		
+		Audio.setVolume(volume);
+		bgMusic = new Audio("res/audio/Clearside-Assimilator.mp3");
+		bgMusic.play();
 		
 		if (buffImage == null){
 			buffImage = new BufferedImage(PANEL_WIDTH, PANEL_HEIGHT, BufferedImage.TYPE_INT_ARGB);

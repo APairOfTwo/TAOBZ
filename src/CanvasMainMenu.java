@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -48,7 +47,7 @@ public class CanvasMainMenu extends Canvas {
 		}
 		
 		if(MOUSE_PRESSED && btnOptions.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
-			// TODO CanvasOptions
+			GamePanel.canvasActive = new CanvasOptions();
 			MOUSE_PRESSED = false;
 		}
 		
@@ -71,6 +70,7 @@ public class CanvasMainMenu extends Canvas {
 		int keyCode = k.getKeyCode();
 		if(keyCode == KeyEvent.VK_ESCAPE){
 			//closeThisCanvas();
+			GamePanel.bgMusic.close();
 		}
 	}
 
