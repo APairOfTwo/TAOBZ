@@ -2,10 +2,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 public class CanvasPause extends Canvas {
 
 	public static CanvasPause instance = null;
+	private BufferedImage background;
 	private GameButton btnResume, btnExit;
 	public static int MOUSE_X, MOUSE_Y;
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
@@ -13,6 +15,7 @@ public class CanvasPause extends Canvas {
 	
 	public CanvasPause() {
 		instance = this;
+		background = GamePanel.loadImage("backgrounds/pause_background.png");
 		btnResume = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 - 100, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");
 		btnExit = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 100, "buttons/btnExitOn.png", "buttons/btnExitOff.png");
 	}
@@ -37,8 +40,7 @@ public class CanvasPause extends Canvas {
 
 	@Override
 	public void selfDraws(Graphics2D dbg) {
-		dbg.setColor(Color.BLACK);
-		dbg.fillRect(GamePanel.PANEL_WIDTH/2 - 200, GamePanel.PANEL_HEIGHT/2 - 200, 400, 400);
+		dbg.drawImage(background, GamePanel.PANEL_WIDTH/2 - 150, GamePanel.PANEL_HEIGHT/2 - 200, GamePanel.PANEL_WIDTH/2 + 150, GamePanel.PANEL_HEIGHT/2 + 200, 0, 0, background.getWidth(), background.getHeight(), null);
 		btnResume.selfDraws(dbg);
 		btnExit.selfDraws(dbg);
 	}
