@@ -79,6 +79,7 @@ public class CanvasGame extends Canvas {
 			} else {
 				c.respawnCountTime+=diffTime;
 				if(c.respawnCountTime >= 3000) {
+					c.respawnCountTime = 0;
 					c.respawn();
 				}
 			}

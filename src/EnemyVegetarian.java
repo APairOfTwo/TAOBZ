@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 public class EnemyVegetarian extends Character {
 	final float DEFAULT_SPEED = 55;
+	private int changeDirectionRate = 200;
 	Projectile proj;
 	
 	public EnemyVegetarian(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
@@ -62,13 +63,19 @@ public class EnemyVegetarian extends Character {
 		}
 
 		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) || hasCollidedWithLayer1((int)((x+10)/16), (int)((x+60)/16), (int)((y+frameHeight-5)/16))) {
-			moveDirection *= -1;
+			if(fireTimer > changeDirectionRate) {
+				fireTimer = 0;
+				moveDirection *= -1;
+			}
 		}
 		
 		for(Element e : CanvasGame.gameElements.elementsList) {
 			if(e.itemId == 8) {
 				if(this.getBounds().intersects((e.blockX<<4)-CanvasGame.map.MapX, (e.blockY<<4)-CanvasGame.map.MapY, 16, 64)) {
-					this.moveDirection *= -1;
+					if(fireTimer > changeDirectionRate) {
+						fireTimer = 0;
+						moveDirection *= -1;
+					}
 				}
 			}
 		}

@@ -121,7 +121,6 @@ public class CharBilly extends Character {
 		numShotsBone = 5;
 		x = 100;
 		y = 100;
-		respawnCountTime = 0;
 	}
 	
 	public void checkMapPositions() {

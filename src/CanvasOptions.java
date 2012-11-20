@@ -47,6 +47,7 @@ public class CanvasOptions extends Canvas {
 			MOUSE_PRESSED = false;
 		}
 		if(MOUSE_PRESSED && btnBack.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
+			GamePanel.volume = volume;
 			GamePanel.canvasActive = new CanvasMainMenu();
 			MOUSE_PRESSED = false;
 		}
