@@ -39,6 +39,9 @@ public class CanvasGameMode extends Canvas {
 		
 		if(MOUSE_PRESSED && btn2P.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
 			GamePanel.canvasActive = new CanvasGame();
+			GamePanel.isCoop = true;
+			CanvasGame.heroes.add(CanvasGame.billy);
+			CanvasGame.heroes.add(CanvasGame.zombie);
 			MOUSE_PRESSED = false;
 		}
 		

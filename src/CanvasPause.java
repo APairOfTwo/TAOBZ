@@ -79,9 +79,13 @@ public class CanvasPause extends Canvas {
 	
 	public void closeThisCanvas() {
 		GamePanel.canvasActive = CanvasGame.instance;
-		CanvasGame.LEFT = false;
-		CanvasGame.RIGHT = false;
-		CanvasGame.JUMP = false; 
-		CanvasGame.FIRE = false;
+		CanvasGame.B_LEFT = false;
+		CanvasGame.B_RIGHT = false;
+		CanvasGame.B_JUMP = false; 
+		CanvasGame.B_FIRE = false;
+		CanvasGame.Z_LEFT = false;
+		CanvasGame.Z_RIGHT = false;
+		CanvasGame.Z_JUMP = false; 
+		CanvasGame.Z_FIRE = false;
 	}
 }

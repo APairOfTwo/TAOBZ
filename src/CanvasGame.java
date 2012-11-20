@@ -9,10 +9,13 @@ import java.util.Random;
 public class CanvasGame extends Canvas {
 	public static CanvasGame instance = null;
 	public static ElementManager gameElements = new ElementManager();
+	public static ArrayList<Character> heroes = new ArrayList<Character>();
 	public static CharBilly billy;
+	public static CharZombie zombie;
 	public static TileMap map;
 	
 	public static BufferedImage charsetBilly;
+	public static BufferedImage charsetZombie;
 	public static BufferedImage charsetDemon;
 	public static BufferedImage charsetBerserker;
 	public static BufferedImage charsetGargoyle;
@@ -40,7 +43,8 @@ public class CanvasGame extends Canvas {
 	
 	public static boolean projIsBone = true;
 	public static boolean projIsMeat = false;
-	public static boolean LEFT, RIGHT, JUMP, FIRE;
+	public static boolean B_LEFT, B_RIGHT, B_JUMP, B_FIRE;
+	public static boolean Z_LEFT, Z_RIGHT, Z_JUMP, Z_FIRE;
 	public static boolean MOUSE_PRESSED;
 	public static int MOUSE_X, MOUSE_Y;
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
@@ -50,7 +54,8 @@ public class CanvasGame extends Canvas {
 		
 		GamePanel.bgMusic.close();
 		
-		charsetBilly = GamePanel.loadImage("sprites/mojo.png");
+		charsetBilly = GamePanel.loadImage("sprites/billy.png");
+		charsetZombie = GamePanel.loadImage("sprites/zombie.png");
 		charsetDemon = GamePanel.loadImage("sprites/spritesheet_demon.png");
 		charsetVegetarian = GamePanel.loadImage("sprites/spritesheet_vegetarian.png");
 		charsetGargoyle = GamePanel.loadImage("sprites/spritesheet_gargoyle.png");
@@ -66,14 +71,16 @@ public class CanvasGame extends Canvas {
 	}
 	
 	@Override
-	public void selfSimulates(long diffTime){
-		if(billy.isAlive){
-			billy.selfSimulates(diffTime);
-			map.Positions((int)billy.x-GamePanel.PANEL_WIDTH/2, (int)billy.y-GamePanel.PANEL_HEIGHT/2);
-		} else {	
-			billy.respawnCountTime+=diffTime;
-			if(billy.respawnCountTime >= 3000) {
-				billy.respawn();
+	public void selfSimulates(long diffTime) {
+		for(Character c : heroes) {
+			if(c.isAlive){
+				c.selfSimulates(diffTime);
+				map.Positions((int)c.x-GamePanel.PANEL_WIDTH/2, (int)c.y-GamePanel.PANEL_HEIGHT/2);
+			} else {
+				c.respawnCountTime+=diffTime;
+				if(c.respawnCountTime >= 3000) {
+					c.respawn();
+				}
 			}
 		}
 		for(int i = 0; i < projectilesList.size(); i++){
@@ -102,6 +109,7 @@ public class CanvasGame extends Canvas {
 	@Override
 	public void selfDraws(Graphics2D dbg){
 		map.selfDraws(dbg);
+		
 		for(Element e : gameElements.elementsList) {
 			if(e.itemId == 8) {
 				dbg.setColor(Color.MAGENTA);
@@ -118,22 +126,27 @@ public class CanvasGame extends Canvas {
 		for(int i = 0; i < effectsList.size(); i++){
 			effectsList.get(i).selfDraws(dbg, map.MapX, map.MapY);
 		}
-		billy.selfDraws(dbg, map.MapX, map.MapY);
+		for(Character c : heroes) {
+			c.selfDraws(dbg, map.MapX, map.MapY);
+		}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent k){
 		int keyCode = k.getKeyCode();
-		if(keyCode == KeyEvent.VK_A)		{ LEFT = true; }
-		if(keyCode == KeyEvent.VK_D)		{ RIGHT = true; }
-		if(keyCode == KeyEvent.VK_W)		{ JUMP = true; }
-		if(keyCode == KeyEvent.VK_SPACE)	{ FIRE = true; }
+		if(keyCode == KeyEvent.VK_A)		{ B_LEFT  = true; }
+		if(keyCode == KeyEvent.VK_D)		{ B_RIGHT = true; }
+		if(keyCode == KeyEvent.VK_W)		{ B_JUMP  = true; }
+		if(keyCode == KeyEvent.VK_SPACE)	{ B_FIRE  = true; }
+		if(keyCode == KeyEvent.VK_LEFT)		{ Z_LEFT  = true; }
+		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_RIGHT = true; }
+		if(keyCode == KeyEvent.VK_UP)		{ Z_JUMP  = true; }
 		if(keyCode == KeyEvent.VK_S)		{ setGameLevel(1); }
 		if(keyCode == KeyEvent.VK_F1)		{ SaveGame.save(); }
 		if(keyCode == KeyEvent.VK_L)		{ LoadGame.load(); }
 		if(keyCode == KeyEvent.VK_ESCAPE) {
 			if(CanvasPause.instance == null) {
-				CanvasPause menu = new CanvasPause();
+				CanvasPause pause = new CanvasPause();
 			}
 			GamePanel.canvasActive = CanvasPause.instance;
 		}
@@ -145,10 +158,13 @@ public class CanvasGame extends Canvas {
 	@Override
 	public void keyReleased(KeyEvent k){
 		int keyCode = k.getKeyCode();
-		if(keyCode == KeyEvent.VK_A)     { LEFT = false; }
-		if(keyCode == KeyEvent.VK_D)     { RIGHT = false; }
-		if(keyCode == KeyEvent.VK_W)     { JUMP = false; billy.jumpSpeed = billy.jumpSpeed / 2; }
-		if(keyCode == KeyEvent.VK_SPACE) { FIRE = false; }
+		if(keyCode == KeyEvent.VK_A)		{ B_LEFT  = false; }
+		if(keyCode == KeyEvent.VK_D)		{ B_RIGHT = false; }
+		if(keyCode == KeyEvent.VK_W)		{ B_JUMP  = false; billy.jumpSpeed = billy.jumpSpeed / 2; }
+		if(keyCode == KeyEvent.VK_SPACE)	{ B_FIRE  = false; }
+		if(keyCode == KeyEvent.VK_LEFT)		{ Z_LEFT  = false; }
+		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_RIGHT = false; }
+		if(keyCode == KeyEvent.VK_UP)		{ Z_JUMP  = false; zombie.jumpSpeed = zombie.jumpSpeed / 2; }
 	}
 
 	@Override
@@ -158,20 +174,20 @@ public class CanvasGame extends Canvas {
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent m) {
-		//MOUSE_X = m.getX();
-		//MOUSE_Y = m.getY();
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent m) { 
-		MOUSE_PRESSED = false;
-	}
+	public void mouseDragged(MouseEvent m) { }
+	
 	@Override
 	public void mousePressed(MouseEvent m) {
 		MOUSE_PRESSED = true;
 		MOUSE_CLICK_X = m.getX();
 		MOUSE_CLICK_Y = m.getY();
+		Z_FIRE = true;
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent m) { 
+		MOUSE_PRESSED = false;
+		Z_FIRE = false;
 	}
 	
 	public static void setGameLevel(int levelId) {

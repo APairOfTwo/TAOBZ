@@ -41,6 +41,7 @@ public class Character extends Sprite {
 	boolean isEating = false;
 	boolean isFollowing = false;
 	int countTime = 0;
+	public long respawnCountTime;
 	
 	public Character(float x, float y, BufferedImage charset, int charsetX, int charsetY, int frameWidth, 
 						int frameHeight, int numberOfFrames) {
@@ -110,4 +111,6 @@ public class Character extends Sprite {
 			speed = 0;
 		}
 	}
+
+	public void respawn() {	}
 }

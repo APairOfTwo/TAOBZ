@@ -45,7 +45,7 @@ public class ElementManager {
 				CanvasGame.billy = new CharBilly(ele.blockX<<4, ele.blockY<<4, CanvasGame.charsetBilly, 0, 0);
 				break;
 			case 2:
-				// TODO - Instanciar o Z
+				CanvasGame.zombie = new CharZombie(ele.blockX<<4, ele.blockY<<4, CanvasGame.charsetZombie, 0, 0);
 				break;
 			case 3:
 				// TODO - Checkpoints

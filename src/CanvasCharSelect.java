@@ -34,11 +34,13 @@ public class CanvasCharSelect extends Canvas {
 		
 		if(MOUSE_PRESSED && btnBilly.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
 			GamePanel.canvasActive = new CanvasGame();
+			CanvasGame.heroes.add(CanvasGame.billy);
 			MOUSE_PRESSED = false;
 		}
 		
 		if(MOUSE_PRESSED && btnZombie.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
-			GamePanel.canvasActive = new CanvasCharSelect();
+			GamePanel.canvasActive = new CanvasGame();
+			CanvasGame.heroes.add(CanvasGame.zombie);
 			MOUSE_PRESSED = false;
 		}
 		
