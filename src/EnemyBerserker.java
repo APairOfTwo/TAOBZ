@@ -9,6 +9,7 @@ public class EnemyBerserker extends Character {
 	final int FIELD_OF_VIEW = 300;
 	float spawnX, spawnY;
 	double projDx, projDy, projDist;
+	double dx, dy, dist;
 	Projectile proj;
 	
 	public EnemyBerserker(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
@@ -27,9 +28,29 @@ public class EnemyBerserker extends Character {
 		oldY = y;
 		y += gravity * diffTime / 1000.0f;
 		
-		double dx = (CanvasGame.billy.x + CanvasGame.billy.centerX) - (x + centerX);
-		double dy = CanvasGame.billy.y - (y + centerY);
-		double dist = Math.hypot(dx, dy);
+		if(CanvasGame.heroes.size() == 1) {
+			dx = (CanvasGame.heroes.get(0).x + CanvasGame.heroes.get(0).centerX) - (x + centerX);
+			dy = CanvasGame.heroes.get(0).y - (y + centerY);
+			dist = Math.hypot(dx, dy);
+		} else if(CanvasGame.heroes.size() == 2) {
+			double dx1 = (CanvasGame.heroes.get(0).x + CanvasGame.heroes.get(0).centerX) - (x + centerX);
+			double dy1 = CanvasGame.heroes.get(0).y - (y + centerY);
+			double dist1 = Math.hypot(dx1, dy1);
+			
+			double dx2 = (CanvasGame.heroes.get(1).x + CanvasGame.heroes.get(1).centerX) - (x + centerX);
+			double dy2 = CanvasGame.heroes.get(1).y - (y + centerY);
+			double dist2 = Math.hypot(dx2, dy2);
+			
+			if(dist1 <= dist2) {	// Segue o Billy caso dentro do campo de visão
+				dx = dx1;
+				dy = dy1;
+				dist = dist1;
+			} else {				// Segue o Z caso dentro do campo de visão
+				dx = dx2;
+				dy = dy2;
+				dist = dist2;
+			}
+		}
 		
 		double spawnDx = spawnX - x;
 		double spawnDist = Math.hypot(spawnDx, 0);
