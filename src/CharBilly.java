@@ -119,8 +119,17 @@ public class CharBilly extends Character {
 		isAlive = true;
 		hasJumped = false;
 		numShotsBone = 5;
-		x = 100;
-		y = 100;
+		for(int i = CanvasGame.checkpoints.size()-1; i >= 0; i--) {
+			if(CanvasGame.checkpoints.get(i).isActive) {
+				x = CanvasGame.checkpoints.get(i).x;
+				y = CanvasGame.checkpoints.get(i).y;
+				break;
+			}
+			if(i == 0) {
+				x = 20;
+				y = 20;
+			}
+		}
 	}
 	
 	public void checkMapPositions() {

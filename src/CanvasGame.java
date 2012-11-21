@@ -9,7 +9,6 @@ import java.util.Random;
 public class CanvasGame extends Canvas {
 	public static CanvasGame instance = null;
 	public static ElementManager gameElements = new ElementManager();
-	public static ArrayList<Character> heroes = new ArrayList<Character>();
 	public static CharBilly billy;
 	public static CharZombie zombie;
 	public static TileMap map;
@@ -22,23 +21,25 @@ public class CanvasGame extends Canvas {
 	public static BufferedImage charsetVegetarian;
 	public static BufferedImage tileset;
 	
-	public static String strMap01 = new String("maps/stage_intro.map");
+	public static String strMap01 = new String("maps/hell_01.map");
 	public static String strMap02 = new String();
 	public static String strMap03 = new String();
 	
-	public static String strTileset01 = new String("maps/area01_tileset.png");
+	public static String strTileset01 = new String("maps/hell_tileset.png");
 	public static String strTileset02 = new String();
 	public static String strTileset03 = new String();
 	
-	public static String strElements01 = new String("csv/teste2.csv");
+	public static String strElements01 = new String("csv/hell_01.csv");
 	public static String strElements02 = new String();
 	public static String strElements03 = new String();
 	
 	Random rand = new Random();
 	public static int variables[] = new int[100];
 	
+	public static ArrayList<Character> heroes = new ArrayList<Character>();
 	public static ArrayList<Character> enemiesList = new ArrayList<Character>();
 	public static ArrayList<Projectile> projectilesList = new ArrayList<Projectile>();
+	public static ArrayList<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
 	public static ArrayList<Effect> effectsList = new ArrayList<Effect>();
 	
 	public static boolean projIsBone = true;
@@ -98,6 +99,9 @@ public class CanvasGame extends Canvas {
 				i--;
 			}
 		}
+		for(Checkpoint c : checkpoints) {
+			c.selfSimulates(diffTime);
+		}
 		for(int i = 0; i < effectsList.size(); i++){
 			effectsList.get(i).selfSimulates(diffTime);
 			if(effectsList.get(i).active == false){
@@ -123,6 +127,9 @@ public class CanvasGame extends Canvas {
 		}
 		for(int i = 0; i < enemiesList.size(); i++) {
 			enemiesList.get(i).selfDraws(dbg, map.MapX, map.MapY);
+		}
+		for(Checkpoint c : checkpoints) {
+			c.selfDraws(dbg, map.MapX, map.MapY);
 		}
 		for(int i = 0; i < effectsList.size(); i++){
 			effectsList.get(i).selfDraws(dbg, map.MapX, map.MapY);

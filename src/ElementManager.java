@@ -48,7 +48,8 @@ public class ElementManager {
 				CanvasGame.zombie = new CharZombie(ele.blockX<<4, ele.blockY<<4, CanvasGame.charsetZombie, 0, 0);
 				break;
 			case 3:
-				// TODO - Checkpoints
+				Checkpoint check = new Checkpoint(ele.blockX<<4, ele.blockY<<4);
+				CanvasGame.checkpoints.add(check);
 				break;
 			case 4:
 				Character demon = new EnemyDemon(ele.blockX<<4, ele.blockY<<4, CanvasGame.charsetDemon, 0, 0);
