@@ -115,16 +115,16 @@ public class EnemyGargoyle extends Character {
 			}
 		}
 		
-		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16))) {
-			y = oldY;
-			onTheFloor = true;
-		} else {
-			onTheFloor = false;
-		}
-		
-		if(hasCollidedWithLayer1((int)((x+5)/16), (int)((x+70)/16), (int)((y+50)/16))) {
-			x = oldX;
-		}
+//		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16))) {
+//			y = oldY;
+//			onTheFloor = true;
+//		} else {
+//			onTheFloor = false;
+//		}
+//		
+////		if(hasCollidedWithLayer1((int)((x+5)/16), (int)((x+70)/16), (int)((y+50)/16))) {
+////			x = oldX;
+////		}
 		
 		if(x < 0) x = oldX;
 		if(y < 0) y = oldY;

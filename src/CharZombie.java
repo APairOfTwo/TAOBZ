@@ -69,27 +69,25 @@ public class CharZombie extends Character {
 		if(x >= (CanvasGame.map.Largura << 4) - 50) x = oldX;
 		if(y >= (CanvasGame.map.Altura << 4) - 48) y = oldY;
 		
-		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+44)/16))) {
-			y = oldY;
-			if((int)oldY % 16 != 0) {
-				y -= 1;
-			}
-			onTheFloor = true;
-		} else {
-			onTheFloor = false;
-		}
 		
-		if(hasCollidedWithLayer1((int)((x+10)/16), (int)((x+40)/16), (int)((y+35)/16))) {
-			x = oldX;
-		}
-		
-		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y)/16))) {
-			y = oldY;
-			CanvasGame.zombie.jumpSpeed = CanvasGame.zombie.jumpSpeed / 2;
-		}
-		
-		int blockX = (int)((x+35)/16);
-		int blockY = (int)((y+42)/16);
+//		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+44)/16))) {
+//			y = oldY;
+//			if((int)oldY % 16 != 0) {
+//				y -= 1;
+//			}
+//			onTheFloor = true;
+//		} else {
+//			onTheFloor = false;
+//		}
+//	
+//		if(hasCollidedWithLayer1((int)((x+10)/16), (int)((x+40)/16), (int)((y+35)/16))) {
+//			x = oldX;
+//		}
+//		
+//		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y)/16))) {
+//			y = oldY;
+//			CanvasGame.zombie.jumpSpeed = CanvasGame.zombie.jumpSpeed / 2;
+//		}
 		
 		for(Character c : CanvasGame.enemiesList) {
 			if(!c.isEating && !c.isStunned) {

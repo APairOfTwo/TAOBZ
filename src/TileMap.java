@@ -414,7 +414,6 @@ public class TileMap {
 			MapX = ((Largura - NTileX)) << 4;
 		} else {
 			MapX = x;
-			//System.out.println(MapX);
 		}
 
 		if (Y < 0) {

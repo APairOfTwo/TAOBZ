@@ -18,6 +18,11 @@ public class CharBilly extends Character {
 
 	@Override
 	public void selfSimulates(long diffTime){
+		super.selfSimulates(diffTime);
+		
+		if(!onTheFloor) {
+			y += gravity * diffTime / 1000.0f;
+		}
 		
 		if(numShotsBone <= 0) {
 			isAlive = false;
@@ -37,7 +42,6 @@ public class CharBilly extends Character {
 		
 		oldX = x;
 		oldY = y;
-		y += gravity * diffTime / 1000.0f;
 		
 		if(CanvasGame.B_JUMP && onTheFloor) {
 			jumpSpeed = 1100;
@@ -57,6 +61,11 @@ public class CharBilly extends Character {
 			timeAnimating = 0;
 		}
 		
+		if(x < 0) x = oldX;
+		if(y < 0) y = oldY;
+		if(x >= (CanvasGame.map.Largura << 4) - 50) x = oldX;
+		if(y >= (CanvasGame.map.Altura << 4) - 48) y = oldY;
+		
 		if(hasJumped) {
 			y -= jumpSpeed * diffTime / 1000.0f;
 			jumpSpeed -= 3 * gravity * (diffTime / 1000.0f);
@@ -66,12 +75,7 @@ public class CharBilly extends Character {
 			}
 		}
 		
-		if(x < 0) x = oldX;
-		if(y < 0) y = oldY;
-		if(x >= (CanvasGame.map.Largura << 4) - 50) x = oldX;
-		if(y >= (CanvasGame.map.Altura << 4) - 48) y = oldY;
-		
-		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+44)/16))) {
+		if(hasCollidedWithLayer1((int)((x+10)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+45)/16), (int)((y+40)/16))) {
 			y = oldY;
 			if((int)oldY % 16 != 0) {
 				y -= 1;
@@ -81,17 +85,14 @@ public class CharBilly extends Character {
 			onTheFloor = false;
 		}
 		
-		if(hasCollidedWithLayer1((int)((x+10)/16), (int)((x+40)/16), (int)((y+35)/16))) {
+		if(hasCollidedWithLayer1((int)((x+10)/16), (int)((x+40)/16), (int)((y+30)/16), (int)((y+30)/16), (int)((y+30)/16))) {
 			x = oldX;
 		}
 		
-		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y)/16))) {
+		if(hasCollidedWithLayer1((int)((x+10)/16), (int)((x+40)/16), (int)(y/16), (int)((y+5)/16), (int)((y+10)/16))) {
 			y = oldY;
-			CanvasGame.billy.jumpSpeed = CanvasGame.billy.jumpSpeed / 2;
+			jumpSpeed = jumpSpeed / 2;
 		}
-		
-		int blockX = (int)((x+35)/16);
-		int blockY = (int)((y+42)/16);
 		
 		for(Character c : CanvasGame.enemiesList) {
 			if(!c.isEating && !c.isStunned) {
@@ -100,8 +101,6 @@ public class CharBilly extends Character {
 				}
 			}
 		}
-		
-		super.selfSimulates(diffTime);
 	}
 	
 	@Override

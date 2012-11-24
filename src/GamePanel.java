@@ -128,7 +128,7 @@ public class GamePanel extends JPanel implements Runnable {
 			gameRender();
 			paintImmediately(0, 0, PANEL_WIDTH, PANEL_HEIGHT);
 			try {
-				Thread.sleep(1);
+				Thread.sleep(0);
 			} catch (InterruptedException ex){ }
 			diffTime = System.currentTimeMillis() - previousTime;
 			previousTime = System.currentTimeMillis();
@@ -142,8 +142,6 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 		System.exit(0);
 	}
-
-	//int timerfps = 0;
 
 	private void gameUpdate(long diffTime){
 		if(canvasActive != null) {

@@ -52,22 +52,22 @@ public class EnemyVegetarian extends Character {
 			}
 		}	
 		
-		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-5)/16))) {
-			y = oldY;
-			if((int)oldY % 16 != 0) {
-				y -= 1;
-			}
-			onTheFloor = true;
-		} else {
-			onTheFloor = false;
-		}
+//		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-5)/16))) {
+//			y = oldY;
+////			if((int)oldY % 16 != 0) {
+////				y -= 1;
+////			}
+//			onTheFloor = true;
+//		} else {
+//			onTheFloor = false;
+//		}
 
-		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) || hasCollidedWithLayer1((int)((x+10)/16), (int)((x+60)/16), (int)((y+frameHeight-5)/16))) {
-			if(fireTimer > changeDirectionRate) {
-				fireTimer = 0;
-				moveDirection *= -1;
-			}
-		}
+//		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) || hasCollidedWithLayer1((int)((x+10)/16), (int)((x+60)/16), (int)((y+frameHeight-5)/16))) {
+//			if(fireTimer > changeDirectionRate) {
+//				fireTimer = 0;
+//				moveDirection *= -1;
+//			}
+//		}
 		
 		for(Element e : CanvasGame.gameElements.elementsList) {
 			if(e.itemId == 8) {

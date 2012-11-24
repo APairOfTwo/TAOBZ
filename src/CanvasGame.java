@@ -73,18 +73,18 @@ public class CanvasGame extends Canvas {
 	
 	@Override
 	public void selfSimulates(long diffTime) {
-		for(Character c : heroes) {
-			if(c.isAlive){
-				c.selfSimulates(diffTime);
-				map.Positions((int)c.x-GamePanel.PANEL_WIDTH/2, (int)c.y-GamePanel.PANEL_HEIGHT/2);
+//		for(Character c : heroes) {
+			if(billy.isAlive){
+				billy.selfSimulates(diffTime);
+				map.Positions((int)billy.x-GamePanel.PANEL_WIDTH/2, (int)billy.y-GamePanel.PANEL_HEIGHT/2);
 			} else {
-				c.respawnCountTime+=diffTime;
-				if(c.respawnCountTime >= 3000) {
-					c.respawnCountTime = 0;
-					c.respawn();
+				billy.respawnCountTime+=diffTime;
+				if(billy.respawnCountTime >= 3000) {
+					billy.respawnCountTime = 0;
+					billy.respawn();
 				}
 			}
-		}
+//		}
 		for(int i = 0; i < projectilesList.size(); i++){
 			projectilesList.get(i).selfSimulates(diffTime);
 			if(!projectilesList.get(i).active){

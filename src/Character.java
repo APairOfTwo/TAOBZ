@@ -80,6 +80,12 @@ public class Character extends Sprite {
 			}
 			isAlive = false;
 		}
+		
+		if(!onTheFloor) {
+			gravity = 500;
+		} else {
+			gravity = 0;
+		}
 	}
 
 	@Override
@@ -93,8 +99,13 @@ public class Character extends Sprite {
 		dbg.drawOval((int)(x-CanvasGame.map.MapX-radius+centerX), (int)(y-CanvasGame.map.MapY-radius+centerY), (int)(radius*2),(int)(radius*2));
 	}
 	
-	public boolean hasCollidedWithLayer1(int bxi, int bxf, int by) {
-		if((CanvasGame.map.mapLayer1[by][bxi]>0) || (CanvasGame.map.mapLayer1[by][bxf]>0)) return true;
+	public boolean hasCollidedWithLayer1(int bxi, int bxf, int byi, int bym, int byf) {
+		TileMap map = CanvasGame.map;
+		if((map.mapLayer1[byi][bxi]>0) || (map.mapLayer1[bym][bxi]>0) || (map.mapLayer1[byf][bxi]>0) ||
+		   (map.mapLayer1[byi][bxf]>0) || (map.mapLayer1[bym][bxf]>0) || (map.mapLayer1[byf][bxf]>0)) {
+			onTheFloor = true;
+			return true;
+		}
 		return false;
 	}
 	
