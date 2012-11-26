@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -11,6 +12,7 @@ public class CharBilly extends Character {
 	int numShotsBone = 5;
 	Projectile proj;
 	boolean positionsMap = false;
+	int bx, by;
 	
 	public CharBilly(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 49, 55, 7);
@@ -75,7 +77,7 @@ public class CharBilly extends Character {
 			}
 		}
 		
-		if(hasCollidedWithLayer1((int)((x+10)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+45)/16), (int)((y+40)/16))) {
+		if(floorCollision((int)((x+10)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+45)/16), (int)((y+40)/16))) {
 			y = oldY;
 			if((int)oldY % 16 != 0) {
 				y -= 1;
@@ -85,11 +87,11 @@ public class CharBilly extends Character {
 			onTheFloor = false;
 		}
 		
-		if(hasCollidedWithLayer1((int)((x+10)/16), (int)((x+40)/16), (int)((y+30)/16), (int)((y+30)/16), (int)((y+30)/16))) {
+		if(sideAndTopCollision((int)((x+10)/16), (int)((x+40)/16), (int)((y+35)/16))) {
 			x = oldX;
 		}
 		
-		if(hasCollidedWithLayer1((int)((x+10)/16), (int)((x+40)/16), (int)(y/16), (int)((y+5)/16), (int)((y+10)/16))) {
+		if(sideAndTopCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y)/16))) {
 			y = oldY;
 			jumpSpeed = jumpSpeed / 2;
 		}
@@ -118,16 +120,17 @@ public class CharBilly extends Character {
 		isAlive = true;
 		hasJumped = false;
 		numShotsBone = 5;
-		for(int i = CanvasGame.checkpoints.size()-1; i >= 0; i--) {
-			if(CanvasGame.checkpoints.get(i).isActive) {
-				x = CanvasGame.checkpoints.get(i).x;
-				y = CanvasGame.checkpoints.get(i).y;
-				break;
+		if(CanvasGame.checkpoints.size() != 0) {
+			for(int i = CanvasGame.checkpoints.size()-1; i >= 0; i--) {
+				if(CanvasGame.checkpoints.get(i).isActive) {
+					x = CanvasGame.checkpoints.get(i).x;
+					y = CanvasGame.checkpoints.get(i).y;
+					break;
+				}
 			}
-			if(i == 0) {
-				x = 20;
-				y = 20;
-			}
+		} else {
+//			x = CanvasGame.billySpawnPoint.x;
+//			y = CanvasGame.billySpawnPoint.y;
 		}
 	}
 	

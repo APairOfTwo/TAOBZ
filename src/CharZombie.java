@@ -17,6 +17,11 @@ public class CharZombie extends Character {
 
 	@Override
 	public void selfSimulates(long diffTime){
+		super.selfSimulates(diffTime);
+		
+		if(!onTheFloor) {
+			y += gravity * diffTime / 1000.0f;
+		}
 		
 		if(numShotsMeat <= 0) {
 			isAlive = false;
@@ -36,7 +41,7 @@ public class CharZombie extends Character {
 		
 		oldX = x;
 		oldY = y;
-		y += gravity * diffTime / 1000.0f;
+		
 		if(CanvasGame.Z_JUMP && onTheFloor) {
 			jumpSpeed = 1100;
 			hasJumped = true;
@@ -69,25 +74,24 @@ public class CharZombie extends Character {
 		if(x >= (CanvasGame.map.Largura << 4) - 50) x = oldX;
 		if(y >= (CanvasGame.map.Altura << 4) - 48) y = oldY;
 		
+		if(floorCollision((int)((x+10)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+45)/16), (int)((y+40)/16))) {
+			y = oldY;
+			if((int)oldY % 16 != 0) {
+				y -= 1;
+			}
+			onTheFloor = true;
+		} else {
+			onTheFloor = false;
+		}
 		
-//		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+44)/16))) {
-//			y = oldY;
-//			if((int)oldY % 16 != 0) {
-//				y -= 1;
-//			}
-//			onTheFloor = true;
-//		} else {
-//			onTheFloor = false;
-//		}
-//	
-//		if(hasCollidedWithLayer1((int)((x+10)/16), (int)((x+40)/16), (int)((y+35)/16))) {
-//			x = oldX;
-//		}
-//		
-//		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y)/16))) {
-//			y = oldY;
-//			CanvasGame.zombie.jumpSpeed = CanvasGame.zombie.jumpSpeed / 2;
-//		}
+		if(sideAndTopCollision((int)((x+10)/16), (int)((x+40)/16), (int)((y+35)/16))) {
+			x = oldX;
+		}
+		
+		if(sideAndTopCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y)/16))) {
+			y = oldY;
+			jumpSpeed = jumpSpeed / 2;
+		}
 		
 		for(Character c : CanvasGame.enemiesList) {
 			if(!c.isEating && !c.isStunned) {
@@ -96,7 +100,6 @@ public class CharZombie extends Character {
 				}
 			}
 		}
-		super.selfSimulates(diffTime);
 	}
 	
 	@Override

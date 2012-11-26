@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -99,7 +100,12 @@ public class Character extends Sprite {
 		dbg.drawOval((int)(x-CanvasGame.map.MapX-radius+centerX), (int)(y-CanvasGame.map.MapY-radius+centerY), (int)(radius*2),(int)(radius*2));
 	}
 	
-	public boolean hasCollidedWithLayer1(int bxi, int bxf, int byi, int bym, int byf) {
+	public boolean sideAndTopCollision(int bxi, int bxf, int by) {
+		if((CanvasGame.map.mapLayer1[by][bxi]>0) || (CanvasGame.map.mapLayer1[by][bxf]>0)) return true;
+		return false;
+	}
+	
+	public boolean floorCollision(int bxi, int bxf, int byi, int bym, int byf) {
 		TileMap map = CanvasGame.map;
 		if((map.mapLayer1[byi][bxi]>0) || (map.mapLayer1[bym][bxi]>0) || (map.mapLayer1[byf][bxi]>0) ||
 		   (map.mapLayer1[byi][bxf]>0) || (map.mapLayer1[bym][bxf]>0) || (map.mapLayer1[byf][bxf]>0)) {

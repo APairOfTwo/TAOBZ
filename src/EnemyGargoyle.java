@@ -18,7 +18,9 @@ public class EnemyGargoyle extends Character {
 	}
 
 	@Override
-	public void selfSimulates(long diffTime){
+	public void selfSimulates(long diffTime) {
+		super.selfSimulates(diffTime);
+		
 		oldX = x;
 		oldY = y;
 		
@@ -115,23 +117,17 @@ public class EnemyGargoyle extends Character {
 			}
 		}
 		
-//		if(hasCollidedWithLayer1((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16))) {
-//			y = oldY;
-//			onTheFloor = true;
-//		} else {
-//			onTheFloor = false;
-//		}
-//		
-////		if(hasCollidedWithLayer1((int)((x+5)/16), (int)((x+70)/16), (int)((y+50)/16))) {
-////			x = oldX;
-////		}
+		if(floorCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16), (int)((y+frameHeight-15)/16), (int)((y+frameHeight-20)/16))) {
+			y = oldY;
+			onTheFloor = true;
+		} else {
+			onTheFloor = false;
+		}
 		
 		if(x < 0) x = oldX;
 		if(y < 0) y = oldY;
 		if(x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) x = oldX;
 		if(y >= (CanvasGame.map.Altura << 4) - this.frameHeight+1) y = oldY;
-		
-		super.selfSimulates(diffTime);
 	}
 	
 	@Override
