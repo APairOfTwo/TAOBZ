@@ -23,7 +23,7 @@ public class ProjMeat extends Projectile {
 		Xspeed = (float)(Math.cos(angle2) * speed);
 		Yspeed = (float)(Math.sin(angle2) * speed);
 		hitTheGround = false;
-		shooter = CanvasGame.billy;
+		shooter = CanvasGame.zombie;
 		Xspeed *= shooter.moveDirection;
 	}
 	

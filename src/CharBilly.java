@@ -1,5 +1,4 @@
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -12,10 +11,12 @@ public class CharBilly extends Character {
 	int numShotsBone = 5;
 	Projectile proj;
 	boolean positionsMap = false;
-	int bx, by;
+	float spawnX, spawnY;
 	
 	public CharBilly(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 49, 55, 7);
+		this.spawnX = x;
+		this.spawnY = y;
 	}
 
 	@Override
@@ -129,8 +130,8 @@ public class CharBilly extends Character {
 				}
 			}
 		} else {
-//			x = CanvasGame.billySpawnPoint.x;
-//			y = CanvasGame.billySpawnPoint.y;
+			x = spawnX;
+			y = spawnY;
 		}
 	}
 	

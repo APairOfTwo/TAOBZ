@@ -10,9 +10,12 @@ public class CharZombie extends Character {
 	float speed = 220;
 	int numShotsMeat = 5;
 	Projectile proj;
+	float spawnX, spawnY;
 	
 	public CharZombie(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 49, 55, 7);
+		this.spawnX = x;
+		this.spawnY = y;
 	}
 
 	@Override
@@ -118,16 +121,17 @@ public class CharZombie extends Character {
 		isAlive = true;
 		hasJumped = false;
 		numShotsMeat = 5;
-		for(int i = CanvasGame.checkpoints.size()-1; i >= 0; i--) {
-			if(CanvasGame.checkpoints.get(i).isActive) {
-				x = CanvasGame.checkpoints.get(i).x;
-				y = CanvasGame.checkpoints.get(i).y;
-				break;
+		if(CanvasGame.checkpoints.size() != 0) {
+			for(int i = CanvasGame.checkpoints.size()-1; i >= 0; i--) {
+				if(CanvasGame.checkpoints.get(i).isActive) {
+					x = CanvasGame.checkpoints.get(i).x;
+					y = CanvasGame.checkpoints.get(i).y;
+					break;
+				}
 			}
-			if(i == 0) {
-				x = 20;
-				y = 20;
-			}
+		} else {
+			x = spawnX;
+			y = spawnY;
 		}
 	}
 }

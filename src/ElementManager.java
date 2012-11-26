@@ -43,9 +43,6 @@ public class ElementManager {
 			switch (ele.itemId) {
 			case 1:
 				CanvasGame.billy = new CharBilly(ele.blockX<<4, ele.blockY<<4, CanvasGame.charsetBilly, 0, 0);
-				//CharBilly.spawnPoint.x = ele.blockX<<4;
-				//CharBilly.spawnPoint.y = ele.blockY<<4;
-				//CanvasGame.billy.spawnPoint.setLocation(ele.blockX<<4, ele.blockY<<4);
 				break;
 			case 2:
 				CanvasGame.zombie = new CharZombie(ele.blockX<<4, ele.blockY<<4, CanvasGame.charsetZombie, 0, 0);

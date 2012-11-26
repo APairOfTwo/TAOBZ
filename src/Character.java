@@ -28,8 +28,6 @@ public class Character extends Sprite {
 	boolean isAlive = true;
 	int jumpSpeed = 1100;
 	
-	boolean destroyBlocks = false;
-	
 	float radius = 24;
 	
 	int centerX;
