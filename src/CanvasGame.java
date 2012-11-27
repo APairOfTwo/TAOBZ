@@ -143,9 +143,9 @@ public class CanvasGame extends Canvas {
 			c.selfDraws(dbg, map.MapX, map.MapY);
 		}
 		if(loading) {
-			dbg.drawImage(loadingScreen, 0, 0, GamePanel.PANEL_WIDTH, GamePanel.PANEL_HEIGHT, 0, 0, loadingScreen.getWidth(), loadingScreen.getHeight(), null);
-//			dbg.setColor(Color.BLACK);
-//			dbg.fillRect(0, 0, GamePanel.PANEL_WIDTH, GamePanel.PANEL_HEIGHT);
+			dbg.setColor(Color.BLACK);
+			dbg.fillRect(0, 0, GamePanel.PANEL_WIDTH, GamePanel.PANEL_HEIGHT);
+			dbg.drawImage(loadingScreen, 242, 274, 559, 326, 0, 0, loadingScreen.getWidth(), loadingScreen.getHeight(), null);
 		}
 	}
 
