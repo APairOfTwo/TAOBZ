@@ -120,16 +120,16 @@ public class EnemyBerserker extends Character {
 			}
 		}
 		
-		if(floorCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16), (int)((y+frameHeight-15)/16), (int)((y+frameHeight-20)/16))) {
-			y = oldY;
-			onTheFloor = true;
-		} else {
-			onTheFloor = false;
-		}
-
-		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) || sideAndTopCollision((int)((x+10)/16), (int)((x+60)/16), (int)((y+frameHeight-10)/16))) {
-			x = oldX;
-		}
+//		if(floorCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16), (int)((y+frameHeight-15)/16), (int)((y+frameHeight-20)/16))) {
+//			y = oldY;
+//			onTheFloor = true;
+//		} else {
+//			onTheFloor = false;
+//		}
+//
+//		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) || sideAndTopCollision((int)((x+10)/16), (int)((x+60)/16), (int)((y+frameHeight-10)/16))) {
+//			x = oldX;
+//		}
 	}
 	
 	@Override

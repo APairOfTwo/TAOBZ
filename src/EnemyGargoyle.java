@@ -138,12 +138,12 @@ public class EnemyGargoyle extends Character {
 			}
 		}
 		
-		if(floorCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16), (int)((y+frameHeight-15)/16), (int)((y+frameHeight-20)/16))) {
-			y = oldY;
-			onTheFloor = true;
-		} else {
-			onTheFloor = false;
-		}
+//		if(floorCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16), (int)((y+frameHeight-15)/16), (int)((y+frameHeight-20)/16))) {
+//			y = oldY;
+//			onTheFloor = true;
+//		} else {
+//			onTheFloor = false;
+//		}
 		
 		if(x < 0) x = oldX;
 		if(y < 0) y = oldY;

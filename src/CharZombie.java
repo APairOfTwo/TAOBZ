@@ -77,24 +77,24 @@ public class CharZombie extends Character {
 		if(x >= (CanvasGame.map.Largura << 4) - 50) x = oldX;
 		if(y >= (CanvasGame.map.Altura << 4) - 48) y = oldY;
 		
-		if(floorCollision((int)((x+10)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+45)/16), (int)((y+40)/16))) {
-			y = oldY;
-			if((int)oldY % 16 != 0) {
-				y -= 1;
-			}
-			onTheFloor = true;
-		} else {
-			onTheFloor = false;
-		}
-		
-		if(sideAndTopCollision((int)((x+10)/16), (int)((x+40)/16), (int)((y+35)/16))) {
-			x = oldX;
-		}
-		
-		if(sideAndTopCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y)/16))) {
-			y = oldY;
-			jumpSpeed = jumpSpeed / 2;
-		}
+//		if(floorCollision((int)((x+10)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+45)/16), (int)((y+40)/16))) {
+//			y = oldY;
+//			if((int)oldY % 16 != 0) {
+//				y -= 1;
+//			}
+//			onTheFloor = true;
+//		} else {
+//			onTheFloor = false;
+//		}
+//		
+//		if(sideAndTopCollision((int)((x+10)/16), (int)((x+40)/16), (int)((y+35)/16))) {
+//			x = oldX;
+//		}
+//		
+//		if(sideAndTopCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y)/16))) {
+//			y = oldY;
+//			jumpSpeed = jumpSpeed / 2;
+//		}
 		
 		for(Character c : CanvasGame.enemiesList) {
 			if(!c.isEating && !c.isStunned) {

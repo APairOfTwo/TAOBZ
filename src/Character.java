@@ -93,21 +93,33 @@ public class Character extends Sprite {
 				(frameWidth*frame+charsetX*charsetWidth), (frameHeight*animation+charsetY*charsetHeight),
 				(frameWidth*frame+frameWidth+charsetX*charsetWidth), (frameHeight*animation+frameHeight+charsetY*charsetHeight), null);
 		
-		dbg.setColor(Color.RED);
-		if(getBounds() != null)	dbg.draw(getBounds());
-		dbg.drawOval((int)(x-CanvasGame.map.MapX-radius+centerX), (int)(y-CanvasGame.map.MapY-radius+centerY), (int)(radius*2),(int)(radius*2));
+//		dbg.setColor(Color.RED);
+//		if(getBounds() != null)	dbg.draw(getBounds());
+//		dbg.drawOval((int)(x-CanvasGame.map.MapX-radius+centerX), (int)(y-CanvasGame.map.MapY-radius+centerY), (int)(radius*2),(int)(radius*2));
 	}
 	
-	public boolean sideAndTopCollision(int bxi, int bxf, int by) {
-		if((CanvasGame.map.mapLayer1[by][bxi]>0) || (CanvasGame.map.mapLayer1[by][bxf]>0)) return true;
+	
+	public boolean floorCollision(int bxi, int bxm, int bxf, int byi, int bym, int byf) {
+		if((CanvasGame.map.mapLayer1[byi][bxi]>0) || (CanvasGame.map.mapLayer1[byi][bxm]>0) || (CanvasGame.map.mapLayer1[byi][bxf]>0) ||
+		   (CanvasGame.map.mapLayer1[bym][bxi]>0) || (CanvasGame.map.mapLayer1[bym][bxm]>0) || (CanvasGame.map.mapLayer1[bym][bxf]>0) ||
+		   (CanvasGame.map.mapLayer1[byf][bxi]>0) || (CanvasGame.map.mapLayer1[byf][bxm]>0) || (CanvasGame.map.mapLayer1[byf][bxf]>0)) {
+			onTheFloor = true;
+			return true;
+		}
 		return false;
 	}
 	
-	public boolean floorCollision(int bxi, int bxf, int byi, int bym, int byf) {
-		TileMap map = CanvasGame.map;
-		if((map.mapLayer1[byi][bxi]>0) || (map.mapLayer1[bym][bxi]>0) || (map.mapLayer1[byf][bxi]>0) ||
-		   (map.mapLayer1[byi][bxf]>0) || (map.mapLayer1[bym][bxf]>0) || (map.mapLayer1[byf][bxf]>0)) {
-			onTheFloor = true;
+	public boolean lateralCollision(int bxi, int bxf, int byi, int bym, int byf) {
+		if((CanvasGame.map.mapLayer1[byi][bxi]>0) || (CanvasGame.map.mapLayer1[byi][bxf]>0) || (CanvasGame.map.mapLayer1[bym][bxi]>0) ||
+		   (CanvasGame.map.mapLayer1[bym][bxf]>0) || (CanvasGame.map.mapLayer1[byf][bxi]>0) || (CanvasGame.map.mapLayer1[byf][bxf]>0)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean topCollision(int bxi, int bxm, int bxf, int byi, int byf) {
+		if((CanvasGame.map.mapLayer1[byi][bxi]>0) || (CanvasGame.map.mapLayer1[byi][bxm]>0) || (CanvasGame.map.mapLayer1[byi][bxf]>0) ||
+		   (CanvasGame.map.mapLayer1[byf][bxi]>0) || (CanvasGame.map.mapLayer1[byf][bxm]>0) || (CanvasGame.map.mapLayer1[byf][bxf]>0)) {
 			return true;
 		}
 		return false;

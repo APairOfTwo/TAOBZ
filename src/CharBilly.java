@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -78,7 +79,7 @@ public class CharBilly extends Character {
 			}
 		}
 		
-		if(floorCollision((int)((x+10)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+45)/16), (int)((y+40)/16))) {
+		if(floorCollision((int)((x+10)/16), (int)((x+25)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+49)/16), (int)((y+48)/16))) {
 			y = oldY;
 			if((int)oldY % 16 != 0) {
 				y -= 1;
@@ -88,11 +89,11 @@ public class CharBilly extends Character {
 			onTheFloor = false;
 		}
 		
-		if(sideAndTopCollision((int)((x+10)/16), (int)((x+40)/16), (int)((y+35)/16))) {
+		if(lateralCollision((int)((x+5)/16), (int)((x+45)/16), (int)((y+40)/16), (int)((y+35)/16), (int)((y+35)/16))) {
 			x = oldX;
 		}
 		
-		if(sideAndTopCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y)/16))) {
+		if(topCollision((int)((x+20)/16), (int)((x+25)/16), (int)((x+30)/16), (int)((y+15)/16), (int)((y+20)/16))) {
 			y = oldY;
 			jumpSpeed = jumpSpeed / 2;
 		}
@@ -110,6 +111,10 @@ public class CharBilly extends Character {
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
 		super.selfDraws(dbg, mapX, mapY);
 		dbg.drawString("Bones: "+numShotsBone, 10, 40);
+		dbg.setColor(Color.RED);
+		dbg.drawRect((int)(x+10)-mapX, (int)(y+48)-mapY, 30, 2);
+		dbg.drawRect((int)(x+5)-mapX, (int)(y+35)-mapY, 40, 10);
+		dbg.drawRect((int)(x+20)-mapX, (int)(y)-mapY, 10, 16);
 	}
 	
 	public Rectangle getBounds() {
