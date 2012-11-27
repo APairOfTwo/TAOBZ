@@ -21,6 +21,7 @@ public class CanvasGame extends Canvas {
 	public static BufferedImage charsetGargoyle;
 	public static BufferedImage charsetVegetarian;
 	public static BufferedImage tileset;
+	public BufferedImage loadingScreen = GamePanel.loadImage("backgrounds/loading_background.png");
 	
 	public static String strMap01 = new String("maps/hell_01.map");
 	public static String strMap02 = new String();
@@ -50,6 +51,7 @@ public class CanvasGame extends Canvas {
 	public static boolean MOUSE_PRESSED;
 	public static int MOUSE_X, MOUSE_Y;
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
+	public boolean loading;
 	
 	public CanvasGame(){
 		instance = this;
@@ -68,46 +70,48 @@ public class CanvasGame extends Canvas {
 		MOUSE_CLICK_X = 0;
 		MOUSE_CLICK_Y = 0;
 		MOUSE_PRESSED = false;
-		
+		loading = true;
 		setGameLevel(1);
 	}
 	
 	@Override
 	public void selfSimulates(long diffTime) {
-		for(Character c : heroes) {
-			if(c.isAlive){
-				c.selfSimulates(diffTime);
-				map.Positions((int)c.x-GamePanel.PANEL_WIDTH/2, (int)c.y-GamePanel.PANEL_HEIGHT/2);
-			} else {
-				c.respawnCountTime+=diffTime;
-				if(c.respawnCountTime >= 3000) {
-					c.respawnCountTime = 0;
-					c.respawn();
+		if(!loading) {
+			for(Character c : heroes) {
+				if(c.isAlive){
+					c.selfSimulates(diffTime);
+					map.Positions((int)c.x-GamePanel.PANEL_WIDTH/2, (int)c.y-GamePanel.PANEL_HEIGHT/2);
+				} else {
+					c.respawnCountTime+=diffTime;
+					if(c.respawnCountTime >= 3000) {
+						c.respawnCountTime = 0;
+						c.respawn();
+					}
 				}
 			}
-		}
-		for(int i = 0; i < projectilesList.size(); i++){
-			projectilesList.get(i).selfSimulates(diffTime);
-			if(!projectilesList.get(i).active){
-				projectilesList.remove(i);
-				i--;
+			for(int i = 0; i < projectilesList.size(); i++){
+				projectilesList.get(i).selfSimulates(diffTime);
+				if(!projectilesList.get(i).active){
+					projectilesList.remove(i);
+					i--;
+				}
 			}
-		}
-		for(int i = 0; i < enemiesList.size(); i++) {
-			enemiesList.get(i).selfSimulates(diffTime);
-			if(!enemiesList.get(i).isAlive){
-				enemiesList.remove(i);
-				i--;
+			for(int i = 0; i < enemiesList.size(); i++) {
+				enemiesList.get(i).selfSimulates(diffTime);
+				if(!enemiesList.get(i).isAlive){
+					enemiesList.remove(i);
+					i--;
+				}
 			}
-		}
-		for(Checkpoint c : checkpoints) {
-			c.selfSimulates(diffTime);
-		}
-		for(int i = 0; i < effectsList.size(); i++){
-			effectsList.get(i).selfSimulates(diffTime);
-			if(effectsList.get(i).active == false){
-				effectsList.remove(i);
-				i--;
+			for(Checkpoint c : checkpoints) {
+				c.selfSimulates(diffTime);
+			}
+			for(int i = 0; i < effectsList.size(); i++){
+				effectsList.get(i).selfSimulates(diffTime);
+				if(effectsList.get(i).active == false){
+					effectsList.remove(i);
+					i--;
+				}
 			}
 		}
 	}
@@ -138,6 +142,11 @@ public class CanvasGame extends Canvas {
 		for(Character c : heroes) {
 			c.selfDraws(dbg, map.MapX, map.MapY);
 		}
+		if(loading) {
+			dbg.drawImage(loadingScreen, 0, 0, GamePanel.PANEL_WIDTH, GamePanel.PANEL_HEIGHT, 0, 0, loadingScreen.getWidth(), loadingScreen.getHeight(), null);
+//			dbg.setColor(Color.BLACK);
+//			dbg.fillRect(0, 0, GamePanel.PANEL_WIDTH, GamePanel.PANEL_HEIGHT);
+		}
 	}
 
 	@Override
@@ -150,7 +159,7 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_LEFT)		{ Z_LEFT  = true; }
 		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_RIGHT = true; }
 		if(keyCode == KeyEvent.VK_UP)		{ Z_JUMP  = true; }
-		if(keyCode == KeyEvent.VK_S)		{ setGameLevel(1); }
+		if(keyCode == KeyEvent.VK_S)		{ loading = false; }
 		if(keyCode == KeyEvent.VK_F1)		{ SaveGame.save(); }
 		if(keyCode == KeyEvent.VK_L)		{ LoadGame.load(); }
 		if(keyCode == KeyEvent.VK_ESCAPE) {
