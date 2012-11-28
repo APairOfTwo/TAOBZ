@@ -52,6 +52,9 @@ public class CanvasGame extends Canvas {
 	public static int MOUSE_X, MOUSE_Y;
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
 	public boolean loading;
+	public int mapPositionX;
+	public int mapPositionY;
+	
 	
 	public CanvasGame(){
 		instance = this;
@@ -80,7 +83,29 @@ public class CanvasGame extends Canvas {
 			for(Character c : heroes) {
 				if(c.isAlive){
 					c.selfSimulates(diffTime);
-					map.Positions((int)c.x-GamePanel.PANEL_WIDTH/2, (int)c.y-GamePanel.PANEL_HEIGHT/2);
+					if(billy.x > zombie.x) {
+						mapPositionX = (int)billy.x;
+					} else {
+						mapPositionX = (int)zombie.x;
+					}
+					if(billy.y < zombie.y) {
+						mapPositionY = (int)billy.y;
+					} else {
+						mapPositionY = (int)zombie.y;
+					}
+					map.Positions(mapPositionX-GamePanel.PANEL_WIDTH/2, mapPositionY-GamePanel.PANEL_HEIGHT/2);
+					
+				}
+				
+				if(GamePanel.isCoop) {
+					if(!billy.isAlive && !zombie.isAlive) {
+						billy.respawnCountTime+=diffTime;
+						if(billy.respawnCountTime >= 3000) {
+							billy.respawnCountTime = 0;
+							billy.respawn();
+							zombie.respawn();
+						}
+					}
 				} else {
 					c.respawnCountTime+=diffTime;
 					if(c.respawnCountTime >= 3000) {
@@ -158,6 +183,7 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_SPACE)	{ B_FIRE  = true; }
 		if(keyCode == KeyEvent.VK_LEFT)		{ Z_LEFT  = true; }
 		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_RIGHT = true; }
+		if(keyCode == KeyEvent.VK_M)	{ Z_RIGHT = true; }
 		if(keyCode == KeyEvent.VK_UP)		{ Z_JUMP  = true; }
 		if(keyCode == KeyEvent.VK_S)		{ loading = false; }
 		if(keyCode == KeyEvent.VK_F1)		{ SaveGame.save(); }
@@ -182,6 +208,7 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_SPACE)	{ B_FIRE  = false; }
 		if(keyCode == KeyEvent.VK_LEFT)		{ Z_LEFT  = false; }
 		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_RIGHT = false; }
+		if(keyCode == KeyEvent.VK_M)	{ Z_RIGHT = false; }
 		if(keyCode == KeyEvent.VK_UP)		{ Z_JUMP  = false; zombie.jumpSpeed = zombie.jumpSpeed / 2; }
 	}
 

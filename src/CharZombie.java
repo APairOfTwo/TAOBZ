@@ -77,15 +77,15 @@ public class CharZombie extends Character {
 		if(x >= (CanvasGame.map.Largura << 4) - 50) x = oldX;
 		if(y >= (CanvasGame.map.Altura << 4) - 48) y = oldY;
 		
-//		if(floorCollision((int)((x+10)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+45)/16), (int)((y+40)/16))) {
-//			y = oldY;
-//			if((int)oldY % 16 != 0) {
-//				y -= 1;
-//			}
-//			onTheFloor = true;
-//		} else {
-//			onTheFloor = false;
-//		}
+		if(floorCollision((int)((x+10)/16), (int)((x+25)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+49)/16), (int)((y+48)/16))) {
+			y = oldY;
+			if((int)oldY % 16 != 0) {
+				y -= 1;
+			}
+			onTheFloor = true;
+		} else {
+			onTheFloor = false;
+		}
 //		
 //		if(sideAndTopCollision((int)((x+10)/16), (int)((x+40)/16), (int)((y+35)/16))) {
 //			x = oldX;
@@ -107,8 +107,11 @@ public class CharZombie extends Character {
 	
 	@Override
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
-		super.selfDraws(dbg, mapX, mapY);
-		dbg.drawString("Meats: "+numShotsMeat, 10, 50);
+		if(isAlive) {
+			super.selfDraws(dbg, mapX, mapY);
+			dbg.drawString("Meats: "+numShotsMeat, 10, 50);
+		}
+
 	}
 	
 	//retangulo delimitador

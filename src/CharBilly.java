@@ -109,12 +109,14 @@ public class CharBilly extends Character {
 	
 	@Override
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
-		super.selfDraws(dbg, mapX, mapY);
-		dbg.drawString("Bones: "+numShotsBone, 10, 40);
-		dbg.setColor(Color.RED);
-		dbg.drawRect((int)(x+10)-mapX, (int)(y+48)-mapY, 30, 2);
-		dbg.drawRect((int)(x+5)-mapX, (int)(y+35)-mapY, 40, 10);
-		dbg.drawRect((int)(x+20)-mapX, (int)(y)-mapY, 10, 16);
+		if(isAlive) {
+			super.selfDraws(dbg, mapX, mapY);
+			dbg.drawString("Bones: "+numShotsBone, 10, 40);
+			dbg.setColor(Color.RED);
+			dbg.drawRect((int)(x+10)-mapX, (int)(y+48)-mapY, 30, 2);
+			dbg.drawRect((int)(x+5)-mapX, (int)(y+35)-mapY, 40, 10);
+			dbg.drawRect((int)(x+20)-mapX, (int)(y)-mapY, 10, 16);
+		}
 	}
 	
 	public Rectangle getBounds() {
@@ -138,17 +140,5 @@ public class CharBilly extends Character {
 			x = spawnX;
 			y = spawnY;
 		}
-	}
-	
-	public void checkMapPositions() {
-		double dx = (CanvasGame.zombie.x + CanvasGame.zombie.centerX) - (x + centerX);
-		double dy = CanvasGame.zombie.y - (y + centerY);
-		double dist = Math.hypot(dx, dy);
-		System.out.println(dist);
-		
-//		if(dist < 400) {
-//			return true;
-//		}
-//		return false;
 	}
 }
