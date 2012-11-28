@@ -81,36 +81,52 @@ public class CanvasGame extends Canvas {
 	public void selfSimulates(long diffTime) {
 		if(!loading) {
 			for(Character c : heroes) {
-				if(c.isAlive){
+				if(c.isAlive) {
 					c.selfSimulates(diffTime);
-					if(billy.x > zombie.x) {
-						mapPositionX = (int)billy.x;
+					if(GamePanel.isCoop) {
+						if(billy.isAlive && zombie.isAlive) {
+							if(billy.x > zombie.x) {
+								mapPositionX = (int)billy.x;
+							} else {
+								mapPositionX = (int)zombie.x;
+							}
+							if(billy.y < zombie.y) {
+								mapPositionY = (int)billy.y;
+							} else {
+								mapPositionY = (int)zombie.y;
+							}
+						} else {
+							if(billy.isAlive) {
+								mapPositionX = (int)billy.x;
+								mapPositionY = (int)billy.y;
+							}
+							if(zombie.isAlive) {
+								mapPositionX = (int)zombie.x;
+								mapPositionY = (int)zombie.y;
+							}
+						}
 					} else {
-						mapPositionX = (int)zombie.x;
-					}
-					if(billy.y < zombie.y) {
-						mapPositionY = (int)billy.y;
-					} else {
-						mapPositionY = (int)zombie.y;
+						mapPositionX = (int)c.x;
+						mapPositionY = (int)c.y;
 					}
 					map.Positions(mapPositionX-GamePanel.PANEL_WIDTH/2, mapPositionY-GamePanel.PANEL_HEIGHT/2);
 					
-				}
-				
-				if(GamePanel.isCoop) {
-					if(!billy.isAlive && !zombie.isAlive) {
-						billy.respawnCountTime+=diffTime;
-						if(billy.respawnCountTime >= 3000) {
-							billy.respawnCountTime = 0;
-							billy.respawn();
-							zombie.respawn();
-						}
-					}
 				} else {
-					c.respawnCountTime+=diffTime;
-					if(c.respawnCountTime >= 3000) {
-						c.respawnCountTime = 0;
-						c.respawn();
+					if(GamePanel.isCoop) {
+						if(!billy.isAlive && !zombie.isAlive) {
+							billy.respawnCountTime+=diffTime;
+							if(billy.respawnCountTime >= 3000) {
+								billy.respawnCountTime = 0;
+								billy.respawn();
+								zombie.respawn();
+							}
+						}
+					} else {
+						c.respawnCountTime+=diffTime;
+						if(c.respawnCountTime >= 3000) {
+							c.respawnCountTime = 0;
+							c.respawn();
+						}
 					}
 				}
 			}
