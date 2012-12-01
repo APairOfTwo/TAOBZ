@@ -25,16 +25,15 @@ public class CanvasGame extends Canvas {
 	
 	public static String strMap01 = new String("maps/hell_01.map");
 	public static String strMap02 = new String("maps/hell_02.map");
-	public static String strMap03 = new String();
+	public static String strMap03 = new String("maps/hell_03.map");
 	
 	public static String strTileset01 = new String("maps/hell_tileset.png");
 	public static String strTileset02 = new String("maps/hell_tileset2.png");
-	public static String strTileset03 = new String();
+	public static String strTileset03 = new String("maps/hell_tileset3.png");
 	
 	public static String strElements01 = new String("csv/hell_01.csv");
 	public static String strElements02 = new String("csv/hell_02.csv");
-
-	public static String strElements03 = new String();
+	public static String strElements03 = new String("csv/hell_03.csv");
 	
 	Random rand = new Random();
 	public static int variables[] = new int[100];
@@ -290,6 +289,17 @@ public class CanvasGame extends Canvas {
 			map = new TileMap(CanvasGame.tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
 			map.OpenMap(strMap02);
 			gameElements = new ElementManager(strElements02);
+			gameElements.decodeElements();
+		}
+		if(levelId == 3) {
+			heroes.clear();
+			enemiesList.clear();
+			projectilesList.clear();
+			gameElements.elementsList.clear();
+			tileset = GamePanel.loadImage(strTileset03);
+			map = new TileMap(CanvasGame.tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
+			map.OpenMap(strMap03);
+			gameElements = new ElementManager(strElements03);
 			gameElements.decodeElements();
 		}
 	}
