@@ -38,6 +38,7 @@ public class CanvasMainMenu extends Canvas {
 		
 		if(MOUSE_PRESSED && btnNewGame.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
 			GamePanel.canvasActive = new CanvasGameMode();
+			GamePanel.levelId = 1;
 			MOUSE_PRESSED = false;
 		}
 		

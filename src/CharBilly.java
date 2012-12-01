@@ -105,6 +105,14 @@ public class CharBilly extends Character {
 				}
 			}
 		}
+		
+		for(Element e : CanvasGame.gameElements.elementsList) {
+			if(e.itemId == 9) {
+				if(this.getBounds().intersects((e.blockX<<4)-CanvasGame.map.MapX, (e.blockY<<4)-CanvasGame.map.MapY, 16, 64)) {
+					GamePanel.canvasActive = new CanvasResult();
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -134,6 +142,9 @@ public class CharBilly extends Character {
 					x = CanvasGame.checkpoints.get(i).x;
 					y = CanvasGame.checkpoints.get(i).y;
 					break;
+				} else if(i == 0) {
+					x = spawnX;
+					y = spawnY;
 				}
 			}
 		} else {

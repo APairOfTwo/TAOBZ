@@ -22,6 +22,11 @@ public class GamePanel extends JPanel implements Runnable {
 	public static Audio bgMusic;
 	public static float volume = 1.0f;
 	public static boolean isCoop = false;
+	public static boolean selectedBilly = false;
+	public static boolean selectedZombie = false;
+	public static int levelId = 1;
+//	public static int currentLevelId = levelId;
+//	public static int nextLevelId = currentLevelId++;
 	
 	public GamePanel(){
 		instance = this;

@@ -1,6 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -23,16 +23,17 @@ public class CanvasGame extends Canvas {
 	public static BufferedImage tileset;
 	public BufferedImage loadingScreen = GamePanel.loadImage("backgrounds/loading_background.png");
 	
-	public static String strMap01 = new String("maps/hell_03.map");
-	public static String strMap02 = new String();
+	public static String strMap01 = new String("maps/hell_01.map");
+	public static String strMap02 = new String("maps/hell_02.map");
 	public static String strMap03 = new String();
 	
-	public static String strTileset01 = new String("maps/hell_tileset3.png");
-	public static String strTileset02 = new String();
+	public static String strTileset01 = new String("maps/hell_tileset.png");
+	public static String strTileset02 = new String("maps/hell_tileset2.png");
 	public static String strTileset03 = new String();
 	
-	public static String strElements01 = new String("csv/hell_03.csv");
-	public static String strElements02 = new String();
+	public static String strElements01 = new String("csv/hell_01.csv");
+	public static String strElements02 = new String("csv/hell_02.csv");
+
 	public static String strElements03 = new String();
 	
 	Random rand = new Random();
@@ -53,10 +54,9 @@ public class CanvasGame extends Canvas {
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
 	public boolean loading;
 	public int mapPositionX;
-	public int mapPositionY;
+	public int mapPositionY;	
 	
-	
-	public CanvasGame(){
+	public CanvasGame(int levelId) {
 		instance = this;
 		
 		GamePanel.bgMusic.close();
@@ -74,7 +74,6 @@ public class CanvasGame extends Canvas {
 		MOUSE_CLICK_Y = 0;
 		MOUSE_PRESSED = false;
 		loading = true;
-		setGameLevel(1);
 	}
 	
 	@Override
@@ -183,6 +182,14 @@ public class CanvasGame extends Canvas {
 		for(Character c : heroes) {
 			c.selfDraws(dbg, map.MapX, map.MapY);
 		}
+		
+		for(Element e : CanvasGame.gameElements.elementsList) {
+			if(e.itemId == 9) {
+				dbg.setColor(Color.CYAN);
+				dbg.fillRect((e.blockX<<4)-map.MapX, (e.blockY<<4)-map.MapY, 16, 64);
+			}
+		}
+		
 		if(loading) {
 			dbg.setColor(Color.BLACK);
 			dbg.fillRect(0, 0, GamePanel.PANEL_WIDTH, GamePanel.PANEL_HEIGHT);
@@ -199,7 +206,7 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_SPACE)	{ B_FIRE  = true; }
 		if(keyCode == KeyEvent.VK_LEFT)		{ Z_LEFT  = true; }
 		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_RIGHT = true; }
-		if(keyCode == KeyEvent.VK_M)	{ Z_RIGHT = true; }
+		if(keyCode == KeyEvent.VK_M)		{ Z_RIGHT = true; }
 		if(keyCode == KeyEvent.VK_UP)		{ Z_JUMP  = true; }
 		if(keyCode == KeyEvent.VK_S)		{ loading = false; }
 		if(keyCode == KeyEvent.VK_F1)		{ SaveGame.save(); }
@@ -224,7 +231,7 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_SPACE)	{ B_FIRE  = false; }
 		if(keyCode == KeyEvent.VK_LEFT)		{ Z_LEFT  = false; }
 		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_RIGHT = false; }
-		if(keyCode == KeyEvent.VK_M)	{ Z_RIGHT = false; }
+		if(keyCode == KeyEvent.VK_M)		{ Z_RIGHT = false; }
 		if(keyCode == KeyEvent.VK_UP)		{ Z_JUMP  = false; zombie.jumpSpeed = zombie.jumpSpeed / 2; }
 	}
 
@@ -251,8 +258,20 @@ public class CanvasGame extends Canvas {
 		Z_FIRE = false;
 	}
 	
+	public static void resetControls() {
+		B_LEFT = false;
+		B_RIGHT = false;
+		B_JUMP = false; 
+		B_FIRE = false;
+		Z_LEFT = false;
+		Z_RIGHT = false;
+		Z_JUMP = false; 
+		Z_FIRE = false;
+	}
+	
 	public static void setGameLevel(int levelId) {
 		if(levelId == 1) {
+			heroes.clear();
 			enemiesList.clear();
 			projectilesList.clear();
 			gameElements.elementsList.clear();
@@ -260,6 +279,17 @@ public class CanvasGame extends Canvas {
 			map = new TileMap(CanvasGame.tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
 			map.OpenMap(strMap01);
 			gameElements = new ElementManager(strElements01);
+			gameElements.decodeElements();
+		}
+		if(levelId == 2) {
+			heroes.clear();
+			enemiesList.clear();
+			projectilesList.clear();
+			gameElements.elementsList.clear();
+			tileset = GamePanel.loadImage(strTileset02);
+			map = new TileMap(CanvasGame.tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
+			map.OpenMap(strMap02);
+			gameElements = new ElementManager(strElements02);
 			gameElements.decodeElements();
 		}
 	}

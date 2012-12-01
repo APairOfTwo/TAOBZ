@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -79,13 +78,6 @@ public class CanvasPause extends Canvas {
 	
 	public void closeThisCanvas() {
 		GamePanel.canvasActive = CanvasGame.instance;
-		CanvasGame.B_LEFT = false;
-		CanvasGame.B_RIGHT = false;
-		CanvasGame.B_JUMP = false; 
-		CanvasGame.B_FIRE = false;
-		CanvasGame.Z_LEFT = false;
-		CanvasGame.Z_RIGHT = false;
-		CanvasGame.Z_JUMP = false; 
-		CanvasGame.Z_FIRE = false;
+		CanvasGame.resetControls();
 	}
 }
