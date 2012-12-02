@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 public class GamePanel extends JPanel implements Runnable {
 	
 	public static final int PANEL_WIDTH = 800;
-	public static final int PANEL_HEIGHT = 610;
+	public static final int PANEL_HEIGHT = 600;
 	public static GamePanel instance;
 	private Thread gameThread;
 	public static boolean running = false;
@@ -27,6 +27,14 @@ public class GamePanel extends JPanel implements Runnable {
 	public static int levelId = 1;
 //	public static int currentLevelId = levelId;
 //	public static int nextLevelId = currentLevelId++;
+	private static DisplayMode[] BEST_DISPLAY_MODES = new DisplayMode[] {
+        new DisplayMode(800, 600, 32, 0),
+        new DisplayMode(800, 600, 16, 0),
+        new DisplayMode(800, 600, 8, 0)
+    };
+	public static GraphicsDevice device;
+	public static JFrame app;
+	public static boolean isFullScreen = false;
 	
 	public GamePanel(){
 		instance = this;
@@ -171,13 +179,49 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public static void main(String args[]){
 		GamePanel ttPanel = new GamePanel();
-		JFrame app = new JFrame("The Adventures of Billy Bones and Z the Zombie");
+		app = new JFrame("The Adventures of Billy Bones and Z the Zombie");
 		app.getContentPane().add(ttPanel, BorderLayout.CENTER);
 		app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		app.pack();
 		app.setResizable(true);
 		app.setVisible(true);
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		device = env.getDefaultScreenDevice();
 	}
+	
+	public static void setFullScreen(boolean isFullScreen) {
+		GamePanel.isFullScreen = isFullScreen;
+		if(isFullScreen) {
+			device.setFullScreenWindow(app);
+			if (device.isDisplayChangeSupported()) {
+	            chooseBestDisplayMode(device);
+	        }
+		} else {
+			device.setFullScreenWindow(null);
+		}
+	}
+	
+	private static DisplayMode getBestDisplayMode(GraphicsDevice device) {
+        for (int x = 0; x < BEST_DISPLAY_MODES.length; x++) {
+            DisplayMode[] modes = device.getDisplayModes();
+            for (int i = 0; i < modes.length; i++) {
+                if (modes[i].getWidth() == BEST_DISPLAY_MODES[x].getWidth()
+                   && modes[i].getHeight() == BEST_DISPLAY_MODES[x].getHeight()
+                   && modes[i].getBitDepth() == BEST_DISPLAY_MODES[x].getBitDepth()
+                   ) {
+                    return BEST_DISPLAY_MODES[x];
+                }
+            }
+        }
+        return null;
+    }
+     
+    public static void chooseBestDisplayMode(GraphicsDevice device) {
+        DisplayMode best = getBestDisplayMode(device);
+        if (best != null) {
+            device.setDisplayMode(best);
+        }
+    }
 
 	public static BufferedImage loadImage(String source){
 		BufferedImage image = null;
