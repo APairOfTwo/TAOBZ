@@ -35,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public static GraphicsDevice device;
 	public static JFrame app;
 	public static boolean isFullScreen = false;
+	public static Cursor myCursor;
 	
 	public GamePanel(){
 		instance = this;
@@ -187,6 +188,7 @@ public class GamePanel extends JPanel implements Runnable {
 		app.setVisible(true);
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		device = env.getDefaultScreenDevice();
+		makeCursorInvisible();
 	}
 	
 	public static void setFullScreen(boolean isFullScreen) {
@@ -221,6 +223,19 @@ public class GamePanel extends JPanel implements Runnable {
         if (best != null) {
             device.setDisplayMode(best);
         }
+    }
+    
+    public static void makeCursorInvisible() {
+    	//Create an empty byte array  
+    	byte[]imageByte = new byte[0];  
+    	  
+    	Point myPoint = new Point(0,0);  
+    	  
+    	//Create image for cursor using empty array  
+    	Image cursorImage = Toolkit.getDefaultToolkit().createImage(imageByte);  
+    	
+    	//Create cursor  
+    	myCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, myPoint, "cursor");
     }
 
 	public static BufferedImage loadImage(String source){

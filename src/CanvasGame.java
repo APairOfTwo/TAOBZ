@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -57,6 +58,8 @@ public class CanvasGame extends Canvas {
 	
 	public CanvasGame(int levelId) {
 		instance = this;
+		
+		GamePanel.app.setCursor(GamePanel.myCursor);
 		
 		GamePanel.bgMusic.close();
 		
@@ -211,6 +214,7 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_F1)		{ SaveGame.save(); }
 		if(keyCode == KeyEvent.VK_L)		{ LoadGame.load(); }
 		if(keyCode == KeyEvent.VK_ESCAPE) {
+			GamePanel.app.setCursor(Cursor.getDefaultCursor());
 			if(CanvasPause.instance == null) {
 				CanvasPause pause = new CanvasPause();
 			}

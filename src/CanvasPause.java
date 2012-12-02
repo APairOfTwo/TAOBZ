@@ -14,6 +14,7 @@ public class CanvasPause extends Canvas {
 	
 	public CanvasPause() {
 		instance = this;
+		
 		background = GamePanel.loadImage("backgrounds/pause_background.png");
 		btnResume = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 - 100, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");
 		btnExit = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 100, "buttons/btnExitOn.png", "buttons/btnExitOff.png");
@@ -30,6 +31,7 @@ public class CanvasPause extends Canvas {
 		if(MOUSE_PRESSED && btnResume.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
 			closeThisCanvas();
 			MOUSE_PRESSED = false;
+			GamePanel.app.setCursor(GamePanel.myCursor);
 		}
 		
 		if(MOUSE_PRESSED && btnExit.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
@@ -48,6 +50,7 @@ public class CanvasPause extends Canvas {
 	public void keyPressed(KeyEvent k){
 		int keyCode = k.getKeyCode();
 		if(keyCode == KeyEvent.VK_ESCAPE){
+			GamePanel.app.setCursor(GamePanel.myCursor);
 			closeThisCanvas();
 		}
 	}
