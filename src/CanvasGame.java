@@ -36,7 +36,6 @@ public class CanvasGame extends Canvas {
 	public static String strElements03 = new String("csv/hell_03.csv");
 	
 	Random rand = new Random();
-	public static int variables[] = new int[100];
 	
 	public static ArrayList<Character> heroes = new ArrayList<Character>();
 	public static ArrayList<Character> enemiesList = new ArrayList<Character>();
@@ -44,8 +43,6 @@ public class CanvasGame extends Canvas {
 	public static ArrayList<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
 	public static ArrayList<Effect> effectsList = new ArrayList<Effect>();
 	
-	public static boolean projIsBone = true;
-	public static boolean projIsMeat = false;
 	public static boolean B_LEFT, B_RIGHT, B_JUMP, B_FIRE;
 	public static boolean Z_LEFT, Z_RIGHT, Z_JUMP, Z_FIRE;
 	public static boolean MOUSE_PRESSED;
@@ -219,9 +216,6 @@ public class CanvasGame extends Canvas {
 			}
 			GamePanel.canvasActive = CanvasPause.instance;
 		}
-		
-		if(keyCode == KeyEvent.VK_1)		{ projIsBone = true; projIsMeat = false; }
-		if(keyCode == KeyEvent.VK_2)		{ projIsBone = false; projIsMeat = true; }
 	}
 
 	@Override
