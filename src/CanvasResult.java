@@ -1,3 +1,4 @@
+import java.awt.Cursor;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -14,6 +15,7 @@ public class CanvasResult extends Canvas {
 	
 	public CanvasResult() {
 		instance = this;
+		GamePanel.app.setCursor(Cursor.getDefaultCursor());
 		background = GamePanel.loadImage("backgrounds/score_background.png");
 		btnContinue = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 100, "buttons/btnNextMapOn.png", "buttons/btnNextMapOff.png");
 		btnRetry = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 150, "buttons/btnRetryOn.png", "buttons/btnRetryOff.png");

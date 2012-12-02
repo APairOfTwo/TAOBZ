@@ -49,6 +49,7 @@ public class CanvasGame extends Canvas {
 	public static int MOUSE_X, MOUSE_Y;
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
 	public boolean loading;
+	public int loadTime;
 	public int mapPositionX;
 	public int mapPositionY;	
 	
@@ -151,6 +152,12 @@ public class CanvasGame extends Canvas {
 					i--;
 				}
 			}
+		} else {
+			loadTime += diffTime;
+			if(loadTime >= 4000) {
+				loadTime = 0;
+				loading = false;
+			}
 		}
 	}
 
@@ -206,7 +213,6 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_RIGHT = true; }
 		if(keyCode == KeyEvent.VK_M)		{ Z_RIGHT = true; }
 		if(keyCode == KeyEvent.VK_UP)		{ Z_JUMP  = true; }
-		if(keyCode == KeyEvent.VK_S)		{ loading = false; }
 		if(keyCode == KeyEvent.VK_F1)		{ SaveGame.save(); }
 		if(keyCode == KeyEvent.VK_L)		{ LoadGame.load(); }
 		if(keyCode == KeyEvent.VK_ESCAPE) {
