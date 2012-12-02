@@ -25,8 +25,8 @@ public class CanvasOptions extends Canvas {
 		btnMinus = new GameButton(GamePanel.PANEL_WIDTH/2 - 100, GamePanel.PANEL_HEIGHT/2 - 80, "buttons/btnMinusOn.png", "buttons/btnMinusOff.png");
 		btnPlus = new GameButton(GamePanel.PANEL_WIDTH/2 + 50, GamePanel.PANEL_HEIGHT/2 - 80, "buttons/btnPlusOn.png", "buttons/btnPlusOff.png");
 		btnBack = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 200, "buttons/btnBackOn.png", "buttons/btnBackOff.png");
-		btnGoFullScreen = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 100, "buttons/btnResumeOn.png", "buttons/btnResumeOff.png");
-		btnGoWindowed = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 100, "buttons/btnRetryOn.png", "buttons/btnRetryOff.png");
+		btnGoFullScreen = new GameButton(GamePanel.PANEL_WIDTH/2 - 75, GamePanel.PANEL_HEIGHT/2 + 100, "buttons/btnFullOn.png", "buttons/btnFullOff.png");
+		btnGoWindowed = new GameButton(GamePanel.PANEL_WIDTH/2 - 75, GamePanel.PANEL_HEIGHT/2 + 100, "buttons/btnWindowOn.png", "buttons/btnWindowOff.png");
 	}
 	
 	@Override
@@ -42,7 +42,6 @@ public class CanvasOptions extends Canvas {
 		if(btnBack.isMouseOver(MOUSE_X, MOUSE_Y)){ btnBack.setState(1); }
 		else { btnBack.setState(0); }
 		
-		// Botoes de controle do volume
 		if(MOUSE_PRESSED && btnMinus.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
 			if(volume > 0.0f) {
 				volume -= 0.1f;
@@ -58,7 +57,6 @@ public class CanvasOptions extends Canvas {
 			MOUSE_PRESSED = false;
 		}
 		
-		// Botoes de Fullscreen ou Windowed
 		if(isWindowed) {
 			if(MOUSE_PRESSED && btnGoFullScreen.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
 				isFullScreen = true;
@@ -75,7 +73,6 @@ public class CanvasOptions extends Canvas {
 			}
 		}
 		
-		// Botao de Back
 		if(MOUSE_PRESSED && btnBack.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
 			GamePanel.volume = volume;
 			GamePanel.canvasActive = new CanvasMainMenu();
