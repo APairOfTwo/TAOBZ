@@ -40,6 +40,12 @@ public class Character extends Sprite {
 	int countTime = 0;
 	public long respawnCountTime;
 	
+	double bloodAngle;
+	double bloodAuxAngle;
+	float vel;
+	float vX;
+	float vY;
+	
 	public Character(float x, float y, BufferedImage charset, int charsetX, int charsetY, int frameWidth, 
 						int frameHeight, int numberOfFrames) {
 		this.x = x;
@@ -61,22 +67,6 @@ public class Character extends Sprite {
 		fireTimer += diffTime;
 		timeAnimating += diffTime;
 		frame = (timeAnimating / animeSpeed) % numberOfFrames;
-		
-		int blockX = (int)((x+(frameWidth)/2)/16);
-		int blockY = (int)((y+frameHeight)/16);
-		
-		if(CanvasGame.map.mapLayer2[blockY][blockX]>0) {
-			double ang = Math.atan2(100, 1);
-			ang+=Math.PI;
-			for(int j = 0; j < 20; j++){
-				double ang2 = ang - (Math.PI/4)+((Math.PI/2)*Math.random());
-				float vel = (float)(100+100*Math.random());
-				float vx = (float)(Math.cos(ang2)*vel);
-				float vy = (float)(Math.sin(ang2)*vel);
-				CanvasGame.effectsList.add(new Effect(x+26, y+40, vx, vy, 900, 255, 0, 0));
-			}
-			isAlive = false;
-		}
 		
 		if(!onTheFloor) {
 			gravity = 500;
@@ -118,6 +108,14 @@ public class Character extends Sprite {
 	public boolean topCollision(int bxi, int bxm, int bxf, int byi, int byf) {
 		if((CanvasGame.map.mapLayer1[byi][bxi]>0) || (CanvasGame.map.mapLayer1[byi][bxm]>0) || (CanvasGame.map.mapLayer1[byi][bxf]>0) ||
 		   (CanvasGame.map.mapLayer1[byf][bxi]>0) || (CanvasGame.map.mapLayer1[byf][bxm]>0) || (CanvasGame.map.mapLayer1[byf][bxf]>0)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean spykeCollision(int bxi, int bxf, int byi, int byf) {
+		if((CanvasGame.map.mapLayer2[byi][bxi]>0) || (CanvasGame.map.mapLayer2[byi][bxf]>0) ||
+		   (CanvasGame.map.mapLayer2[byf][bxi]>0) || (CanvasGame.map.mapLayer2[byf][bxf]>0)) {
 			return true;
 		}
 		return false;

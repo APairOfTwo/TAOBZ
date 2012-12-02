@@ -28,6 +28,9 @@ public class CharBilly extends Character {
 			y += gravity * diffTime / 1000.0f;
 		}
 		
+		oldX = x;
+		oldY = y;
+		
 		if(numShotsBone <= 0) {
 			isAlive = false;
 		}
@@ -43,9 +46,6 @@ public class CharBilly extends Character {
 			CanvasGame.projectilesList.add(proj);
 			numShotsBone--;
 		}
-		
-		oldX = x;
-		oldY = y;
 		
 		if(CanvasGame.B_JUMP && onTheFloor) {
 			jumpSpeed = 1100;
@@ -96,6 +96,19 @@ public class CharBilly extends Character {
 		if(topCollision((int)((x+20)/16), (int)((x+25)/16), (int)((x+30)/16), (int)((y+15)/16), (int)((y+20)/16))) {
 			y = oldY;
 			jumpSpeed = jumpSpeed / 2;
+		}
+		
+		if(spykeCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y+10)/16), (int)((y+45)/16))) {
+			bloodAngle = Math.atan2(100, 1);
+			bloodAngle += Math.PI;
+			for(int i = 0; i < 20; i++) {
+				bloodAuxAngle = bloodAngle - (Math.PI/4) + ((Math.PI/2) * Math.random());
+				vel = (float)(100 + 100 * Math.random());
+				vX = (float)(Math.cos(bloodAuxAngle) * vel);
+				vY = (float)(Math.sin(bloodAuxAngle) * vel);
+				CanvasGame.effectsList.add(new Effect(x+26, y+40, vX, vY, 900, 255, 0, 0));
+			}
+			isAlive = false;
 		}
 		
 		for(Character c : CanvasGame.enemiesList) {

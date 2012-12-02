@@ -21,6 +21,8 @@ public class CharZombie extends Character {
 	@Override
 	public void selfSimulates(long diffTime){
 		super.selfSimulates(diffTime);
+		oldX = x;
+		oldY = y;
 		
 		if(!onTheFloor) {
 			y += gravity * diffTime / 1000.0f;
@@ -41,9 +43,6 @@ public class CharZombie extends Character {
 			CanvasGame.projectilesList.add(proj);
 			numShotsMeat--;
 		}
-		
-		oldX = x;
-		oldY = y;
 		
 		if(CanvasGame.Z_JUMP && onTheFloor) {
 			jumpSpeed = 1100;
@@ -86,15 +85,28 @@ public class CharZombie extends Character {
 		} else {
 			onTheFloor = false;
 		}
-//		
-//		if(sideAndTopCollision((int)((x+10)/16), (int)((x+40)/16), (int)((y+35)/16))) {
-//			x = oldX;
-//		}
-//		
-//		if(sideAndTopCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y)/16))) {
-//			y = oldY;
-//			jumpSpeed = jumpSpeed / 2;
-//		}
+		
+		if(lateralCollision((int)((x+5)/16), (int)((x+45)/16), (int)((y+40)/16), (int)((y+35)/16), (int)((y+35)/16))) {
+			x = oldX;
+		}
+		
+		if(topCollision((int)((x+20)/16), (int)((x+25)/16), (int)((x+30)/16), (int)((y+15)/16), (int)((y+20)/16))) {
+			y = oldY;
+			jumpSpeed = jumpSpeed / 2;
+		}
+		
+		if(spykeCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y+10)/16), (int)((y+45)/16))) {
+			bloodAngle = Math.atan2(100, 1);
+			bloodAngle += Math.PI;
+			for(int i = 0; i < 20; i++) {
+				bloodAuxAngle = bloodAngle - (Math.PI/4) + ((Math.PI/2) * Math.random());
+				vel = (float)(100 + 100 * Math.random());
+				vX = (float)(Math.cos(bloodAuxAngle) * vel);
+				vY = (float)(Math.sin(bloodAuxAngle) * vel);
+				CanvasGame.effectsList.add(new Effect(x+26, y+40, vX, vY, 900, 255, 0, 0));
+			}
+			isAlive = false;
+		}
 		
 		for(Character c : CanvasGame.enemiesList) {
 			if(!c.isEating && !c.isStunned) {
@@ -114,7 +126,6 @@ public class CharZombie extends Character {
 
 	}
 	
-	//retangulo delimitador
 	public Rectangle getBounds() {
 		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+10), (int)(y-CanvasGame.map.MapY+5), 25, 45);
 		return r;

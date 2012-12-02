@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -32,7 +31,7 @@ public class CanvasGame extends Canvas {
 	public static String strTileset02 = new String("maps/hell_tileset2.png");
 	public static String strTileset03 = new String("maps/hell_tileset3.png");
 	
-	public static String strElements01 = new String("csv/hell_01.csv");
+	public static String strElements01 = new String("csv/demon.csv");
 	public static String strElements02 = new String("csv/hell_02.csv");
 	public static String strElements03 = new String("csv/hell_03.csv");
 	
@@ -86,12 +85,12 @@ public class CanvasGame extends Canvas {
 					c.selfSimulates(diffTime);
 					if(GamePanel.isCoop) {
 						if(billy.isAlive && zombie.isAlive) {
-							if(billy.x > zombie.x) {
+							if(billy.x < zombie.x) {
 								mapPositionX = (int)billy.x;
 							} else {
 								mapPositionX = (int)zombie.x;
 							}
-							if(billy.y < zombie.y) {
+							if(billy.y > zombie.y) {
 								mapPositionY = (int)billy.y;
 							} else {
 								mapPositionY = (int)zombie.y;

@@ -2,7 +2,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-
 public class EnemyBerserker extends Character {
 
 	final float DEFAULT_SPEED = 146;
