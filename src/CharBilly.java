@@ -16,7 +16,7 @@ public class CharBilly extends Character {
 	int fireAnim;
 	
 	public CharBilly(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 59, 60, 4);
+		super(x, y, charset, charsetX, charsetY, 60, 60, 4);
 		this.spawnX = x;
 		this.spawnY = y;
 	}
@@ -34,7 +34,7 @@ public class CharBilly extends Character {
 		
 		if((x < 5)) { x = 5; }
 		if((y < 5)) { y = 5; }
-		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) { x = (CanvasGame.map.Largura << 4)-5; }
+		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) { x = (frameWidth-((CanvasGame.map.Largura << 4)-5)); }
 		if((y+frameHeight > (CanvasGame.map.Altura << 4)-5)) { isAlive = false; }
 		
 		if(numShotsBone <= 0) {
@@ -106,7 +106,7 @@ public class CharBilly extends Character {
 			}
 		}
 		
-		if(floorCollision((int)((x+10)/16), (int)((x+25)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+49)/16), (int)((y+48)/16))) {
+		if(floorCollision((int)((x+10)/16), (int)((x+25)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+50)/16), (int)((y+45)/16))) {
 			y = oldY;
 			if((int)oldY % 16 != 0) {
 				y -= 1;
@@ -169,15 +169,11 @@ public class CharBilly extends Character {
 		if(isAlive) {
 			super.selfDraws(dbg, mapX, mapY);
 			dbg.drawString("Bones: "+numShotsBone, 10, 40);
-			dbg.setColor(Color.RED);
-			dbg.drawRect((int)(x+10)-mapX, (int)(y+48)-mapY, 30, 2);
-			dbg.drawRect((int)(x+5)-mapX, (int)(y+35)-mapY, 40, 10);
-			dbg.drawRect((int)(x+20)-mapX, (int)(y)-mapY, 10, 16);
 		}
 	}
 	
 	public Rectangle getBounds() {
-		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+10), (int)(y-CanvasGame.map.MapY+5), 25, 45);
+		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+10), (int)(y-CanvasGame.map.MapY+5), 40, 50);
 		return r;
 	}
 	

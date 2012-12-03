@@ -33,7 +33,7 @@ public class EnemyDemon extends Character {
 			}
 		}
 		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) {
-			x = (CanvasGame.map.Largura << 4)-5;
+			x = (frameWidth-((CanvasGame.map.Largura << 4)-5));
 			if(fireTimer > changeDirectionRate) {
 				fireTimer = 0;
 				moveDirection *= -1;

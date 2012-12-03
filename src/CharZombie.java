@@ -13,7 +13,7 @@ public class CharZombie extends Character {
 	float spawnX, spawnY;
 	
 	public CharZombie(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 59, 60, 4);
+		super(x, y, charset, charsetX, charsetY, 60, 60, 4);
 		this.spawnX = x;
 		this.spawnY = y;
 	}
@@ -31,7 +31,7 @@ public class CharZombie extends Character {
 		
 		if((x < 5)) { x = 5; }
 		if((y < 5)) { y = 5; }
-		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) { x = (CanvasGame.map.Largura << 4)-5; }
+		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) { x = (((CanvasGame.map.Largura << 4)-5)-frameWidth); }
 		if((y+frameHeight > (CanvasGame.map.Altura << 4)-5)) { isAlive = false; }
 		
 		if(numShotsMeat <= 0) {
@@ -83,7 +83,7 @@ public class CharZombie extends Character {
 			}
 		}
 		
-		if(floorCollision((int)((x+10)/16), (int)((x+25)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+49)/16), (int)((y+48)/16))) {
+		if(floorCollision((int)((x+10)/16), (int)((x+25)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+50)/16), (int)((y+45)/16))) {
 			y = oldY;
 			if((int)oldY % 16 != 0) {
 				y -= 1;
@@ -143,9 +143,9 @@ public class CharZombie extends Character {
 	}
 	
 	public Rectangle getBounds() {
-		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+10), (int)(y-CanvasGame.map.MapY+5), 25, 45);
+		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+10), (int)(y-CanvasGame.map.MapY+5), 40, 50);
 		return r;
-	} 
+	}
 	
 	public void respawn() {
 		isAlive = true;
