@@ -12,6 +12,8 @@ public class CanvasResult extends Canvas {
 	public static int MOUSE_X, MOUSE_Y;
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
 	public static boolean MOUSE_PRESSED;
+	int numberOfDeaths = 0;
+	int numberOfProjectiles = 0;
 	
 	public CanvasResult() {
 		instance = this;
@@ -19,6 +21,9 @@ public class CanvasResult extends Canvas {
 		background = GamePanel.loadImage("backgrounds/score_background.png");
 		btnContinue = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 100, "buttons/btnNextMapOn.png", "buttons/btnNextMapOff.png");
 		btnRetry = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 150, "buttons/btnRetryOn.png", "buttons/btnRetryOff.png");
+		
+		numberOfDeaths = CanvasGame.deathCounter;
+		numberOfProjectiles = CanvasGame.projectilesCounter;
 	}
 	
 	@Override
@@ -46,6 +51,8 @@ public class CanvasResult extends Canvas {
 		dbg.drawImage(background, GamePanel.PANEL_WIDTH/2 - 300, GamePanel.PANEL_HEIGHT/2 - 250, GamePanel.PANEL_WIDTH/2 + 300, GamePanel.PANEL_HEIGHT/2 + 250, 0, 0, background.getWidth(), background.getHeight(), null);
 		btnContinue.selfDraws(dbg);
 		btnRetry.selfDraws(dbg);
+		dbg.drawString("Number of deaths: " + numberOfDeaths, 325, 200);
+		dbg.drawString("Number of projectiles fired: " + numberOfProjectiles, 325, 250);
 	}
 
 	@Override

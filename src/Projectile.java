@@ -13,6 +13,7 @@ public class Projectile extends Sprite {
 		this.velX = velX;
 		this.velY = velY;
 		this.pai = pai;
+		CanvasGame.projectilesCounter++;
 	}
 	
 	@Override

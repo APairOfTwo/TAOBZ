@@ -52,6 +52,8 @@ public class CanvasGame extends Canvas {
 	public int loadTime;
 	public int mapPositionX;
 	public int mapPositionY;	
+	public static int deathCounter = 0;
+	public static int projectilesCounter = 0;
 	
 	public CanvasGame(int levelId) {
 		instance = this;
@@ -165,12 +167,12 @@ public class CanvasGame extends Canvas {
 	public void selfDraws(Graphics2D dbg){
 		map.selfDraws(dbg);
 		
-		for(Element e : gameElements.elementsList) {
-			if(e.itemId == 8) {
-				dbg.setColor(Color.MAGENTA);
-				dbg.fillRect((e.blockX<<4)-map.MapX, (e.blockY<<4)-map.MapY, 16, 64);
-			}
-		}
+//		for(Element e : gameElements.elementsList) {
+//			if(e.itemId == 8) {
+//				dbg.setColor(Color.MAGENTA);
+//				dbg.fillRect((e.blockX<<4)-map.MapX, (e.blockY<<4)-map.MapY, 16, 64);
+//			}
+//		}
 		
 		for(int i = 0; i < projectilesList.size(); i++){
 			projectilesList.get(i).selfDraws(dbg, map.MapX, map.MapY);
@@ -188,12 +190,12 @@ public class CanvasGame extends Canvas {
 			c.selfDraws(dbg, map.MapX, map.MapY);
 		}
 		
-		for(Element e : CanvasGame.gameElements.elementsList) {
-			if(e.itemId == 9) {
-				dbg.setColor(Color.CYAN);
-				dbg.fillRect((e.blockX<<4)-map.MapX, (e.blockY<<4)-map.MapY, 16, 64);
-			}
-		}
+//		for(Element e : CanvasGame.gameElements.elementsList) {
+//			if(e.itemId == 9) {
+//				dbg.setColor(Color.CYAN);
+//				dbg.fillRect((e.blockX<<4)-map.MapX, (e.blockY<<4)-map.MapY, 16, 64);
+//			}
+//		}
 		
 		if(loading) {
 			dbg.setColor(Color.BLACK);

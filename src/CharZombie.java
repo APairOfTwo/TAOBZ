@@ -5,12 +5,14 @@ import java.awt.image.BufferedImage;
 
 public class CharZombie extends Character {
 	int fireRate = 800;
-	int life = 100;
+	//int life = 100;
 	int respawnCountTime;
 	float speed = 220;
 	int numShotsMeat = 5;
 	Projectile proj;
 	float spawnX, spawnY;
+	int fireAnim;
+	int deathCounter = 0;
 	
 	public CharZombie(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 60, 60, 4);
@@ -35,6 +37,7 @@ public class CharZombie extends Character {
 		if((y+frameHeight > (CanvasGame.map.Altura << 4)-5)) { isAlive = false; }
 		
 		if(numShotsMeat <= 0) {
+			CanvasGame.deathCounter++;
 			isAlive = false;
 		}
 		if(CanvasGame.Z_FIRE && fireTimer > fireRate){
@@ -112,12 +115,14 @@ public class CharZombie extends Character {
 				vY = (float)(Math.sin(bloodAuxAngle) * vel);
 				CanvasGame.effectsList.add(new Effect(x+frameWidth/2, y+frameHeight/2, vX, vY, 600, 255, 0, 0));
 			}
+			CanvasGame.deathCounter++;
 			isAlive = false;
 		}
 		
 		for(Character c : CanvasGame.enemiesList) {
 			if(!c.isEating && !c.isStunned) {
 				if(this.getBounds().intersects(c.getBounds())) {
+					CanvasGame.deathCounter++;
 					isAlive = false;
 					bloodAngle = Math.atan2(100, 1);
 					bloodAngle += Math.PI;
