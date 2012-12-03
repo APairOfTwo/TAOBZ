@@ -240,7 +240,7 @@ public class GamePanel extends JPanel implements Runnable {
     	myCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, myPoint, "cursor");
     }
 
-	public static BufferedImage loadImage(String source){
+	public static BufferedImage loadImage(String source) {
 		BufferedImage image = null;
 		try {
 			BufferedImage tmp = ImageIO.read(GamePanel.instance.getClass().getResource(source));
@@ -251,5 +251,22 @@ public class GamePanel extends JPanel implements Runnable {
 			e.printStackTrace();
 		}
 		return image;
+	}
+	
+	public static void changeMap(int levelId) {
+		canvasActive = new CanvasGame(levelId);
+		CanvasGame.setGameLevel(levelId);
+		CanvasGame.resetControls();
+		if(isCoop) {
+			CanvasGame.heroes.add(CanvasGame.billy);
+			CanvasGame.heroes.add(CanvasGame.zombie);
+		} else {
+			if(selectedBilly) {
+				CanvasGame.heroes.add(CanvasGame.billy);
+			}
+			if(selectedZombie) {
+				CanvasGame.heroes.add(CanvasGame.zombie);
+			}
+		}
 	}
 }
