@@ -28,7 +28,7 @@ public class EnemyGargoyle extends Character {
 		if((x < 5)) { x = 5; }
 		if((y < 5)) { y = 5; }
 		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) { x = (CanvasGame.map.Largura << 4)-5; }
-		if((y+frameHeight > (CanvasGame.map.Altura << 4)-10)) { isAlive = false; }
+		if((y+frameHeight > (CanvasGame.map.Altura << 4)-5)) { isAlive = false; }
 		
 		velX = speed * diffTime / 1000.0f;
 		velY = speed * diffTime / 1000.0f;
@@ -158,10 +158,10 @@ public class EnemyGargoyle extends Character {
 				bloodAngle += Math.PI;
 				for(int i = 0; i < 20; i++) {
 					bloodAuxAngle = bloodAngle - (Math.PI/4) + ((Math.PI/2) * Math.random());
-					vel = (float)(100 + 100 * Math.random());
+					vel = (float)(50 + 50 * Math.random());
 					vX = (float)(Math.cos(bloodAuxAngle) * vel);
 					vY = (float)(Math.sin(bloodAuxAngle) * vel);
-					CanvasGame.effectsList.add(new Effect(x+26, y+40, vX, vY, 900, 255, 0, 0));
+					CanvasGame.effectsList.add(new Effect(x+frameWidth/2, y+frameHeight/2, vX, vY, 600, 255, 0, 0));
 				}
 				isAlive = false;
 			}

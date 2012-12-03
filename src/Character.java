@@ -80,10 +80,6 @@ public class Character extends Sprite {
 		dbg.drawImage(charset, (int)(x-mapX), (int)(y-mapY), (int)((x+frameWidth)-mapX), (int)((y+frameHeight)-mapY),
 				(frameWidth*frame+charsetX*charsetWidth), (frameHeight*animation+charsetY*charsetHeight),
 				(frameWidth*frame+frameWidth+charsetX*charsetWidth), (frameHeight*animation+frameHeight+charsetY*charsetHeight), null);
-		
-//		dbg.setColor(Color.RED);
-//		if(getBounds() != null)	dbg.draw(getBounds());
-//		dbg.drawOval((int)(x-CanvasGame.map.MapX-radius+centerX), (int)(y-CanvasGame.map.MapY-radius+centerY), (int)(radius*2),(int)(radius*2));
 	}
 	
 	
@@ -129,9 +125,18 @@ public class Character extends Sprite {
 		if(p.getClass() == ProjMeat.class){
 			isFollowing = true;
 		}
-		if(p.getClass() == ProjBone.class){
+		if(p.getClass() == ProjBone.class) {
 			isStunned = true;
 			speed = 0;
+			bloodAngle = Math.atan2(100, 1);
+			bloodAngle += Math.PI;
+			for(int i = 0; i < 20; i++) {
+				bloodAuxAngle = bloodAngle - (Math.PI/4) + ((Math.PI/2) * Math.random());
+				vel = (float)(150 + 100 * Math.random());
+				vX = (float)(Math.cos(bloodAuxAngle) * vel);
+				vY = (float)(Math.sin(bloodAuxAngle) * vel);
+				CanvasGame.effectsList.add(new Effect(x+frameWidth/2, y+frameHeight/2, vX, vY, 300, 255, 255, 255));
+			}
 		}
 	}
 
