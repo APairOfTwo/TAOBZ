@@ -23,15 +23,15 @@ public class CanvasGame extends Canvas {
 	public static BufferedImage tileset;
 	public BufferedImage loadingScreen = GamePanel.loadImage("backgrounds/loading_background.png");
 	
-	public static String strMap01 = new String("maps/hell_01.map");
+	public static String strMap01 = new String("maps/hell_03.map");
 	public static String strMap02 = new String("maps/hell_02.map");
 	public static String strMap03 = new String("maps/hell_03.map");
 	
-	public static String strTileset01 = new String("maps/hell_tileset.png");
+	public static String strTileset01 = new String("maps/hell_tileset3.png");
 	public static String strTileset02 = new String("maps/hell_tileset2.png");
 	public static String strTileset03 = new String("maps/hell_tileset3.png");
 	
-	public static String strElements01 = new String("csv/demon.csv");
+	public static String strElements01 = new String("csv/hell_03.csv");
 	public static String strElements02 = new String("csv/hell_02.csv");
 	public static String strElements03 = new String("csv/hell_03.csv");
 	

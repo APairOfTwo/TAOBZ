@@ -13,6 +13,7 @@ public class CharBilly extends Character {
 	Projectile proj;
 	boolean positionsMap = false;
 	float spawnX, spawnY;
+	int fireAnim;
 	
 	public CharBilly(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 59, 60, 4);
@@ -39,7 +40,10 @@ public class CharBilly extends Character {
 		if(numShotsBone <= 0) {
 			isAlive = false;
 		}
+		
 		if(CanvasGame.B_FIRE && fireTimer > fireRate){
+			fireAnim += diffTime;
+			
 			fireTimer = 0;
 			float vproj = 1000;
 			if(CanvasGame.B_LEFT || CanvasGame.B_RIGHT) {
@@ -53,21 +57,44 @@ public class CharBilly extends Character {
 		}
 		
 		if(CanvasGame.B_JUMP && onTheFloor) {
+			animeSpeed = 100;
 			jumpSpeed = 1100;
 			hasJumped = true;
 			if(moveDirection == 1) animation = 0;
 			if(moveDirection == -1) animation = 1;
 		}
 		if(CanvasGame.B_RIGHT) {
+			animeSpeed = 100;
 			x += speed * diffTime / 1000.0f;
-			animation = 0;
+			animation = 2;
 			moveDirection = 1;
 		} else if(CanvasGame.B_LEFT) {
+			animeSpeed = 100;
 			x -= speed * diffTime / 1000.0f;
-			animation = 1;
+			animation = 3;
 			moveDirection = -1;
 		} else {
-			timeAnimating = 0;
+			if(moveDirection == 1) {
+				animeSpeed = 200;
+				animation = 0;
+			} else if(moveDirection == -1) {
+				animeSpeed = 200;
+				animation = 1;
+			}
+		}
+		
+		// Animacao de atirando
+		if(fireAnim != 0) {
+			fireAnim += diffTime;
+			animeSpeed = 100;
+			if(fireAnim >= 420) {
+				fireAnim = 0;
+			}
+			if(moveDirection == 1) {
+				animation = 4;
+			} else {
+				animation = 5;
+			}
 		}
 		
 		if(hasJumped) {

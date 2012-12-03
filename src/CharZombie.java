@@ -13,7 +13,7 @@ public class CharZombie extends Character {
 	float spawnX, spawnY;
 	
 	public CharZombie(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 49, 55, 7);
+		super(x, y, charset, charsetX, charsetY, 59, 60, 4);
 		this.spawnX = x;
 		this.spawnY = y;
 	}
@@ -58,14 +58,20 @@ public class CharZombie extends Character {
 		}
 		if(CanvasGame.Z_RIGHT) {
 			x += speed * diffTime / 1000.0f;
-			animation = 0;
+			animation = 2;
 			moveDirection = 1;
 		} else if(CanvasGame.Z_LEFT) {
 			x -= speed * diffTime / 1000.0f;
-			animation = 1;
+			animation = 3;
 			moveDirection = -1;
 		} else {
-			timeAnimating = 0;
+			if(moveDirection == 1) {
+				animeSpeed = 200;
+				animation = 0;
+			} else if(moveDirection == -1) {
+				animeSpeed = 200;
+				animation = 1;
+			}
 		}
 		
 		if(hasJumped) {
