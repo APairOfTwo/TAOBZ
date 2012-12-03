@@ -21,12 +21,18 @@ public class CharZombie extends Character {
 	@Override
 	public void selfSimulates(long diffTime){
 		super.selfSimulates(diffTime);
-		oldX = x;
-		oldY = y;
 		
 		if(!onTheFloor) {
 			y += gravity * diffTime / 1000.0f;
 		}
+		
+		oldX = x;
+		oldY = y;
+		
+		if((x < 5)) { x = 5; }
+		if((y < 5)) { y = 5; }
+		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) { x = (CanvasGame.map.Largura << 4)-5; }
+		if((y+frameHeight > (CanvasGame.map.Altura << 4)-5)) { isAlive = false; }
 		
 		if(numShotsMeat <= 0) {
 			isAlive = false;
@@ -70,11 +76,6 @@ public class CharZombie extends Character {
 				jumpSpeed = 1100;
 			}
 		}
-		
-		if(x < 0) x = oldX;
-		if(y < 0) y = oldY;
-		if(x >= (CanvasGame.map.Largura << 4) - 50) x = oldX;
-		if(y >= (CanvasGame.map.Altura << 4) - 48) y = oldY;
 		
 		if(floorCollision((int)((x+10)/16), (int)((x+25)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+49)/16), (int)((y+48)/16))) {
 			y = oldY;

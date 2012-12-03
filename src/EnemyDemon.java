@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 public class EnemyDemon extends Character {
 	final float DEFAULT_SPEED = 109;
 	double projDx, projDy, projDist;
+	double velX, velY;
 	private int changeDirectionRate = 200;
 	Projectile proj;
 	
@@ -17,25 +18,32 @@ public class EnemyDemon extends Character {
 	public void selfSimulates(long diffTime){	
 		super.selfSimulates(diffTime);
 		
-		oldX = x;
-		oldY = y;
-		
 		if(!onTheFloor) {
 			y += gravity * diffTime / 1000.0f;
 		}
 		
-		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - 50)) {
-			x = oldX;
+		oldX = x;
+		oldY = y;
+		
+		if((x < 5)) {
+			x = 5;
 			if(fireTimer > changeDirectionRate) {
 				fireTimer = 0;
 				moveDirection *= -1;
 			}
 		}
-		if(y < 0) y = oldY;
-		if(y >= (CanvasGame.map.Altura << 4) - 48) y = oldY;
+		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) {
+			x = (CanvasGame.map.Largura << 4)-5;
+			if(fireTimer > changeDirectionRate) {
+				fireTimer = 0;
+				moveDirection *= -1;
+			}
+		}
+		if((y < 5)) { y = 5; }
+		if((y+frameHeight > (CanvasGame.map.Altura << 4)-10)) { isAlive = false; }
 		
-		double velX = speed * diffTime / 1000.0f;
-		double velY = speed * diffTime / 1000.0f;
+		velX = speed * diffTime / 1000.0f;
+		velY = speed * diffTime / 1000.0f;
 		
 		if(proj != null) {
 			projDx = proj.x - (x + centerX);
@@ -99,9 +107,7 @@ public class EnemyDemon extends Character {
 			}
 		}
 		
-		System.out.println((int)((y+40)/16));
-		
-		if(floorCollision((int)((x+30)/16), (int)((x+40)/16), (int)((x+50)/16), (int)((y+75)/16), (int)((y+70)/16), (int)((y+65)/16))) {
+		if(floorCollision((int)((x+30)/16), (int)((x+40)/16), (int)((x+50)/16), (int)((y+80)/16), (int)((y+75)/16), (int)((y+70)/16))) {
 			y = oldY;
 			if((int)oldY % 16 != 0) {
 				y -= 1;

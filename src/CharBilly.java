@@ -31,6 +31,11 @@ public class CharBilly extends Character {
 		oldX = x;
 		oldY = y;
 		
+		if((x < 5)) { x = 5; }
+		if((y < 5)) { y = 5; }
+		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) { x = (CanvasGame.map.Largura << 4)-5; }
+		if((y+frameHeight > (CanvasGame.map.Altura << 4)-10)) { isAlive = false; }
+		
 		if(numShotsBone <= 0) {
 			isAlive = false;
 		}
@@ -64,11 +69,6 @@ public class CharBilly extends Character {
 		} else {
 			timeAnimating = 0;
 		}
-		
-		if(x < 0) x = oldX;
-		if(y < 0) y = oldY;
-		if(x >= (CanvasGame.map.Largura << 4) - 50) x = oldX;
-		if(y >= (CanvasGame.map.Altura << 4) - 48) y = oldY;
 		
 		if(hasJumped) {
 			y -= jumpSpeed * diffTime / 1000.0f;

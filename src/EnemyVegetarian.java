@@ -18,9 +18,29 @@ public class EnemyVegetarian extends Character {
 	public void selfSimulates(long diffTime){	
 		super.selfSimulates(diffTime);
 		
+		if(!onTheFloor) {
+			y += gravity * diffTime / 1000.0f;
+		}
+		
 		oldX = x;
 		oldY = y;
-		y += gravity * diffTime / 1000.0f;
+		
+		if((x < 5)) {
+			x = 5;
+			if(fireTimer > changeDirectionRate) {
+				fireTimer = 0;
+				moveDirection *= -1;
+			}
+		}
+		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) {
+			x = (CanvasGame.map.Largura << 4)-5;
+			if(fireTimer > changeDirectionRate) {
+				fireTimer = 0;
+				moveDirection *= -1;
+			}
+		}
+		if((y < 5)) { y = 5; }
+		if((y+frameHeight > (CanvasGame.map.Altura << 4)-10)) { isAlive = false; }
 		
 		if(!this.isStunned) {
 			if(moveDirection == 1) {
@@ -52,22 +72,36 @@ public class EnemyVegetarian extends Character {
 			}
 		}	
 		
-//		if(floorCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-5)/16), (int)((y+frameHeight-10)/16), (int)((y+frameHeight-15)/16))) {
-//			y = oldY;
-//			if((int)oldY % 16 != 0) {
-//				y -= 1;
-//			}
-//			onTheFloor = true;
-//		} else {
-//			onTheFloor = false;
-//		}
-//
-//		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) || sideAndTopCollision((int)((x+10)/16), (int)((x+60)/16), (int)((y+frameHeight-5)/16))) {
-//			if(fireTimer > changeDirectionRate) {
-//				fireTimer = 0;
-//				moveDirection *= -1;
-//			}
-//		}
+		if(floorCollision((int)((x+25)/16), (int)((x+30)/16), (int)((x+35)/16), (int)((y+80)/16), (int)((y+75)/16), (int)((y+70)/16))) {
+			y = oldY;
+			if((int)oldY % 16 != 0) {
+				y -= 1;
+			}
+			onTheFloor = true;
+		} else {
+			onTheFloor = false;
+		}
+		
+		if(lateralCollision((int)((x+20)/16), (int)((x+40)/16), (int)((y+30)/16), (int)((y+40)/16), (int)((y+50)/16))) {
+			x = oldX;
+			if(fireTimer > changeDirectionRate) {
+				fireTimer = 0;
+				moveDirection *= -1;
+			}
+		}
+		
+		if(spykeCollision((int)((x+20)/16), (int)((x+40)/16), (int)((y+15)/16), (int)((y+75)/16))) {
+			bloodAngle = Math.atan2(100, 1);
+			bloodAngle += Math.PI;
+			for(int i = 0; i < 20; i++) {
+				bloodAuxAngle = bloodAngle - (Math.PI/4) + ((Math.PI/2) * Math.random());
+				vel = (float)(100 + 100 * Math.random());
+				vX = (float)(Math.cos(bloodAuxAngle) * vel);
+				vY = (float)(Math.sin(bloodAuxAngle) * vel);
+				CanvasGame.effectsList.add(new Effect(x+26, y+40, vX, vY, 900, 255, 0, 0));
+			}
+			isAlive = false;
+		}
 		
 		for(Element e : CanvasGame.gameElements.elementsList) {
 			if(e.itemId == 8) {
@@ -86,7 +120,6 @@ public class EnemyVegetarian extends Character {
 		super.selfDraws(dbg, mapX, mapY);
 	}
 	
-	//retangulo delimitador
 	public Rectangle getBounds() {
 		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+16), (int)(y-CanvasGame.map.MapY+21), 25, 54);
 		return r;

@@ -9,6 +9,7 @@ public class EnemyBerserker extends Character {
 	float spawnX, spawnY;
 	double projDx, projDy, projDist;
 	double dx, dy, dist;
+	double velX;
 	Projectile proj;
 	
 	public EnemyBerserker(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
@@ -23,9 +24,18 @@ public class EnemyBerserker extends Character {
 	public void selfSimulates(long diffTime){	
 		super.selfSimulates(diffTime);
 		
+		if(!onTheFloor) {
+			y += gravity * diffTime / 1000.0f;
+		}
+		
 		oldX = x;
 		oldY = y;
-		y += gravity * diffTime / 1000.0f;
+		
+		if((x < 5)) { x = 5; }
+		if((y < 5)) { y = 5; }
+		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) { x = (CanvasGame.map.Largura << 4)-5; }
+		if((y+frameHeight > (CanvasGame.map.Altura << 4)-10)) { isAlive = false; }
+		
 		
 		if(CanvasGame.heroes.size() == 1) {
 			dx = (CanvasGame.heroes.get(0).x + CanvasGame.heroes.get(0).centerX) - (x + centerX);
@@ -40,11 +50,11 @@ public class EnemyBerserker extends Character {
 			double dy2 = CanvasGame.heroes.get(1).y - (y + centerY);
 			double dist2 = Math.hypot(dx2, dy2);
 			
-			if(dist1 <= dist2) {	// Segue o Billy caso dentro do campo de visão
+			if(dist1 <= dist2) {
 				dx = dx1;
 				dy = dy1;
 				dist = dist1;
-			} else {				// Segue o Z caso dentro do campo de visão
+			} else {
 				dx = dx2;
 				dy = dy2;
 				dist = dist2;
@@ -54,7 +64,7 @@ public class EnemyBerserker extends Character {
 		double spawnDx = spawnX - x;
 		double spawnDist = Math.hypot(spawnDx, 0);
 		
-		double velX = speed * diffTime / 1000.0f;
+		velX = speed * diffTime / 1000.0f;
 		
 		if(proj != null) {
 			projDx = proj.x - (x + centerX);
@@ -63,7 +73,7 @@ public class EnemyBerserker extends Character {
 		}
 		
 		if(!this.isEating && !this.isFollowing) {
-			if(dist <= FIELD_OF_VIEW) {					// herói dentro do campo de visão, início da perseguição
+			if(dist <= FIELD_OF_VIEW) {
 				x += velX * dx / dist;
 				if(dx >= 0) {
 					animation = 0;
@@ -73,7 +83,7 @@ public class EnemyBerserker extends Character {
 					moveDirection = -1;
 				}
 			} else {
-				if(spawnDist >= 1) {					// herói saiu do campo de visão, início da volta para spawn point
+				if(spawnDist >= 1) {
 					x += velX * spawnDx / spawnDist;
 					if((x - spawnX) >= 0) {
 						animation = 1;
@@ -81,7 +91,7 @@ public class EnemyBerserker extends Character {
 						animation = 0;
 					}
 				} 
-				if(spawnDist < 1) {						// this está no spawn point
+				if(spawnDist < 1) {
 					x = spawnX;
 					if(moveDirection == 1) {
 						animation = 2;
@@ -94,7 +104,6 @@ public class EnemyBerserker extends Character {
 		
 		if(this.isFollowing && proj.active) {
 			x += velX * projDx / projDist;
-			
 			if(projDx >= 0) {
 				animation = 0;
 				moveDirection = 1;
@@ -119,16 +128,32 @@ public class EnemyBerserker extends Character {
 			}
 		}
 		
-//		if(floorCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16), (int)((y+frameHeight-15)/16), (int)((y+frameHeight-20)/16))) {
-//			y = oldY;
-//			onTheFloor = true;
-//		} else {
-//			onTheFloor = false;
-//		}
-//
-//		if((x < 0) || (x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) || sideAndTopCollision((int)((x+10)/16), (int)((x+60)/16), (int)((y+frameHeight-10)/16))) {
-//			x = oldX;
-//		}
+		if(floorCollision((int)((x+30)/16), (int)((x+40)/16), (int)((x+50)/16), (int)((y+65)/16), (int)((y+60)/16), (int)((y+55)/16))) {
+			y = oldY;
+			if((int)oldY % 16 != 0) {
+				y -= 1;
+			}
+			onTheFloor = true;
+		} else {
+			onTheFloor = false;
+		}
+		
+		if(lateralCollision((int)((x+25)/16), (int)((x+55)/16), (int)((y+35)/16), (int)((y+30)/16), (int)((y+25)/16))) {
+			x = oldX;
+		}
+		
+		if(spykeCollision((int)((x+30)/16), (int)((x+50)/16), (int)((y+25)/16), (int)((y+55)/16))) {
+			bloodAngle = Math.atan2(100, 1);
+			bloodAngle += Math.PI;
+			for(int i = 0; i < 20; i++) {
+				bloodAuxAngle = bloodAngle - (Math.PI/4) + ((Math.PI/2) * Math.random());
+				vel = (float)(100 + 100 * Math.random());
+				vX = (float)(Math.cos(bloodAuxAngle) * vel);
+				vY = (float)(Math.sin(bloodAuxAngle) * vel);
+				CanvasGame.effectsList.add(new Effect(x+26, y+40, vX, vY, 900, 255, 0, 0));
+			}
+			isAlive = false;
+		}
 	}
 	
 	@Override
@@ -136,7 +161,6 @@ public class EnemyBerserker extends Character {
 		super.selfDraws(dbg, mapX, mapY);
 	}
 	
-	//retangulo delimitador
 	public Rectangle getBounds() {
 		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+20), (int)(y-CanvasGame.map.MapY+23), 30, 34);
 		return r;

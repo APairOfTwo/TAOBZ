@@ -9,6 +9,7 @@ public class EnemyGargoyle extends Character {
 	float spawnX, spawnY;
 	double projDx, projDy, projDist;
 	double dx, dy, dist;
+	double velX, velY;
 	Projectile proj;
 	
 	public EnemyGargoyle(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
@@ -21,9 +22,16 @@ public class EnemyGargoyle extends Character {
 	@Override
 	public void selfSimulates(long diffTime) {
 		super.selfSimulates(diffTime);
-		
 		oldX = x;
 		oldY = y;
+		
+		if((x < 5)) { x = 5; }
+		if((y < 5)) { y = 5; }
+		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) { x = (CanvasGame.map.Largura << 4)-5; }
+		if((y+frameHeight > (CanvasGame.map.Altura << 4)-10)) { isAlive = false; }
+		
+		velX = speed * diffTime / 1000.0f;
+		velY = speed * diffTime / 1000.0f;
 		
 		if(CanvasGame.heroes.size() == 1) {
 			dx = (CanvasGame.heroes.get(0).x + CanvasGame.heroes.get(0).centerX) - (x + centerX);
@@ -38,11 +46,11 @@ public class EnemyGargoyle extends Character {
 			double dy2 = CanvasGame.heroes.get(1).y - (y + centerY);
 			double dist2 = Math.hypot(dx2, dy2);
 			
-			if(dist1 <= dist2) {	// Segue o Billy caso dentro do campo de visão
+			if(dist1 <= dist2) {
 				dx = dx1;
 				dy = dy1;
 				dist = dist1;
-			} else {				// Segue o Z caso dentro do campo de visão
+			} else {
 				dx = dx2;
 				dy = dy2;
 				dist = dist2;
@@ -59,11 +67,8 @@ public class EnemyGargoyle extends Character {
 			projDist = Math.hypot(projDx, projDy);
 		}
 		
-		double velX = speed * diffTime / 1000.0f;
-		double velY = speed * diffTime / 1000.0f;
-		
 		if(!this.isStunned && !this.isEating && !this.isFollowing) {
-			if(dist <= FIELD_OF_VIEW) {					// herói dentro do campo de visão, início da perseguição
+			if(dist <= FIELD_OF_VIEW) {
 				x += velX * dx / dist;
 				y += velY * dy / dist;
 				if(dx >= 0) {
@@ -74,7 +79,7 @@ public class EnemyGargoyle extends Character {
 					moveDirection = -1;
 				}
 			} else {
-				if(spawnDist >= 1) {					// herói saiu do campo de visão, início da volta para spawn point
+				if(spawnDist >= 1) {
 					x += velX * spawnDx / spawnDist;
 					y += velY * spawnDy / spawnDist;
 					if((x - spawnX) >= 0) {
@@ -83,7 +88,7 @@ public class EnemyGargoyle extends Character {
 						animation = 0;
 					}
 				} 
-				if(spawnDist < 1) {						// this está no spawn point
+				if(spawnDist < 1) {
 					x = spawnX;
 					y = spawnY;
 					if(moveDirection == 1) {
@@ -138,17 +143,29 @@ public class EnemyGargoyle extends Character {
 			}
 		}
 		
-//		if(floorCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y+frameHeight-10)/16), (int)((y+frameHeight-15)/16), (int)((y+frameHeight-20)/16))) {
-//			y = oldY;
-//			onTheFloor = true;
-//		} else {
-//			onTheFloor = false;
-//		}
+		if(this.isStunned) {
+			if(floorCollision((int)((x+30)/16), (int)((x+40)/16), (int)((x+50)/16), (int)((y+70)/16), (int)((y+70)/16), (int)((y+70)/16))) {
+				y = oldY;
+				onTheFloor = true;
+			} else {
+				onTheFloor = false;
+			}
+		}
 		
-		if(x < 0) x = oldX;
-		if(y < 0) y = oldY;
-		if(x >= (CanvasGame.map.Largura << 4) - this.frameWidth+1) x = oldX;
-		if(y >= (CanvasGame.map.Altura << 4) - this.frameHeight+1) y = oldY;
+		if(this.isStunned || this.isFollowing || this.isEating) {
+			if(spykeCollision((int)((x+25)/16), (int)((x+55)/16), (int)((y+20)/16), (int)((y+65)/16))) {
+				bloodAngle = Math.atan2(100, 1);
+				bloodAngle += Math.PI;
+				for(int i = 0; i < 20; i++) {
+					bloodAuxAngle = bloodAngle - (Math.PI/4) + ((Math.PI/2) * Math.random());
+					vel = (float)(100 + 100 * Math.random());
+					vX = (float)(Math.cos(bloodAuxAngle) * vel);
+					vY = (float)(Math.sin(bloodAuxAngle) * vel);
+					CanvasGame.effectsList.add(new Effect(x+26, y+40, vX, vY, 900, 255, 0, 0));
+				}
+				isAlive = false;
+			}
+		}
 	}
 	
 	@Override
@@ -156,7 +173,6 @@ public class EnemyGargoyle extends Character {
 		super.selfDraws(dbg, mapX, mapY);
 	}
 	
-	//retangulo delimitador
 	public Rectangle getBounds() {
 		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+28), (int)(y-CanvasGame.map.MapY+30), 28, 40);
 		return r;
