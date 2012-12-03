@@ -15,7 +15,7 @@ public class CharBilly extends Character {
 	float spawnX, spawnY;
 	
 	public CharBilly(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 49, 55, 7);
+		super(x, y, charset, charsetX, charsetY, 59, 60, 4);
 		this.spawnX = x;
 		this.spawnY = y;
 	}
