@@ -27,7 +27,7 @@ public class EnemyGargoyle extends Character {
 		
 		if((x < 5)) { x = 5; }
 		if((y < 5)) { y = 5; }
-		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) { x = (frameWidth-((CanvasGame.map.Largura << 4)-5)); }
+		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) { x = (((CanvasGame.map.Largura << 4)-5)-frameWidth); }
 		if((y+frameHeight > (CanvasGame.map.Altura << 4)-5)) { isAlive = false; }
 		
 		velX = speed * diffTime / 1000.0f;
