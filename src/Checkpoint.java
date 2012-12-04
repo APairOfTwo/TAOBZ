@@ -5,11 +5,15 @@ import java.awt.Graphics2D;
 public class Checkpoint extends Sprite {
 	int x, y;
 	boolean isActive;
+	boolean hasBeenActived = false;
+	boolean respawnBilly, respawnZombie;
 	
 	public Checkpoint(int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.isActive = false;
+		this.respawnBilly = false;
+		this.respawnZombie = false;
 	}
 
 	@Override
@@ -17,6 +21,13 @@ public class Checkpoint extends Sprite {
 		for(Character c : CanvasGame.heroes) {
 			if(c.getBounds().intersects(x-CanvasGame.map.MapX, y-CanvasGame.map.MapY, 16, 64)) {
 				isActive = true;
+				if(GamePanel.isCoop) {
+					if(!CanvasGame.billy.isAlive) {
+						respawnBilly = true;
+					} else if(!CanvasGame.zombie.isAlive) {
+						respawnZombie = true;
+					}
+				}
 			}
 		}
 	}

@@ -39,7 +39,6 @@ public class SaveGame {
 			break;
 
 		case JOptionPane.NO_OPTION:
-			GamePanel.running = false;
 			showSaveDialog = false;
 			break;
 			

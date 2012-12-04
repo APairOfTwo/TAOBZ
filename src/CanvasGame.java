@@ -146,6 +146,24 @@ public class CanvasGame extends Canvas {
 			}
 			for(Checkpoint c : checkpoints) {
 				c.selfSimulates(diffTime);
+				if(c.respawnBilly && !c.hasBeenActived) {
+					billy.respawnCountTime+=diffTime;
+					if(billy.respawnCountTime >= 1000) {
+						billy.respawnCountTime = 0;
+						billy.respawn();
+						c.respawnBilly = false;
+						c.hasBeenActived = true;
+					}
+				}
+				if(c.respawnZombie && !c.hasBeenActived) {
+					zombie.respawnCountTime+=diffTime;
+					if(zombie.respawnCountTime >= 1000) {
+						zombie.respawnCountTime = 0;
+						zombie.respawn();
+						c.respawnZombie = false;
+						c.hasBeenActived = true;
+					}
+				}
 			}
 			for(int i = 0; i < effectsList.size(); i++){
 				effectsList.get(i).selfSimulates(diffTime);
