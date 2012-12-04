@@ -188,6 +188,7 @@ public class GamePanel extends JPanel implements Runnable {
 		app.pack();
 		app.setResizable(true);
 		app.setVisible(true);
+		app.setLocationRelativeTo(null);
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		device = env.getDefaultScreenDevice();
 		makeCursorInvisible();
@@ -228,15 +229,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
     
     public static void makeCursorInvisible() {
-    	//Create an empty byte array  
     	byte[]imageByte = new byte[0];  
-    	  
-    	Point myPoint = new Point(0,0);  
-    	  
-    	//Create image for cursor using empty array  
-    	Image cursorImage = Toolkit.getDefaultToolkit().createImage(imageByte);  
-    	
-    	//Create cursor  
+    	Point myPoint = new Point(0,0);
+    	Image cursorImage = Toolkit.getDefaultToolkit().createImage(imageByte);
     	myCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, myPoint, "cursor");
     }
 

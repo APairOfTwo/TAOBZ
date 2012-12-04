@@ -84,7 +84,7 @@ public class CanvasOptions extends Canvas {
 	public void selfDraws(Graphics2D dbg) {
 		dbg.drawImage(background, 0, 0, GamePanel.PANEL_WIDTH, GamePanel.PANEL_HEIGHT, 0, 0, background.getWidth(), background.getHeight(), null);
 		
-		dbg.drawString("Volume:", GamePanel.PANEL_WIDTH/2 - 100, GamePanel.PANEL_HEIGHT/2 - 110);
+		dbg.drawString("VOLUME", GamePanel.PANEL_WIDTH/2 - 35, GamePanel.PANEL_HEIGHT/2 - 110);
 		dbg.drawString("" + (int)(volume * 100.1f), GamePanel.PANEL_WIDTH/2 - 20, GamePanel.PANEL_HEIGHT/2 - 60);
 		
 		btnMinus.selfDraws(dbg);
