@@ -36,6 +36,7 @@ public class CanvasResult extends Canvas {
 		
 		if(MOUSE_PRESSED && btnContinue.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
 			GamePanel.levelId += 1;
+			SaveGame.save();
 			GamePanel.changeMap(GamePanel.levelId);
 			MOUSE_PRESSED = false;
 		}

@@ -11,9 +11,12 @@ public class LoadGame {
 	static FileReader txtReader;
 	static BufferedReader loadOut;
 	static String str;
-	static int posX;
+	static int mapId;
+	static int gameMode;
+	static int counter;
 	
 	public static void load() {
+		counter = 0;
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setAcceptAllFileFilterUsed(false);
 		fileChooser.setFileFilter(new TextFilter());
@@ -21,18 +24,47 @@ public class LoadGame {
 		if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			File file = fileChooser.getSelectedFile();
 			try {
-			    // Create file
 				txtReader = new FileReader(file);
 				loadOut = new BufferedReader(txtReader);
-				str = loadOut.readLine();
-				posX = new Integer(str);
-				System.out.println(posX);
-			    
-			    //Close the output stream
+				while ((str = loadOut.readLine()) != null) {
+					if(counter == 0) {
+						mapId = new Integer(str);
+						System.out.println(mapId);
+					}
+					if(counter == 1) {
+						gameMode = new Integer(str);
+						System.out.println(gameMode);
+					}
+					counter++;
+				}
 			    loadOut.close();
+			    loadLastState(mapId, gameMode);
 			   } catch (Exception e) {
-			    System.err.println("Erro: " + e.getMessage());
+				   System.err.println("Erro: " + e.getMessage());
 			   }
+		}
+	}
+	
+	public static void loadLastState(int mapId, int gameMode) {
+		if(gameMode == 1) {
+			GamePanel.canvasActive = new CanvasGame(mapId);
+			CanvasGame.setGameLevel(mapId);
+			CanvasGame.heroes.add(CanvasGame.billy);
+			CanvasGame.heroes.add(CanvasGame.zombie);
+			GamePanel.isCoop = true;
+		} else {
+			if(gameMode == 2) {
+				GamePanel.canvasActive = new CanvasGame(mapId);
+				CanvasGame.setGameLevel(mapId);
+				CanvasGame.heroes.add(CanvasGame.billy);
+				GamePanel.isCoop = false;
+			}
+			if(gameMode == 3) {
+				GamePanel.canvasActive = new CanvasGame(mapId);
+				CanvasGame.setGameLevel(mapId);
+				CanvasGame.heroes.add(CanvasGame.zombie);
+				GamePanel.isCoop = false;
+			}
 		}
 	}
 }

@@ -27,8 +27,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public static boolean selectedBilly = false;
 	public static boolean selectedZombie = false;
 	public static int levelId = 1;
-//	public static int currentLevelId = levelId;
-//	public static int nextLevelId = currentLevelId++;
+	
 	private static DisplayMode[] BEST_DISPLAY_MODES = new DisplayMode[] {
         new DisplayMode(800, 600, 32, 0),
         new DisplayMode(800, 600, 16, 0),
