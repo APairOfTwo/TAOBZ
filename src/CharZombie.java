@@ -13,6 +13,7 @@ public class CharZombie extends Character {
 	float spawnX, spawnY;
 	int fireAnim;
 	int deathCounter = 0;
+	public static BufferedImage hudProjMeat = GamePanel.loadImage("sprites/hud_projMeat.png");
 	
 	public CharZombie(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 60, 60, 4);
@@ -150,7 +151,10 @@ public class CharZombie extends Character {
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
 		if(isAlive) {
 			super.selfDraws(dbg, mapX, mapY);
-			dbg.drawString("Meats: "+numShotsMeat, 10, 50);
+			for(int i = 0; i < numShotsMeat; i++) {
+				int x = 100 + (i * 13);
+				dbg.drawImage(hudProjMeat, (int)(x), (int)(25), (int)(x+19), (int)(25+40), 0, 0, hudProjMeat.getWidth(), hudProjMeat.getHeight(), null);
+			}
 		}
 
 	}

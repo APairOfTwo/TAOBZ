@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -14,6 +15,7 @@ public class CharBilly extends Character {
 	boolean positionsMap = false;
 	float spawnX, spawnY;
 	int fireAnim;
+	public static BufferedImage hudProjBone = GamePanel.loadImage("sprites/hud_projBone.png");
 	
 	public CharBilly(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 60, 60, 4);
@@ -171,7 +173,10 @@ public class CharBilly extends Character {
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
 		if(isAlive) {
 			super.selfDraws(dbg, mapX, mapY);
-			dbg.drawString("Bones: "+numShotsBone, 10, 40);
+			for(int i = 0; i < numShotsBone; i++) {
+				int x = i * 12;
+				dbg.drawImage(hudProjBone, (int)(x), (int)(25), (int)(x+16), (int)(25+40), 0, 0, hudProjBone.getWidth(), hudProjBone.getHeight(), null);
+			}
 		}
 	}
 	
