@@ -37,11 +37,11 @@ public class EnemyBerserker extends Character {
 		if((y+frameHeight > (CanvasGame.map.Altura << 4)-5)) { isAlive = false; }
 		
 		
-		if(CanvasGame.heroes.size() == 1) {
+		if(!GamePanel.isCoop) {
 			dx = (CanvasGame.heroes.get(0).x + CanvasGame.heroes.get(0).centerX) - (x + centerX);
 			dy = CanvasGame.heroes.get(0).y - (y + centerY);
 			dist = Math.hypot(dx, dy);
-		} else if(CanvasGame.heroes.size() == 2) {
+		} else if(GamePanel.isCoop) {
 			double dx1 = (CanvasGame.heroes.get(0).x + CanvasGame.heroes.get(0).centerX) - (x + centerX);
 			double dy1 = CanvasGame.heroes.get(0).y - (y + centerY);
 			double dist1 = Math.hypot(dx1, dy1);
@@ -70,6 +70,12 @@ public class EnemyBerserker extends Character {
 			projDx = proj.x - (x + centerX);
 			projDy = proj.y - (y + centerY);
 			projDist = Math.hypot(projDx, projDy);
+		}
+		
+		if(dist <= FIELD_OF_VIEW) {
+			System.out.println("costela");
+		} else {
+			System.out.println("morango");
 		}
 		
 		if(!this.isEating && !this.isFollowing) {

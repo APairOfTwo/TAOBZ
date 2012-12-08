@@ -168,12 +168,16 @@ public class CharZombie extends Character {
 		isAlive = true;
 		hasJumped = false;
 		numShotsMeat = 5;
+		
 		if(CanvasGame.checkpoints.size() != 0) {
 			for(int i = CanvasGame.checkpoints.size()-1; i >= 0; i--) {
 				if(CanvasGame.checkpoints.get(i).isActive) {
 					x = CanvasGame.checkpoints.get(i).x;
 					y = CanvasGame.checkpoints.get(i).y;
 					break;
+				} else if(i == 0) {
+					x = spawnX;
+					y = spawnY;
 				}
 			}
 		} else {
