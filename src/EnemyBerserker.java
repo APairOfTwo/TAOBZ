@@ -72,12 +72,6 @@ public class EnemyBerserker extends Character {
 			projDist = Math.hypot(projDx, projDy);
 		}
 		
-		if(dist <= FIELD_OF_VIEW) {
-			System.out.println("costela");
-		} else {
-			System.out.println("morango");
-		}
-		
 		if(!this.isEating && !this.isFollowing) {
 			if(dist <= FIELD_OF_VIEW) {
 				x += velX * dx / dist;
