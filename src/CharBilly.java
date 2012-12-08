@@ -1,5 +1,3 @@
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -7,7 +5,6 @@ import java.awt.image.BufferedImage;
 
 public class CharBilly extends Character {
 	int fireRate = 800;
-	//int life = 100;
 	int respawnCountTime;
 	float speed = 220;
 	int numShotsBone = 5;
@@ -44,12 +41,13 @@ public class CharBilly extends Character {
 			isAlive = false;
 		}
 		
-		if(CanvasGame.B_FIRE && fireTimer > fireRate){
+		if((CanvasGame.B_KEY_FIRE || CanvasGame.B_JOY_FIRE) && fireTimer > fireRate){
 			fireAnim += diffTime;
-			
 			fireTimer = 0;
 			float vproj = 1000;
-			if(CanvasGame.B_LEFT || CanvasGame.B_RIGHT) {
+			
+			// Se o player estiver andando, sua velocidade é somada a velocidade do projétil
+			if((CanvasGame.B_KEY_LEFT || CanvasGame.B_JOY_LEFT) || (CanvasGame.B_KEY_RIGHT || CanvasGame.B_JOY_RIGHT)) {
 				vproj += speed;
 			}
 			
@@ -59,19 +57,22 @@ public class CharBilly extends Character {
 			numShotsBone--;
 		}
 		
-		if(CanvasGame.B_JUMP && onTheFloor) {
+		if((CanvasGame.B_KEY_JUMP || CanvasGame.B_JOY_JUMP) && onTheFloor) {
 			animeSpeed = 100;
 			jumpSpeed = 1100;
 			hasJumped = true;
 			if(moveDirection == 1) animation = 0;
 			if(moveDirection == -1) animation = 1;
 		}
-		if(CanvasGame.B_RIGHT) {
+		if(!CanvasGame.B_KEY_JUMP && !CanvasGame.B_JOY_JUMP) {
+			jumpSpeed = jumpSpeed / 2;
+		}
+		if(CanvasGame.B_KEY_RIGHT || CanvasGame.B_JOY_RIGHT) {
 			animeSpeed = 100;
 			x += speed * diffTime / 1000.0f;
 			animation = 2;
 			moveDirection = 1;
-		} else if(CanvasGame.B_LEFT) {
+		} else if(CanvasGame.B_KEY_LEFT || CanvasGame.B_JOY_LEFT) {
 			animeSpeed = 100;
 			x -= speed * diffTime / 1000.0f;
 			animation = 3;

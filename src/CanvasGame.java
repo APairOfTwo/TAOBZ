@@ -7,6 +7,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 
+import net.java.games.input.Component;
+import net.java.games.input.Controller;
+
 public class CanvasGame extends Canvas {
 	public static CanvasGame instance = null;
 	public static ElementManager gameElements = new ElementManager();
@@ -43,8 +46,10 @@ public class CanvasGame extends Canvas {
 	public static ArrayList<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
 	public static ArrayList<Effect> effectsList = new ArrayList<Effect>();
 	
-	public static boolean B_LEFT, B_RIGHT, B_JUMP, B_FIRE;
-	public static boolean Z_LEFT, Z_RIGHT, Z_JUMP, Z_FIRE;
+	public static boolean B_KEY_LEFT, B_KEY_RIGHT, B_KEY_JUMP, B_KEY_FIRE;
+	public static boolean B_JOY_LEFT, B_JOY_RIGHT, B_JOY_JUMP, B_JOY_FIRE;
+	public static boolean Z_KEY_LEFT, Z_KEY_RIGHT, Z_KEY_JUMP, Z_KEY_FIRE;
+	public static boolean Z_JOY_LEFT, Z_JOY_RIGHT, Z_JOY_JUMP, Z_JOY_FIRE;
 	public static boolean MOUSE_PRESSED;
 	public static int MOUSE_X, MOUSE_Y;
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
@@ -79,6 +84,8 @@ public class CanvasGame extends Canvas {
 	
 	@Override
 	public void selfSimulates(long diffTime) {
+		updateGamepads();
+		
 		if(!loading) {
 			for(Character c : heroes) {
 				if(c.isAlive) {
@@ -180,7 +187,168 @@ public class CanvasGame extends Canvas {
 			}
 		}
 	}
-
+	
+	public void updateGamepads() {
+		if(GamePanel.gamepads.size() == 1) {
+			GamePanel.gamepads.get(0).poll();
+			Component[] comps = GamePanel.gamepads.get(0).getComponents();
+			if(GamePanel.isCoop) {
+				// 1 controle - coop - zombie
+				for(Component comp : comps) {
+						System.out.println(comp.getIdentifier().toString() + " " +comp.getPollData());
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 1.0) {
+						CanvasGame.Z_JOY_LEFT = true;
+					}
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 0.5) {
+						CanvasGame.Z_JOY_RIGHT = true;
+					}
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 0) {
+						CanvasGame.Z_JOY_LEFT = false;
+						CanvasGame.Z_JOY_RIGHT = false;
+					}
+					if(comp.getIdentifier().toString() == "2" && comp.getPollData() == 1) {
+						CanvasGame.Z_JOY_JUMP = true;
+					}
+					if(comp.getIdentifier().toString() == "2" && comp.getPollData() == 0) {
+						CanvasGame.Z_JOY_JUMP = false;
+					}
+					if(comp.getIdentifier().toString() == "3" && comp.getPollData() == 1) {
+						CanvasGame.Z_JOY_FIRE = true;
+					}
+					if(comp.getIdentifier().toString() == "3" && comp.getPollData() == 0) {
+						CanvasGame.Z_JOY_FIRE = false;
+					}
+				}
+			} else {
+				// 1 controle - single - zombie ou billy
+				for(Component comp : comps) {
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 1.0) {
+						CanvasGame.B_JOY_LEFT = true;
+						CanvasGame.Z_JOY_LEFT = true;
+					}
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 0.5) {
+						CanvasGame.B_JOY_RIGHT = true;
+						CanvasGame.Z_JOY_RIGHT = true;
+					}
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 0) {
+						CanvasGame.B_JOY_LEFT = false;
+						CanvasGame.B_JOY_RIGHT = false;
+						CanvasGame.Z_JOY_LEFT = false;
+						CanvasGame.Z_JOY_RIGHT = false;
+					}
+					if(comp.getIdentifier().toString() == "2" && comp.getPollData() == 1) {
+						CanvasGame.B_JOY_JUMP = true;
+						CanvasGame.Z_JOY_JUMP = true;
+					}
+					if(comp.getIdentifier().toString() == "2" && comp.getPollData() == 0) {
+						CanvasGame.B_JOY_JUMP = false;
+						CanvasGame.Z_JOY_JUMP = false;
+					}
+					if(comp.getIdentifier().toString() == "3" && comp.getPollData() == 1) {
+						CanvasGame.B_JOY_FIRE = true;
+						CanvasGame.Z_JOY_FIRE = true;
+					}
+					if(comp.getIdentifier().toString() == "3" && comp.getPollData() == 0) {
+						CanvasGame.B_JOY_FIRE = false;
+						CanvasGame.Z_JOY_FIRE = false;
+					}
+				}
+			}
+		}
+		
+		if(GamePanel.gamepads.size() == 2) {
+			GamePanel.gamepads.get(0).poll();
+			GamePanel.gamepads.get(1).poll();
+			Component[] comps0 = GamePanel.gamepads.get(0).getComponents();
+			Component[] comps1 = GamePanel.gamepads.get(1).getComponents();
+			if(GamePanel.isCoop) {
+				// 2 controles - coop - billy(controle 0) e zombie(controle 1)
+				for(Component comp : comps0) {
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 1.0) {
+						CanvasGame.B_JOY_LEFT = true;
+					}
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 0.5) {
+						CanvasGame.B_JOY_RIGHT = true;
+					}
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 0) {
+						CanvasGame.B_JOY_LEFT = false;
+						CanvasGame.B_JOY_RIGHT = false;
+					}
+					if(comp.getIdentifier().toString() == "2" && comp.getPollData() == 1) {
+						CanvasGame.B_JOY_JUMP = true;
+					}
+					if(comp.getIdentifier().toString() == "2" && comp.getPollData() == 0) {
+						CanvasGame.B_JOY_JUMP = false;
+					}
+					if(comp.getIdentifier().toString() == "3" && comp.getPollData() == 1) {
+						CanvasGame.B_JOY_FIRE = true;
+					}
+					if(comp.getIdentifier().toString() == "3" && comp.getPollData() == 0) {
+						CanvasGame.B_JOY_FIRE = false;
+					}
+				}
+				for(Component comp : comps1) {
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 1.0) {
+						CanvasGame.Z_JOY_LEFT = true;
+					}
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 0.5) {
+						CanvasGame.Z_JOY_RIGHT = true;
+					}
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 0) {
+						CanvasGame.Z_JOY_LEFT = false;
+						CanvasGame.Z_JOY_RIGHT = false;
+					}
+					if(comp.getIdentifier().toString() == "2" && comp.getPollData() == 1) {
+						CanvasGame.Z_JOY_JUMP = true;
+					}
+					if(comp.getIdentifier().toString() == "2" && comp.getPollData() == 0) {
+						CanvasGame.Z_JOY_JUMP = false;
+					}
+					if(comp.getIdentifier().toString() == "3" && comp.getPollData() == 1) {
+						CanvasGame.Z_JOY_FIRE = true;
+					}
+					if(comp.getIdentifier().toString() == "3" && comp.getPollData() == 0) {
+						CanvasGame.Z_JOY_FIRE = false;
+					}
+				}
+			} else {
+				// 2 controles - single - billy(controle 0) ou zombie(controle 0)
+				for(Component comp : comps0) {
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 1.0) {
+						CanvasGame.B_JOY_LEFT = true;
+						CanvasGame.Z_JOY_LEFT = true;
+					}
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 0.5) {
+						CanvasGame.B_JOY_RIGHT = true;
+						CanvasGame.Z_JOY_RIGHT = true;
+					}
+					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 0) {
+						CanvasGame.B_JOY_LEFT = false;
+						CanvasGame.B_JOY_RIGHT = false;
+						CanvasGame.Z_JOY_LEFT = false;
+						CanvasGame.Z_JOY_RIGHT = false;
+					}
+					if(comp.getIdentifier().toString() == "2" && comp.getPollData() == 1) {
+						CanvasGame.B_JOY_JUMP = true;
+						CanvasGame.Z_JOY_JUMP = true;
+					}
+					if(comp.getIdentifier().toString() == "2" && comp.getPollData() == 0) {
+						CanvasGame.B_JOY_JUMP = false;
+						CanvasGame.Z_JOY_JUMP = false;
+					}
+					if(comp.getIdentifier().toString() == "3" && comp.getPollData() == 1) {
+						CanvasGame.B_JOY_FIRE = true;
+						CanvasGame.Z_JOY_FIRE = true;
+					}
+					if(comp.getIdentifier().toString() == "3" && comp.getPollData() == 0) {
+						CanvasGame.B_JOY_FIRE = false;
+						CanvasGame.Z_JOY_FIRE = false;
+					}
+				}
+			}
+		}
+	}
+	
 	@Override
 	public void selfDraws(Graphics2D dbg){
 		map.selfDraws(dbg);
@@ -225,14 +393,14 @@ public class CanvasGame extends Canvas {
 	@Override
 	public void keyPressed(KeyEvent k){
 		int keyCode = k.getKeyCode();
-		if(keyCode == KeyEvent.VK_A)		{ B_LEFT  = true; }
-		if(keyCode == KeyEvent.VK_D)		{ B_RIGHT = true; }
-		if(keyCode == KeyEvent.VK_W)		{ B_JUMP  = true; }
-		if(keyCode == KeyEvent.VK_SPACE)	{ B_FIRE  = true; }
-		if(keyCode == KeyEvent.VK_LEFT)		{ Z_LEFT  = true; }
-		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_RIGHT = true; }
-		if(keyCode == KeyEvent.VK_M)		{ Z_RIGHT = true; }
-		if(keyCode == KeyEvent.VK_UP)		{ Z_JUMP  = true; }
+		if(keyCode == KeyEvent.VK_A)		{ B_KEY_LEFT = true; }
+		if(keyCode == KeyEvent.VK_D)		{ B_KEY_RIGHT = true; }
+		if(keyCode == KeyEvent.VK_W)		{ B_KEY_JUMP  = true; }
+		if(keyCode == KeyEvent.VK_SPACE)	{ B_KEY_FIRE  = true; }
+		if(keyCode == KeyEvent.VK_LEFT)		{ Z_KEY_LEFT  = true; }
+		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_KEY_RIGHT = true; }
+		if(keyCode == KeyEvent.VK_M)		{ Z_KEY_RIGHT = true; }
+		if(keyCode == KeyEvent.VK_UP)		{ Z_KEY_JUMP  = true; }
 		if(keyCode == KeyEvent.VK_F1)		{ SaveGame.save(); }
 		if(keyCode == KeyEvent.VK_L)		{ LoadGame.load(); }
 		if(keyCode == KeyEvent.VK_ESCAPE) {
@@ -247,14 +415,14 @@ public class CanvasGame extends Canvas {
 	@Override
 	public void keyReleased(KeyEvent k){
 		int keyCode = k.getKeyCode();
-		if(keyCode == KeyEvent.VK_A)		{ B_LEFT  = false; }
-		if(keyCode == KeyEvent.VK_D)		{ B_RIGHT = false; }
-		if(keyCode == KeyEvent.VK_W)		{ B_JUMP  = false; billy.jumpSpeed = billy.jumpSpeed / 2; }
-		if(keyCode == KeyEvent.VK_SPACE)	{ B_FIRE  = false; }
-		if(keyCode == KeyEvent.VK_LEFT)		{ Z_LEFT  = false; }
-		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_RIGHT = false; }
-		if(keyCode == KeyEvent.VK_M)		{ Z_RIGHT = false; }
-		if(keyCode == KeyEvent.VK_UP)		{ Z_JUMP  = false; zombie.jumpSpeed = zombie.jumpSpeed / 2; }
+		if(keyCode == KeyEvent.VK_A)		{ B_KEY_LEFT  = false; }
+		if(keyCode == KeyEvent.VK_D)		{ B_KEY_RIGHT = false; }
+		if(keyCode == KeyEvent.VK_W)		{ B_KEY_JUMP  = false; }
+		if(keyCode == KeyEvent.VK_SPACE)	{ B_KEY_FIRE  = false; }
+		if(keyCode == KeyEvent.VK_LEFT)		{ Z_KEY_LEFT  = false; }
+		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_KEY_RIGHT = false; }
+		if(keyCode == KeyEvent.VK_M)		{ Z_KEY_RIGHT = false; }
+		if(keyCode == KeyEvent.VK_UP)		{ Z_KEY_JUMP  = false; }
 	}
 
 	@Override
@@ -271,24 +439,24 @@ public class CanvasGame extends Canvas {
 		MOUSE_PRESSED = true;
 		MOUSE_CLICK_X = m.getX();
 		MOUSE_CLICK_Y = m.getY();
-		Z_FIRE = true;
+		Z_KEY_FIRE = true;
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent m) { 
 		MOUSE_PRESSED = false;
-		Z_FIRE = false;
+		Z_KEY_FIRE = false;
 	}
 	
 	public static void resetControls() {
-		B_LEFT = false;
-		B_RIGHT = false;
-		B_JUMP = false; 
-		B_FIRE = false;
-		Z_LEFT = false;
-		Z_RIGHT = false;
-		Z_JUMP = false; 
-		Z_FIRE = false;
+		B_KEY_LEFT = false;
+		B_KEY_RIGHT = false;
+		B_KEY_JUMP = false; 
+		B_KEY_FIRE = false;
+		Z_KEY_LEFT = false;
+		Z_KEY_RIGHT = false;
+		Z_KEY_JUMP = false; 
+		Z_KEY_FIRE = false;
 	}
 	
 	public static void setGameLevel(int levelId) {

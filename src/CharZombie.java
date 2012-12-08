@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 
 public class CharZombie extends Character {
 	int fireRate = 800;
-	//int life = 100;
 	int respawnCountTime;
 	float speed = 220;
 	int numShotsMeat = 5;
@@ -41,30 +40,29 @@ public class CharZombie extends Character {
 			CanvasGame.deathCounter++;
 			isAlive = false;
 		}
-		if(CanvasGame.Z_FIRE && fireTimer > fireRate){
+		if((CanvasGame.Z_KEY_FIRE || CanvasGame.Z_JOY_FIRE) && fireTimer > fireRate){
 			fireTimer = 0;
 			float vproj = 1000;
-			if(CanvasGame.Z_LEFT || CanvasGame.Z_RIGHT) {
-				vproj += speed;
-			}
-			
 			float vx = vproj * moveDirection;
 			proj = new ProjMeat(x+centerX, y+centerY, vx/2, 0, this);
 			CanvasGame.projectilesList.add(proj);
 			numShotsMeat--;
 		}
 		
-		if(CanvasGame.Z_JUMP && onTheFloor) {
+		if((CanvasGame.Z_KEY_JUMP || CanvasGame.Z_JOY_JUMP) && onTheFloor) {
 			jumpSpeed = 1100;
 			hasJumped = true;
 			if(moveDirection == 1) animation = 0;
 			if(moveDirection == -1) animation = 1;
 		}
-		if(CanvasGame.Z_RIGHT) {
+		if(!CanvasGame.Z_KEY_JUMP && !CanvasGame.Z_JOY_JUMP) {
+			jumpSpeed = jumpSpeed / 2;
+		}
+		if(CanvasGame.Z_KEY_RIGHT || CanvasGame.Z_JOY_RIGHT) {
 			x += speed * diffTime / 1000.0f;
 			animation = 2;
 			moveDirection = 1;
-		} else if(CanvasGame.Z_LEFT) {
+		} else if(CanvasGame.Z_KEY_LEFT || CanvasGame.Z_JOY_LEFT) {
 			x -= speed * diffTime / 1000.0f;
 			animation = 3;
 			moveDirection = -1;

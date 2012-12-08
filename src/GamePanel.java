@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
 import net.java.games.input.Component;
@@ -38,7 +39,9 @@ public class GamePanel extends JPanel implements Runnable {
 	public static JFrame app;
 	public static boolean isFullScreen = false;
 	public static Cursor myCursor;
+	public static ControllerEnvironment ce;
 	public static Controller[] cs;
+	public static ArrayList<Controller> gamepads = new ArrayList<Controller>();
 	
 	public GamePanel(){
 		instance = this;
@@ -141,16 +144,6 @@ public class GamePanel extends JPanel implements Runnable {
 		diffTime = 0;
 		previousTime = System.currentTimeMillis();
 		while (running) {
-			if(cs != null) {
-				for(int i = 0; i < cs.length; i++) {
-					cs[0].poll();
-					Component[] cmps = cs[0].getComponents();
-					for (int c = 0; c < cmps.length; c++) {
-						//System.out.println(cmps[c].getIdentifier());
-						System.out.println(cmps[c].getIdentifier() + " - " + cmps[c].getName() + " = " + cmps[c].getPollData());
-		            }
-				}
-			}
 			gameUpdate(diffTime);
 			gameRender();
 			paintImmediately(0, 0, PANEL_WIDTH, PANEL_HEIGHT);
@@ -202,8 +195,13 @@ public class GamePanel extends JPanel implements Runnable {
 		app.setLocationRelativeTo(null);
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		device = env.getDefaultScreenDevice();
-		ControllerEnvironment ce = ControllerEnvironment.getDefaultEnvironment();
+		ce = ControllerEnvironment.getDefaultEnvironment();
         cs = ce.getControllers();
+        for(int i = 0; i < cs.length; i++) {
+			if(cs[i].getType().toString().equals("Stick")) {
+				gamepads.add(cs[i]);
+			}
+		}
 		makeCursorInvisible();
 	}
 	
