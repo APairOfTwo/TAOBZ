@@ -1,11 +1,12 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
-
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
+import net.java.games.input.Component;
+import net.java.games.input.Controller;
+import net.java.games.input.ControllerEnvironment;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable {
@@ -37,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public static JFrame app;
 	public static boolean isFullScreen = false;
 	public static Cursor myCursor;
+	public static Controller[] cs;
 	
 	public GamePanel(){
 		instance = this;
@@ -139,6 +141,16 @@ public class GamePanel extends JPanel implements Runnable {
 		diffTime = 0;
 		previousTime = System.currentTimeMillis();
 		while (running) {
+			if(cs != null) {
+				for(int i = 0; i < cs.length; i++) {
+					cs[0].poll();
+					Component[] cmps = cs[0].getComponents();
+					for (int c = 0; c < cmps.length; c++) {
+						//System.out.println(cmps[c].getIdentifier());
+						System.out.println(cmps[c].getIdentifier() + " - " + cmps[c].getName() + " = " + cmps[c].getPollData());
+		            }
+				}
+			}
 			gameUpdate(diffTime);
 			gameRender();
 			paintImmediately(0, 0, PANEL_WIDTH, PANEL_HEIGHT);
@@ -190,6 +202,8 @@ public class GamePanel extends JPanel implements Runnable {
 		app.setLocationRelativeTo(null);
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		device = env.getDefaultScreenDevice();
+		ControllerEnvironment ce = ControllerEnvironment.getDefaultEnvironment();
+        cs = ce.getControllers();
 		makeCursorInvisible();
 	}
 	
