@@ -55,7 +55,6 @@ public class EnemyVegetarian extends Character {
 		} else {
 			if(this.isStunned){
 				countTime += diffTime;
-				//animeSpeed = 300;
 				if(moveDirection == 1) {
 					animation = 2;
 				} else if(moveDirection == -1) {
@@ -65,12 +64,11 @@ public class EnemyVegetarian extends Character {
 				}
 				if(countTime >= 5000) {
 					isStunned = false;
-					animeSpeed = 150;
 					speed = DEFAULT_SPEED;
 					countTime = 0;
 				}
 			}
-		}	
+		}
 		
 		if(floorCollision((int)((x+25)/16), (int)((x+30)/16), (int)((x+35)/16), (int)((y+80)/16), (int)((y+75)/16), (int)((y+70)/16))) {
 			y = oldY;

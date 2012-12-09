@@ -39,22 +39,19 @@ public class LoadGame {
 	}
 	
 	public static void loadLastState(int mapId, int gameMode) {
+		GamePanel.canvasActive = new CanvasGame(mapId);
+		CanvasGame.setGameLevel(mapId);
+		GamePanel.levelId = mapId;
 		if(gameMode == 1) {
-			GamePanel.canvasActive = new CanvasGame(mapId);
-			CanvasGame.setGameLevel(mapId);
 			CanvasGame.heroes.add(CanvasGame.billy);
 			CanvasGame.heroes.add(CanvasGame.zombie);
 			GamePanel.isCoop = true;
 		} else {
 			if(gameMode == 2) {
-				GamePanel.canvasActive = new CanvasGame(mapId);
-				CanvasGame.setGameLevel(mapId);
 				CanvasGame.heroes.add(CanvasGame.billy);
 				GamePanel.isCoop = false;
 			}
 			if(gameMode == 3) {
-				GamePanel.canvasActive = new CanvasGame(mapId);
-				CanvasGame.setGameLevel(mapId);
 				CanvasGame.heroes.add(CanvasGame.zombie);
 				GamePanel.isCoop = false;
 			}

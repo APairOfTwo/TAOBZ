@@ -12,6 +12,7 @@ public class ProjMeat extends Projectile {
 	Character shooter;
 	float meatBigRadius = 100;
 	float meatSmallRadius = 20;
+	float countTime;
 	
 	public ProjMeat(float x, float y, float velX, float velY, Object pai) {
 		super(x, y, velX, velY, pai);
@@ -45,6 +46,14 @@ public class ProjMeat extends Projectile {
 				hitTheGround = true;
 				x = oldX;
 				y = oldY;
+			}
+		}
+		
+		if(active && hitTheGround) {
+			countTime += diffTime;
+			if(countTime >= 9000) {
+				active = false;
+				countTime = 0;
 			}
 		}
 		

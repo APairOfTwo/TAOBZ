@@ -46,11 +46,11 @@ public class EnemyGargoyle extends Character {
 			double dy2 = CanvasGame.heroes.get(1).y - (y + centerY);
 			double dist2 = Math.hypot(dx2, dy2);
 			
-			if(dist1 <= dist2) {
+			if(CanvasGame.billy.isAlive && (dist1 <= dist2)) {
 				dx = dx1;
 				dy = dy1;
 				dist = dist1;
-			} else {
+			} else if(CanvasGame.zombie.isAlive) {
 				dx = dx2;
 				dy = dy2;
 				dist = dist2;
@@ -110,7 +110,6 @@ public class EnemyGargoyle extends Character {
 			}
 			if(countTime >= 5000) {
 				isStunned = false;
-				animeSpeed = 100;
 				speed = DEFAULT_SPEED;
 				countTime = 0;
 			}
@@ -137,7 +136,6 @@ public class EnemyGargoyle extends Character {
 			}
 			if(countTime >= 5000) {
 				proj.active = false;
-				animeSpeed = 100;
 				speed = DEFAULT_SPEED;
 				countTime = 0;
 			}
@@ -165,6 +163,10 @@ public class EnemyGargoyle extends Character {
 				}
 				isAlive = false;
 			}
+		}
+		
+		if(!this.isEating && !this.isStunned) {
+			animeSpeed = 100;
 		}
 	}
 	

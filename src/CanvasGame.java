@@ -195,7 +195,6 @@ public class CanvasGame extends Canvas {
 			if(GamePanel.isCoop) {
 				// 1 controle - coop - zombie
 				for(Component comp : comps) {
-						System.out.println(comp.getIdentifier().toString() + " " +comp.getPollData());
 					if(comp.getIdentifier().toString() == "pov" && comp.getPollData() == 1.0) {
 						CanvasGame.Z_JOY_LEFT = true;
 					}
@@ -353,12 +352,12 @@ public class CanvasGame extends Canvas {
 	public void selfDraws(Graphics2D dbg){
 		map.selfDraws(dbg);
 		
-//		for(Element e : gameElements.elementsList) {
-//			if(e.itemId == 8) {
-//				dbg.setColor(Color.MAGENTA);
-//				dbg.fillRect((e.blockX<<4)-map.MapX, (e.blockY<<4)-map.MapY, 16, 64);
-//			}
-//		}
+		for(Element e : gameElements.elementsList) {
+			if(e.itemId == 8) {
+				dbg.setColor(Color.MAGENTA);
+				dbg.fillRect((e.blockX<<4)-map.MapX, (e.blockY<<4)-map.MapY, 16, 64);
+			}
+		}
 		
 		for(int i = 0; i < projectilesList.size(); i++){
 			projectilesList.get(i).selfDraws(dbg, map.MapX, map.MapY);

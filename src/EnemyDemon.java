@@ -74,7 +74,6 @@ public class EnemyDemon extends Character {
 				}
 				if(countTime >= 5000) {
 					isStunned = false;
-					animeSpeed = 100;
 					speed = DEFAULT_SPEED;
 					countTime = 0;
 				}
@@ -100,11 +99,14 @@ public class EnemyDemon extends Character {
 				}
 				if(countTime >= 5000) {
 					proj.active = false;
-					animeSpeed = 100;
 					speed = DEFAULT_SPEED;
 					countTime = 0;
 				}
 			}
+		}
+		
+		if(!this.isEating && !this.isStunned) {
+			animeSpeed = 100;
 		}
 		
 		if(floorCollision((int)((x+30)/16), (int)((x+40)/16), (int)((x+50)/16), (int)((y+80)/16), (int)((y+75)/16), (int)((y+70)/16))) {
