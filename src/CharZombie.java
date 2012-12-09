@@ -96,6 +96,9 @@ public class CharZombie extends Character {
 		if(numShotsMeat == 2) {
 			animeLine = 6;
 		}
+		if(numShotsMeat == 1) {
+			animeLine = 12;
+		}
 		
 		if(hasJumped) {
 			y -= jumpSpeed * diffTime / 1000.0f;
