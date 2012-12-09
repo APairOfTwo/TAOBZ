@@ -13,7 +13,7 @@ public class EnemyBerserker extends Character {
 	Projectile proj;
 	
 	public EnemyBerserker(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 71, 64, 6);
+		super(x, y, charset, charsetX, charsetY, 85, 110, 7);
 		spawnX = x;
 		spawnY = y;
 		speed = DEFAULT_SPEED;
@@ -76,27 +76,27 @@ public class EnemyBerserker extends Character {
 			if(dist <= FIELD_OF_VIEW) {
 				x += velX * dx / dist;
 				if(dx >= 0) {
-					animation = 0;
+					animation = 5;
 					moveDirection = 1;
 				} else if(dx < 0) {
-					animation = 1;
+					animation = 4;
 					moveDirection = -1;
 				}
 			} else {
 				if(spawnDist >= 1) {
 					x += velX * spawnDx / spawnDist;
 					if((x - spawnX) >= 0) {
-						animation = 1;
+						animation = 2;
 					} else {
-						animation = 0;
+						animation = 3;
 					}
 				} 
 				if(spawnDist < 1) {
 					x = spawnX;
 					if(moveDirection == 1) {
-						animation = 2;
+						animation = 1;
 					} else if(moveDirection == -1) {
-						animation = 3;
+						animation = 0;
 					}
 				}
 			}
@@ -105,10 +105,10 @@ public class EnemyBerserker extends Character {
 		if(this.isFollowing && proj.active) {
 			x += velX * projDx / projDist;
 			if(projDx >= 0) {
-				animation = 0;
+				animation = 3;
 				moveDirection = 1;
 			} else if(projDx < 0) {
-				animation = 1;
+				animation = 2;
 				moveDirection = -1;
 			}
 		}
@@ -116,9 +116,9 @@ public class EnemyBerserker extends Character {
 			countTime += diffTime;
 			animeSpeed = 300;
 			if(moveDirection == 1) {
-				animation = 2;
+				animation = 1;
 			} else if(moveDirection == -1) {
-				animation = 3;
+				animation = 0;
 			}
 			if(countTime >= 5000) {
 				proj.active = false;
@@ -131,7 +131,7 @@ public class EnemyBerserker extends Character {
 			animeSpeed = 100;
 		}
 		
-		if(floorCollision((int)((x+30)/16), (int)((x+40)/16), (int)((x+50)/16), (int)((y+65)/16), (int)((y+60)/16), (int)((y+55)/16))) {
+		if(floorCollision((int)((x+30)/16), (int)((x+40)/16), (int)((x+50)/16), (int)((y+85)/16), (int)((y+80)/16), (int)((y+55)/16))) {
 			y = oldY;
 			if((int)oldY % 16 != 0) {
 				y -= 1;
