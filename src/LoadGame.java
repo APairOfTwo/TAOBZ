@@ -17,31 +17,24 @@ public class LoadGame {
 	
 	public static void load() {
 		counter = 0;
-		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setAcceptAllFileFilterUsed(false);
-		fileChooser.setFileFilter(new TextFilter());
-		
-		if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			File file = fileChooser.getSelectedFile();
-			try {
-				txtReader = new FileReader(file);
-				loadOut = new BufferedReader(txtReader);
-				while ((str = loadOut.readLine()) != null) {
-					if(counter == 0) {
-						mapId = new Integer(str);
-						System.out.println(mapId);
-					}
-					if(counter == 1) {
-						gameMode = new Integer(str);
-						System.out.println(gameMode);
-					}
-					counter++;
+		try {
+			txtReader = new FileReader(new File("system/SAVE.txt"));
+			loadOut = new BufferedReader(txtReader);
+			while ((str = loadOut.readLine()) != null) {
+				if(counter == 0) {
+					mapId = new Integer(str);
+					System.out.println(mapId);
 				}
-			    loadOut.close();
-			    loadLastState(mapId, gameMode);
-			   } catch (Exception e) {
-				   System.err.println("Erro: " + e.getMessage());
-			   }
+				if(counter == 1) {
+					gameMode = new Integer(str);
+					System.out.println(gameMode);
+				}
+				counter++;
+			}
+			loadOut.close();
+			loadLastState(mapId, gameMode);
+		} catch (Exception e) {
+			System.err.println("Erro: " + e.getMessage());
 		}
 	}
 	
