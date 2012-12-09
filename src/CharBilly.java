@@ -89,7 +89,6 @@ public class CharBilly extends Character {
 			}
 		}
 		
-		// Animacao de atirando
 		if(fireAnim != 0) {
 			fireAnim += diffTime;
 			animeSpeed = 100;

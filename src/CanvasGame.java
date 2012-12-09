@@ -68,7 +68,7 @@ public class CanvasGame extends Canvas {
 		GamePanel.bgMusic.close();
 		
 		charsetBilly = GamePanel.loadImage("sprites/billy.png");
-		charsetZombie = GamePanel.loadImage("sprites/zombie.png");
+		charsetZombie = GamePanel.loadImage("sprites/zombie2.png");
 		charsetDemon = GamePanel.loadImage("sprites/spritesheet_demon.png");
 		charsetVegetarian = GamePanel.loadImage("sprites/spritesheet_vegetarian.png");
 		charsetGargoyle = GamePanel.loadImage("sprites/spritesheet_gargoyle.png");
@@ -373,6 +373,15 @@ public class CanvasGame extends Canvas {
 		}
 		for(Character c : heroes) {
 			c.selfDraws(dbg, map.MapX, map.MapY);
+		}
+		
+		if(GamePanel.isCoop) {
+			if(!billy.isAlive) {
+				
+			}
+			if(!zombie.isAlive) {
+				
+			}
 		}
 		
 //		for(Element e : CanvasGame.gameElements.elementsList) {
