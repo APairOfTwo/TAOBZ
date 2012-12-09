@@ -7,11 +7,12 @@ public class CharBilly extends Character {
 	int fireRate = 800;
 	int respawnCountTime;
 	float speed = 220;
-	int numShotsBone = 5;
+	int numShotsBone = 3;
 	Projectile proj;
 	boolean positionsMap = false;
 	float spawnX, spawnY;
 	int fireAnim;
+	int animeLine = 0;
 	public static BufferedImage hudProjBone = GamePanel.loadImage("sprites/hud_projBone.png");
 	public static BufferedImage bmpBone;
 	
@@ -39,10 +40,10 @@ public class CharBilly extends Character {
 		if((y+frameHeight > (CanvasGame.map.Altura << 4)-5)) { isAlive = false; }
 		
 		if(numShotsBone <= 0) {
-			CanvasGame.deathCounter++;
-			isAlive = false;
+			isHeadless = true;
 		}
 		
+		if(!isHeadless) {
 		if((CanvasGame.B_KEY_FIRE || CanvasGame.B_JOY_FIRE) && fireTimer > fireRate){
 			fireAnim += diffTime;
 			fireTimer = 0;
@@ -63,8 +64,8 @@ public class CharBilly extends Character {
 			animeSpeed = 100;
 			jumpSpeed = 1100;
 			hasJumped = true;
-			if(moveDirection == 1) animation = 0;
-			if(moveDirection == -1) animation = 1;
+			if(moveDirection == 1) animation = 0  + animeLine;
+			if(moveDirection == -1) animation = 1  + animeLine;
 		}
 		if(!CanvasGame.B_KEY_JUMP && !CanvasGame.B_JOY_JUMP) {
 			jumpSpeed = jumpSpeed / 2;
@@ -72,20 +73,20 @@ public class CharBilly extends Character {
 		if(CanvasGame.B_KEY_RIGHT || CanvasGame.B_JOY_RIGHT) {
 			animeSpeed = 100;
 			x += speed * diffTime / 1000.0f;
-			animation = 2;
+			animation = 2 + animeLine;
 			moveDirection = 1;
 		} else if(CanvasGame.B_KEY_LEFT || CanvasGame.B_JOY_LEFT) {
 			animeSpeed = 100;
 			x -= speed * diffTime / 1000.0f;
-			animation = 3;
+			animation = 3 + animeLine;
 			moveDirection = -1;
 		} else {
 			if(moveDirection == 1) {
 				animeSpeed = 200;
-				animation = 0;
+				animation = 0 + animeLine;
 			} else if(moveDirection == -1) {
 				animeSpeed = 200;
-				animation = 1;
+				animation = 1 + animeLine;
 			}
 		}
 		
@@ -96,10 +97,20 @@ public class CharBilly extends Character {
 				fireAnim = 0;
 			}
 			if(moveDirection == 1) {
-				animation = 4;
+				animation = 4 + animeLine;
 			} else {
-				animation = 5;
+				animation = 5 + animeLine;
 			}
+		}
+		
+		if(numShotsBone == 2) {
+			animeLine = 6;
+		}
+		if(numShotsBone == 1) {
+			animeLine = 12;
+		}
+		if(numShotsBone <= 0) {
+			animeLine = 14;
 		}
 		
 		if(hasJumped) {
@@ -108,6 +119,19 @@ public class CharBilly extends Character {
 			if(jumpSpeed <= 0) {
 				hasJumped = false;
 				jumpSpeed = 1100;
+			}
+		}
+		} else {
+			if(moveDirection == 1) {
+				animation = 4 + animeLine;
+			} else {
+				animation = 5 + animeLine;
+			}
+			headlessCounter += diffTime;
+			if(headlessCounter >= headlessTime) {
+				headlessCounter = 0;
+				CanvasGame.deathCounter++;
+				isAlive = false;
 			}
 		}
 		
@@ -189,8 +213,11 @@ public class CharBilly extends Character {
 	
 	public void respawn() {
 		isAlive = true;
+		isHeadless = false;
 		hasJumped = false;
-		numShotsBone = 5;
+		numShotsBone = 3;
+		animeLine = 0;
+		
 		if(CanvasGame.checkpoints.size() != 0) {
 			for(int i = CanvasGame.checkpoints.size()-1; i >= 0; i--) {
 				if(CanvasGame.checkpoints.get(i).isActive) {

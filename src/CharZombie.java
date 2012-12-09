@@ -11,7 +11,6 @@ public class CharZombie extends Character {
 	Projectile proj;
 	float spawnX, spawnY;
 	int fireAnim;
-	int deathCounter = 0;
 	int animeLine = 0;
 	public static BufferedImage hudProjMeat = GamePanel.loadImage("sprites/hud_projMeat.png");
 	public static BufferedImage bmpMeat;
