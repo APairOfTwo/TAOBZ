@@ -59,7 +59,7 @@ public class Character extends Sprite {
 		this.charsetHeight = charset.getHeight();
 		this.numberOfFrames = numberOfFrames;
 		this.centerX = frameWidth / 2;
-		this.centerY = (frameHeight / 2) + 10;
+		this.centerY = frameHeight / 2;
 	}
 	
 	@Override

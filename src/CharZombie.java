@@ -13,11 +13,13 @@ public class CharZombie extends Character {
 	int fireAnim;
 	int deathCounter = 0;
 	public static BufferedImage hudProjMeat = GamePanel.loadImage("sprites/hud_projMeat.png");
+	public static BufferedImage bmpMeat;
 	
 	public CharZombie(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 60, 60, 4);
 		this.spawnX = x;
 		this.spawnY = y;
+		bmpMeat = GamePanel.loadImage("sprites/meat.png");
 	}
 
 	@Override
@@ -44,7 +46,7 @@ public class CharZombie extends Character {
 			fireTimer = 0;
 			float vproj = 1000;
 			float vx = vproj * moveDirection;
-			proj = new ProjMeat(x+centerX, y+centerY, vx/2, 0, this);
+			proj = new ProjMeat(x+centerX, y+centerY, vx/2, 0, bmpMeat, this);
 			CanvasGame.projectilesList.add(proj);
 			numShotsMeat--;
 		}

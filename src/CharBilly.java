@@ -13,11 +13,13 @@ public class CharBilly extends Character {
 	float spawnX, spawnY;
 	int fireAnim;
 	public static BufferedImage hudProjBone = GamePanel.loadImage("sprites/hud_projBone.png");
+	public static BufferedImage bmpBone;
 	
 	public CharBilly(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 60, 60, 4);
 		this.spawnX = x;
 		this.spawnY = y;
+		bmpBone = GamePanel.loadImage("sprites/bone.png");
 	}
 
 	@Override
@@ -52,7 +54,7 @@ public class CharBilly extends Character {
 			}
 			
 			float vx = vproj * moveDirection;
-			proj = new ProjBone(x+centerX, y+centerY, vx/2, 0, this);
+			proj = new ProjBone(x+centerX, y+centerY, vx/2, 0, bmpBone, this);
 			CanvasGame.projectilesList.add(proj);
 			numShotsBone--;
 		}

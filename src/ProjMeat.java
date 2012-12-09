@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 
 public class ProjMeat extends Projectile {
@@ -14,8 +15,8 @@ public class ProjMeat extends Projectile {
 	float meatSmallRadius = 20;
 	float countTime;
 	
-	public ProjMeat(float x, float y, float velX, float velY, Object pai) {
-		super(x, y, velX, velY, pai);
+	public ProjMeat(float x, float y, float velX, float velY, BufferedImage bmp, Object pai) {
+		super(x, y, velX, velY, bmp, pai);
 		angle = Math.atan2(100, 1);
 		angle += Math.PI;
 		
@@ -83,7 +84,8 @@ public class ProjMeat extends Projectile {
 	@Override
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
 		dbg.setColor(Color.RED);
-		dbg.fillOval((int)(x-mapX-2), (int)(y-mapY-2), 8, 8);
+		//dbg.fillOval((int)(x-mapX-2), (int)(y-mapY-2), 8, 8);
 		dbg.drawOval((int)(x-CanvasGame.map.MapX-meatBigRadius), (int)(y-CanvasGame.map.MapY-meatBigRadius), (int)(meatBigRadius*2),(int)(meatBigRadius*2));
+		dbg.drawImage(bmp, (int)(x-mapX-10), (int)(y-mapY-7), (int)((x+frameWidth)-mapX-10), (int)((y+frameHeight)-mapY-7), 0, 0, frameWidth, frameHeight, null);
 	}
 }

@@ -1,18 +1,25 @@
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 public class Projectile extends Sprite {
 	float velX = 0;
 	float velY = 0;
 	int bx, by;
 	Object pai = null;
+	BufferedImage bmp;
+	public static int frameWidth, frameHeight;
 	
-	public Projectile(float x, float y, float velX, float velY, Object pai) {
+	public Projectile(float x, float y, float velX, float velY, BufferedImage bmp, Object pai) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.velX = velX;
 		this.velY = velY;
 		this.pai = pai;
+		this.bmp = bmp;
+		frameWidth = bmp.getWidth();
+		frameHeight = bmp.getHeight();
 		CanvasGame.projectilesCounter++;
 	}
 	
