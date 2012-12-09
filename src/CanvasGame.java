@@ -56,7 +56,8 @@ public class CanvasGame extends Canvas {
 	public boolean loading;
 	public int loadTime;
 	public int mapPositionX;
-	public int mapPositionY;	
+	public int mapPositionY;
+	public int respawnTime = 2000;
 	public static int deathCounter = 0;
 	public static int projectilesCounter = 0;
 	
@@ -122,7 +123,7 @@ public class CanvasGame extends Canvas {
 					if(GamePanel.isCoop) {
 						if(!billy.isAlive && !zombie.isAlive) {
 							billy.respawnCountTime+=diffTime;
-							if(billy.respawnCountTime >= 3000) {
+							if(billy.respawnCountTime >= respawnTime) {
 								billy.respawnCountTime = 0;
 								billy.respawn();
 								zombie.respawn();
@@ -130,7 +131,7 @@ public class CanvasGame extends Canvas {
 						}
 					} else {
 						c.respawnCountTime+=diffTime;
-						if(c.respawnCountTime >= 3000) {
+						if(c.respawnCountTime >= respawnTime) {
 							c.respawnCountTime = 0;
 							c.respawn();
 						}

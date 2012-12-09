@@ -24,6 +24,8 @@ public class Character extends Sprite {
 	boolean onTheFloor = false;
 	boolean hasJumped = false;
 	boolean isAlive = true;
+	boolean isHeadless = false;
+	int headlessTime = 3000;
 	int jumpSpeed = 1100;
 	
 	float radius = 24;
@@ -38,6 +40,7 @@ public class Character extends Sprite {
 	boolean isEating = false;
 	boolean isFollowing = false;
 	int countTime = 0;
+	int headlessCounter = 0;
 	public long respawnCountTime;
 	
 	double bloodAngle;

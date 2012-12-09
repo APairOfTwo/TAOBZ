@@ -40,72 +40,90 @@ public class CharZombie extends Character {
 		if((y+frameHeight > (CanvasGame.map.Altura << 4)-5)) { isAlive = false; }
 		
 		if(numShotsMeat <= 0) {
-			CanvasGame.deathCounter++;
-			isAlive = false;
-		}
-		if((CanvasGame.Z_KEY_FIRE || CanvasGame.Z_JOY_FIRE) && fireTimer > fireRate){
-			fireAnim += diffTime;
-			fireTimer = 0;
-			float vproj = 1000;
-			float vx = vproj * moveDirection;
-			proj = new ProjMeat(x+centerX, y+centerY, vx/2, 0, bmpMeat, this);
-			CanvasGame.projectilesList.add(proj);
-			numShotsMeat--;
+			isHeadless = true;
 		}
 		
-		if((CanvasGame.Z_KEY_JUMP || CanvasGame.Z_JOY_JUMP) && onTheFloor) {
-			jumpSpeed = 1100;
-			hasJumped = true;
-			if(moveDirection == 1) animation = 0 + animeLine;
-			if(moveDirection == -1) animation = 1 + animeLine;
-		}
-		if(!CanvasGame.Z_KEY_JUMP && !CanvasGame.Z_JOY_JUMP) {
-			jumpSpeed = jumpSpeed / 2;
-		}
-		if(CanvasGame.Z_KEY_RIGHT || CanvasGame.Z_JOY_RIGHT) {
-			x += speed * diffTime / 1000.0f;
-			animation = 2 + animeLine;
-			moveDirection = 1;
-		} else if(CanvasGame.Z_KEY_LEFT || CanvasGame.Z_JOY_LEFT) {
-			x -= speed * diffTime / 1000.0f;
-			animation = 3 + animeLine;
-			moveDirection = -1;
+		if(!isHeadless) {
+			if((CanvasGame.Z_KEY_FIRE || CanvasGame.Z_JOY_FIRE) && fireTimer > fireRate){
+				fireAnim += diffTime;
+				fireTimer = 0;
+				float vproj = 1000;
+				float vx = vproj * moveDirection;
+				proj = new ProjMeat(x+centerX, y+centerY, vx/2, 0, bmpMeat, this);
+				CanvasGame.projectilesList.add(proj);
+				numShotsMeat--;
+			}
+
+			if((CanvasGame.Z_KEY_JUMP || CanvasGame.Z_JOY_JUMP) && onTheFloor) {
+				jumpSpeed = 1100;
+				hasJumped = true;
+				if(moveDirection == 1) animation = 0 + animeLine;
+				if(moveDirection == -1) animation = 1 + animeLine;
+			}
+			if(!CanvasGame.Z_KEY_JUMP && !CanvasGame.Z_JOY_JUMP) {
+				jumpSpeed = jumpSpeed / 2;
+			}
+			if(CanvasGame.Z_KEY_RIGHT || CanvasGame.Z_JOY_RIGHT) {
+				x += speed * diffTime / 1000.0f;
+				animation = 2 + animeLine;
+				moveDirection = 1;
+			} else if(CanvasGame.Z_KEY_LEFT || CanvasGame.Z_JOY_LEFT) {
+				x -= speed * diffTime / 1000.0f;
+				animation = 3 + animeLine;
+				moveDirection = -1;
+			} else {
+				if(moveDirection == 1) {
+					animeSpeed = 200;
+					animation = 0 + animeLine;
+				} else if(moveDirection == -1) {
+					animeSpeed = 200;
+					animation = 1 + animeLine;
+				}
+			}
+
+			if(fireAnim != 0) {
+				fireAnim += diffTime;
+				animeSpeed = 100;
+				if(fireAnim >= 420) {
+					fireAnim = 0;
+				}
+				if(moveDirection == 1) {
+					animation = 5 + animeLine;
+				} else {
+					animation = 4 + animeLine;
+				}
+			}
+
+			if(numShotsMeat == 2) {
+				animeLine = 6;
+			}
+			if(numShotsMeat == 1) {
+				animeLine = 12;
+			}
+			if(numShotsMeat <= 0) {
+				animeLine = 14;
+			}
+
+			if(hasJumped) {
+				y -= jumpSpeed * diffTime / 1000.0f;
+				jumpSpeed -= 3 * gravity * (diffTime / 1000.0f);
+				if(jumpSpeed <= 0) {
+					hasJumped = false;
+					jumpSpeed = 1100;
+				}
+			}
+
 		} else {
 			if(moveDirection == 1) {
-				animeSpeed = 200;
-				animation = 0 + animeLine;
-			} else if(moveDirection == -1) {
-				animeSpeed = 200;
-				animation = 1 + animeLine;
-			}
-		}
-		
-		if(fireAnim != 0) {
-			fireAnim += diffTime;
-			animeSpeed = 100;
-			if(fireAnim >= 420) {
-				fireAnim = 0;
-			}
-			if(moveDirection == 1) {
-				animation = 5 + animeLine;
-			} else {
 				animation = 4 + animeLine;
+			} else {
+				animation = 5 + animeLine;
 			}
-		}
-		
-		if(numShotsMeat == 2) {
-			animeLine = 6;
-		}
-		if(numShotsMeat == 1) {
-			animeLine = 12;
-		}
-		
-		if(hasJumped) {
-			y -= jumpSpeed * diffTime / 1000.0f;
-			jumpSpeed -= 3 * gravity * (diffTime / 1000.0f);
-			if(jumpSpeed <= 0) {
-				hasJumped = false;
-				jumpSpeed = 1100;
+			headlessCounter += diffTime;
+			if(headlessCounter >= headlessTime) {
+				headlessCounter = 0;
+				CanvasGame.deathCounter++;
+				isAlive = false;
 			}
 		}
 		
@@ -188,6 +206,7 @@ public class CharZombie extends Character {
 	
 	public void respawn() {
 		isAlive = true;
+		isHeadless = false;
 		hasJumped = false;
 		numShotsMeat = 3;
 		animeLine = 0;
