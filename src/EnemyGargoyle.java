@@ -13,7 +13,7 @@ public class EnemyGargoyle extends Character {
 	Projectile proj;
 	
 	public EnemyGargoyle(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 87, 77, 6);
+		super(x, y, charset, charsetX, charsetY, 112, 112, 4);
 		spawnX = x;
 		spawnY = y;
 		speed = DEFAULT_SPEED;
