@@ -8,6 +8,7 @@ public class CharBilly extends Character {
 	int fireRate = 800;
 	int respawnCountTime;
 	float speed = 220;
+	boolean haveKey = false;
 	int numShotsBone = 3;
 	Projectile proj;
 	boolean positionsMap = false;

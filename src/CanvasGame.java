@@ -408,7 +408,7 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_SPACE)	{ B_KEY_FIRE  = true; }
 		if(keyCode == KeyEvent.VK_LEFT)		{ Z_KEY_LEFT  = true; }
 		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_KEY_RIGHT = true; }
-		if(keyCode == KeyEvent.VK_M)		{ Z_KEY_RIGHT = true; }
+		if(keyCode == KeyEvent.VK_M)		{ billy.haveKey = true; zombie.haveKey = true; }
 		if(keyCode == KeyEvent.VK_UP)		{ Z_KEY_JUMP  = true; }
 		if(keyCode == KeyEvent.VK_F1)		{ SaveGame.save(); }
 		if(keyCode == KeyEvent.VK_L)		{ LoadGame.load(); }
