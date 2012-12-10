@@ -191,8 +191,15 @@ public class CharBilly extends Character {
 		
 		for(Element e : CanvasGame.gameElements.elementsList) {
 			if(e.itemId == 9) {
-				if(this.getBounds().intersects((e.blockX<<4)-CanvasGame.map.MapX, (e.blockY<<4)-CanvasGame.map.MapY, 16, 64)) {
-					GamePanel.canvasActive = new CanvasResult();
+				if(GamePanel.levelId == 1 && haveKey) {
+					if(this.getBounds().intersects((e.blockX<<4)-CanvasGame.map.MapX, (e.blockY<<4)-CanvasGame.map.MapY, 16, 64)) {
+						GamePanel.canvasActive = new CanvasResult();
+					}
+				}
+				if(GamePanel.levelId != 1) {
+					if(this.getBounds().intersects((e.blockX<<4)-CanvasGame.map.MapX, (e.blockY<<4)-CanvasGame.map.MapY, 16, 64)) {
+						GamePanel.canvasActive = new CanvasResult();
+					}
 				}
 			}
 		}
