@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -15,6 +16,7 @@ public class CharBilly extends Character {
 	int animeLine = 0;
 	public static BufferedImage hudProjBone = GamePanel.loadImage("sprites/hud_projBone.png");
 	public static BufferedImage bmpBone;
+	BufferedImage deadMsg = GamePanel.loadImage("sprites/msgDeathBilly.png");
 	
 	public CharBilly(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 60, 60, 4);
@@ -203,6 +205,10 @@ public class CharBilly extends Character {
 				int x = i * 12;
 				dbg.drawImage(hudProjBone, (int)(x), (int)(25), (int)(x+16), (int)(25+40), 0, 0, hudProjBone.getWidth(), hudProjBone.getHeight(), null);
 			}
+		} else {
+			dbg.setColor(Color.BLACK);
+			dbg.fillRect(0, GamePanel.PANEL_HEIGHT-60, deadMsg.getWidth()+10, deadMsg.getHeight()+10);
+			dbg.drawImage(deadMsg, 5, (int)(GamePanel.PANEL_HEIGHT - 55), (int)(5+deadMsg.getWidth()), (int)((GamePanel.PANEL_HEIGHT - 55)+deadMsg.getHeight()), 0, 0, deadMsg.getWidth(), deadMsg.getHeight(), null);
 		}
 	}
 	

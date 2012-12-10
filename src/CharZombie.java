@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -13,6 +14,7 @@ public class CharZombie extends Character {
 	int fireAnim;
 	int animeLine = 0;
 	public static BufferedImage hudProjMeat = GamePanel.loadImage("sprites/hud_projMeat.png");
+	BufferedImage deadMsg = GamePanel.loadImage("sprites/msgDeathZ.png");
 	public static BufferedImage bmpMeat;
 	
 	public CharZombie(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
@@ -194,6 +196,10 @@ public class CharZombie extends Character {
 				int x = 100 + (i * 13);
 				dbg.drawImage(hudProjMeat, (int)(x), (int)(25), (int)(x+19), (int)(25+40), 0, 0, hudProjMeat.getWidth(), hudProjMeat.getHeight(), null);
 			}
+		} else {
+			dbg.setColor(Color.BLACK);
+			dbg.fillRect(0, GamePanel.PANEL_HEIGHT-35, deadMsg.getWidth()+10, deadMsg.getHeight()+10);
+			dbg.drawImage(deadMsg, 5, (int)(GamePanel.PANEL_HEIGHT - 30), (int)(5+deadMsg.getWidth()), (int)((GamePanel.PANEL_HEIGHT - 30)+deadMsg.getHeight()), 0, 0, deadMsg.getWidth(), deadMsg.getHeight(), null);
 		}
 
 	}

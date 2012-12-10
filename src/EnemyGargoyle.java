@@ -13,7 +13,7 @@ public class EnemyGargoyle extends Character {
 	Projectile proj;
 	
 	public EnemyGargoyle(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 112, 112, 4);
+		super(x, y, charset, charsetX, charsetY, 120, 130, 4);
 		spawnX = x;
 		spawnY = y;
 		speed = DEFAULT_SPEED;
@@ -72,10 +72,10 @@ public class EnemyGargoyle extends Character {
 				x += velX * dx / dist;
 				y += velY * dy / dist;
 				if(dx >= 0) {
-					animation = 0;
+					animation = 2;
 					moveDirection = 1;
 				} else if(dx < 0) {
-					animation = 1;
+					animation = 3;
 					moveDirection = -1;
 				}
 			} else {
@@ -104,9 +104,9 @@ public class EnemyGargoyle extends Character {
 			countTime += diffTime;
 			animeSpeed = 300;
 			if(moveDirection == 1) {
-				animation = 2;
+				animation = 5;
 			} else if(moveDirection == -1) {
-				animation = 3;
+				animation = 4;
 			}
 			if(countTime >= 5000) {
 				isStunned = false;
@@ -119,10 +119,10 @@ public class EnemyGargoyle extends Character {
 			y += velY * projDy / projDist;
 			
 			if(projDx >= 0) {
-				animation = 0;
+				animation = 5;
 				moveDirection = 1;
 			} else if(projDx < 0) {
-				animation = 1;
+				animation = 4;
 				moveDirection = -1;
 			}
 		}

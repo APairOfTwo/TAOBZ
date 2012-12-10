@@ -16,6 +16,7 @@ public class CanvasResult extends Canvas {
 	int numberOfDeaths = 0;
 	int numberOfProjectiles = 0;
 	boolean saved = false;
+	int saveMapId = GamePanel.levelId;
 	
 	public CanvasResult() {
 		instance = this;
@@ -45,12 +46,12 @@ public class CanvasResult extends Canvas {
 		
 		if(MOUSE_PRESSED && btnContinue.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
 			GamePanel.levelId += 1;
-			SaveGame.save();
 			GamePanel.changeMap(GamePanel.levelId);
 			MOUSE_PRESSED = false;
 		}
 		
 		if(MOUSE_PRESSED && btnSave.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
+			saveMapId = GamePanel.levelId+1;
 			SaveGame.save();
 			saved = true;
 			MOUSE_PRESSED = false;
