@@ -10,7 +10,7 @@ public class EnemyDemon extends Character {
 	Projectile proj;
 	
 	public EnemyDemon(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 71, 85, 6);
+		super(x, y, charset, charsetX, charsetY, 100, 70, 4);
 		speed = DEFAULT_SPEED;
 	}
 
@@ -53,10 +53,10 @@ public class EnemyDemon extends Character {
 		
 		if(!this.isStunned && !this.isEating && !this.isFollowing) {
 			if(moveDirection == 1) {
-				animation = 0;
+				animation = 1;
 				x += speed * diffTime / 1000.0f;
 			} else if(moveDirection == -1) {
-				animation = 1;
+				animation = 0;
 				x -= speed * diffTime / 1000.0f;
 			} else {
 				timeAnimating = 0;
@@ -66,9 +66,9 @@ public class EnemyDemon extends Character {
 				countTime += diffTime;
 				animeSpeed = 300;
 				if(moveDirection == 1) {
-					animation = 2;
-				} else if(moveDirection == -1) {
 					animation = 3;
+				} else if(moveDirection == -1) {
+					animation = 2;
 				} else {
 					timeAnimating = 0;
 				}
@@ -82,10 +82,10 @@ public class EnemyDemon extends Character {
 				x += velX * projDx / projDist;
 				y += velY * projDy / projDist;
 				if(projDx >= 0) {
-					animation = 0;
+					animation = 1;
 					moveDirection = 1;
 				} else if(projDx < 0) {
-					animation = 1;
+					animation = 0;
 					moveDirection = -1;
 				}
 			}
@@ -93,9 +93,9 @@ public class EnemyDemon extends Character {
 				countTime += diffTime;
 				animeSpeed = 300;
 				if(moveDirection == 1) {
-					animation = 2;
+					animation = 1;
 				} else if(moveDirection == -1) {
-					animation = 3;
+					animation = 0;
 				}
 				if(countTime >= 5000) {
 					proj.active = false;
@@ -109,7 +109,8 @@ public class EnemyDemon extends Character {
 			animeSpeed = 100;
 		}
 		
-		if(floorCollision((int)((x+30)/16), (int)((x+40)/16), (int)((x+50)/16), (int)((y+80)/16), (int)((y+75)/16), (int)((y+70)/16))) {
+		if(floorCollision((int)((x+30)/16), (int)((x+40)/16), (int)((x+50)/16), (int)((y+70)/16), (int)((y+70)/16), (int)((y+70)/16))) {
+			System.out.println("colidindo no chão");
 			y = oldY;
 			if((int)oldY % 16 != 0) {
 				y -= 1;
@@ -119,26 +120,27 @@ public class EnemyDemon extends Character {
 			onTheFloor = false;
 		}
 		
-		if(lateralCollision((int)((x+25)/16), (int)((x+55)/16), (int)((y+65)/16), (int)((y+60)/16), (int)((y+55)/16))) {
+		if(lateralCollision((int)((x+30)/16), (int)((x+50)/16), (int)((y+68)/16), (int)((y+68)/16), (int)((y+68)/16))) {
+			System.out.println("colidindo na lateral");
 			x = oldX;
 			if(fireTimer > changeDirectionRate) {
 				fireTimer = 0;
 				moveDirection *= -1;
 			}
 		}
-		
-		if(spykeCollision((int)((x+25)/16), (int)((x+55)/16), (int)((y+40)/16), (int)((y+70)/16))) {
-			bloodAngle = Math.atan2(100, 1);
-			bloodAngle += Math.PI;
-			for(int i = 0; i < 20; i++) {
-				bloodAuxAngle = bloodAngle - (Math.PI/4) + ((Math.PI/2) * Math.random());
-				vel = (float)(50 + 50 * Math.random());
-				vX = (float)(Math.cos(bloodAuxAngle) * vel);
-				vY = (float)(Math.sin(bloodAuxAngle) * vel);
-				CanvasGame.effectsList.add(new Effect(x+frameWidth/2, y+frameHeight/2, vX, vY, 600, 255, 0, 0));
-			}
-			isAlive = false;
-		}
+//		
+//		if(spykeCollision((int)((x+25)/16), (int)((x+55)/16), (int)((y+40)/16), (int)((y+70)/16))) {
+//			bloodAngle = Math.atan2(100, 1);
+//			bloodAngle += Math.PI;
+//			for(int i = 0; i < 20; i++) {
+//				bloodAuxAngle = bloodAngle - (Math.PI/4) + ((Math.PI/2) * Math.random());
+//				vel = (float)(50 + 50 * Math.random());
+//				vX = (float)(Math.cos(bloodAuxAngle) * vel);
+//				vY = (float)(Math.sin(bloodAuxAngle) * vel);
+//				CanvasGame.effectsList.add(new Effect(x+frameWidth/2, y+frameHeight/2, vX, vY, 600, 255, 0, 0));
+//			}
+//			isAlive = false;
+//		}
 		
 		for(Element e : CanvasGame.gameElements.elementsList) {
 			if(e.itemId == 8) {
