@@ -109,8 +109,7 @@ public class EnemyDemon extends Character {
 			animeSpeed = 100;
 		}
 		
-		if(floorCollision((int)((x+30)/16), (int)((x+40)/16), (int)((x+50)/16), (int)((y+70)/16), (int)((y+70)/16), (int)((y+70)/16))) {
-			System.out.println("colidindo no chão");
+		if(floorCollision((int)((x+40)/16), (int)((x+55)/16), (int)((x+70)/16), (int)((y+67)/16), (int)((y+66)/16), (int)((y+65)/16))) {
 			y = oldY;
 			if((int)oldY % 16 != 0) {
 				y -= 1;
@@ -120,27 +119,26 @@ public class EnemyDemon extends Character {
 			onTheFloor = false;
 		}
 		
-		if(lateralCollision((int)((x+30)/16), (int)((x+50)/16), (int)((y+68)/16), (int)((y+68)/16), (int)((y+68)/16))) {
-			System.out.println("colidindo na lateral");
+		if(lateralCollision((int)((x+39)/16), (int)((x+71)/16), (int)((y+50)/16), (int)((y+60)/16), (int)((y+40)/16))) {
 			x = oldX;
 			if(fireTimer > changeDirectionRate) {
 				fireTimer = 0;
 				moveDirection *= -1;
 			}
 		}
-//		
-//		if(spykeCollision((int)((x+25)/16), (int)((x+55)/16), (int)((y+40)/16), (int)((y+70)/16))) {
-//			bloodAngle = Math.atan2(100, 1);
-//			bloodAngle += Math.PI;
-//			for(int i = 0; i < 20; i++) {
-//				bloodAuxAngle = bloodAngle - (Math.PI/4) + ((Math.PI/2) * Math.random());
-//				vel = (float)(50 + 50 * Math.random());
-//				vX = (float)(Math.cos(bloodAuxAngle) * vel);
-//				vY = (float)(Math.sin(bloodAuxAngle) * vel);
-//				CanvasGame.effectsList.add(new Effect(x+frameWidth/2, y+frameHeight/2, vX, vY, 600, 255, 0, 0));
-//			}
-//			isAlive = false;
-//		}
+		
+		if(spykeCollision((int)((x+25)/16), (int)((x+85)/16), (int)((y+67)/16), (int)((y+30)/16))) {
+			bloodAngle = Math.atan2(100, 1);
+			bloodAngle += Math.PI;
+			for(int i = 0; i < 20; i++) {
+				bloodAuxAngle = bloodAngle - (Math.PI/4) + ((Math.PI/2) * Math.random());
+				vel = (float)(50 + 50 * Math.random());
+				vX = (float)(Math.cos(bloodAuxAngle) * vel);
+				vY = (float)(Math.sin(bloodAuxAngle) * vel);
+				CanvasGame.effectsList.add(new Effect(x+frameWidth/2, y+frameHeight/2, vX, vY, 600, 255, 0, 0));
+			}
+			isAlive = false;
+		}
 		
 		for(Element e : CanvasGame.gameElements.elementsList) {
 			if(e.itemId == 8) {
