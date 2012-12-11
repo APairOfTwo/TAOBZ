@@ -70,8 +70,8 @@ public class CanvasGame extends Canvas {
 		
 		charsetBilly = GamePanel.loadImage("sprites/billy2.png");
 		charsetZombie = GamePanel.loadImage("sprites/zombie4.png");
-		charsetDemon = GamePanel.loadImage("sprites/demon.png");
-		charsetVegetarian = GamePanel.loadImage("sprites/spritesheet_vegetarian.png");
+		charsetDemon = GamePanel.loadImage("sprites/spritesheet_demon.png");
+		charsetVegetarian = GamePanel.loadImage("sprites/spritesheet_mummy.png");
 		charsetGargoyle = GamePanel.loadImage("sprites/gargoyle4.png");
 		charsetBerserker = GamePanel.loadImage("sprites/berserker4.png");
 		

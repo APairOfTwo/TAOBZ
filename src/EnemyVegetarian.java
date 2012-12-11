@@ -9,7 +9,7 @@ public class EnemyVegetarian extends Character {
 	Projectile proj;
 	
 	public EnemyVegetarian(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 62, 81, 12);
+		super(x, y, charset, charsetX, charsetY, 50, 64, 6);
 		speed = DEFAULT_SPEED;
 		animeSpeed = 150;
 	}
@@ -70,7 +70,7 @@ public class EnemyVegetarian extends Character {
 			}
 		}
 		
-		if(floorCollision((int)((x+25)/16), (int)((x+30)/16), (int)((x+35)/16), (int)((y+80)/16), (int)((y+75)/16), (int)((y+70)/16))) {
+		if(floorCollision((int)((x+25)/16), (int)((x+30)/16), (int)((x+35)/16), (int)((y+64)/16), (int)((y+62)/16), (int)((y+60)/16))) {
 			y = oldY;
 			if((int)oldY % 16 != 0) {
 				y -= 1;
