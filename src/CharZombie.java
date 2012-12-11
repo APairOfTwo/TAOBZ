@@ -139,7 +139,11 @@ public class CharZombie extends Character {
 			onTheFloor = false;
 		}
 		
-		if(lateralCollision((int)((x+5)/16), (int)((x+45)/16), (int)((y+40)/16), (int)((y+35)/16), (int)((y+35)/16))) {
+		if(lateralCollision((int)((x+8)/16), (int)((x+42)/16), (int)((y+20)/16), (int)((y+30)/16), (int)((y+35)/16))) {
+			x = oldX;
+		}
+		
+		if(lateralCollision((int)((x+8)/16), (int)((x+42)/16), (int)((y+40)/16), (int)((y+45)/16), (int)((y+50)/16))) {
 			x = oldX;
 		}
 		
@@ -148,7 +152,7 @@ public class CharZombie extends Character {
 			jumpSpeed = jumpSpeed / 2;
 		}
 		
-		if(spykeCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y+10)/16), (int)((y+45)/16))) {
+		if(spykeCollision((int)((x+5)/16), (int)((x+50)/16), (int)((y+5)/16), (int)((y+60)/16))) {
 			bloodAngle = Math.atan2(100, 1);
 			bloodAngle += Math.PI;
 			for(int i = 0; i < 20; i++) {

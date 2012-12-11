@@ -140,6 +140,7 @@ public class CharBilly extends Character {
 		
 		if(floorCollision((int)((x+20)/16), (int)((x+30)/16), (int)((x+40)/16), (int)((y+64)/16), (int)((y+62)/16), (int)((y+61)/16))) {
 			y = oldY;
+			System.out.println("floor");
 			if((int)oldY % 16 != 0) {
 				y -= 1;
 			}
@@ -148,7 +149,12 @@ public class CharBilly extends Character {
 			onTheFloor = false;
 		}
 		
-		if(lateralCollision((int)((x+15)/16), (int)((x+45)/16), (int)((y+20)/16), (int)((y+30)/16), (int)((y+40)/16))) {
+		if(lateralCollision((int)((x+18)/16), (int)((x+42)/16), (int)((y+20)/16), (int)((y+30)/16), (int)((y+40)/16))) {
+			x = oldX;
+			System.out.println("lateral");
+		}
+		
+		if(lateralCollision((int)((x+18)/16), (int)((x+42)/16), (int)((y+45)/16), (int)((y+50)/16), (int)((y+60)/16))) {
 			x = oldX;
 		}
 		
@@ -226,7 +232,7 @@ public class CharBilly extends Character {
 	}
 	
 	public Rectangle getBounds() {
-		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+10), (int)(y-CanvasGame.map.MapY+5), 40, 50);
+		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+20), (int)(y-CanvasGame.map.MapY+10), 50, 50);
 		return r;
 	}
 	

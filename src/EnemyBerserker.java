@@ -13,7 +13,7 @@ public class EnemyBerserker extends Character {
 	Projectile proj;
 	
 	public EnemyBerserker(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 85, 110, 7);
+		super(x, y, charset, charsetX, charsetY, 89, 115, 7);
 		spawnX = x;
 		spawnY = y;
 		speed = DEFAULT_SPEED;
@@ -131,31 +131,32 @@ public class EnemyBerserker extends Character {
 			animeSpeed = 100;
 		}
 		
-		System.out.println((int)((y+110)/16));
-		
-		if(floorCollision((int)((x+30)/16), (int)((x+40)/16), (int)((x+50)/16), (int)((y+110)/16), (int)((y+105)/16), (int)((y+100)/16))) {
+		if(floorCollision((int)((x+20)/16), (int)((x+35)/16), (int)((x+50)/16), (int)((y+115)/16), (int)((y+110)/16), (int)((y+105)/16))) {
 			y = oldY;
+			if((int)oldY % 16 != 0) {
+				y -= 1;
+			}
 			onTheFloor = true;
 		} else {
 			onTheFloor = false;
 		}
 		
-//		if(lateralCollision((int)((x+25)/16), (int)((x+55)/16), (int)((y+35)/16), (int)((y+30)/16), (int)((y+25)/16))) {
-//			x = oldX;
-//		}
-//		
-//		if(spykeCollision((int)((x+30)/16), (int)((x+50)/16), (int)((y+25)/16), (int)((y+55)/16))) {
-//			bloodAngle = Math.atan2(100, 1);
-//			bloodAngle += Math.PI;
-//			for(int i = 0; i < 20; i++) {
-//				bloodAuxAngle = bloodAngle - (Math.PI/4) + ((Math.PI/2) * Math.random());
-//				vel = (float)(50 + 50 * Math.random());
-//				vX = (float)(Math.cos(bloodAuxAngle) * vel);
-//				vY = (float)(Math.sin(bloodAuxAngle) * vel);
-//				CanvasGame.effectsList.add(new Effect(x+frameWidth/2, y+frameHeight/2, vX, vY, 600, 255, 0, 0));
-//			}
-//			isAlive = false;
-//		}
+		if(lateralCollision((int)((x+19)/16), (int)((x+61)/16), (int)((y+70)/16), (int)((y+50)/16), (int)((y+30)/16))) {
+			x = oldX;
+		}
+		
+		if(spykeCollision((int)((x+19)/16), (int)((x+61)/16), (int)((y+20)/16), (int)((y+115)/16))) {
+			bloodAngle = Math.atan2(100, 1);
+			bloodAngle += Math.PI;
+			for(int i = 0; i < 20; i++) {
+				bloodAuxAngle = bloodAngle - (Math.PI/4) + ((Math.PI/2) * Math.random());
+				vel = (float)(50 + 50 * Math.random());
+				vX = (float)(Math.cos(bloodAuxAngle) * vel);
+				vY = (float)(Math.sin(bloodAuxAngle) * vel);
+				CanvasGame.effectsList.add(new Effect(x+frameWidth/2, y+frameHeight/2, vX, vY, 600, 255, 0, 0));
+			}
+			isAlive = false;
+		}
 	}
 	
 	@Override
@@ -164,7 +165,7 @@ public class EnemyBerserker extends Character {
 	}
 	
 	public Rectangle getBounds() {
-		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+20), (int)(y-CanvasGame.map.MapY+23), 30, 34);
+		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+20), (int)(y-CanvasGame.map.MapY+23), 45, 65);
 		return r;
 	}
 	

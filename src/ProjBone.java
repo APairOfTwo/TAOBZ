@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 
 
 public class ProjBone extends Projectile {
-	float boneRadius = 2;
+	float boneRadius = 4;
 
 	public ProjBone(float x, float y, float velX, float velY, BufferedImage bmp, Object pai) {
 		super(x, y, velX, velY, bmp, pai);

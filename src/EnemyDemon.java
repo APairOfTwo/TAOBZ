@@ -64,7 +64,7 @@ public class EnemyDemon extends Character {
 		} else {
 			if(this.isStunned){
 				countTime += diffTime;
-				animeSpeed = 300;
+				animeSpeed = 350;
 				if(moveDirection == 1) {
 					animation = 3;
 				} else if(moveDirection == -1) {
@@ -91,7 +91,7 @@ public class EnemyDemon extends Character {
 			}
 			if(this.isEating){
 				countTime += diffTime;
-				animeSpeed = 300;
+				animeSpeed = 350;
 				if(moveDirection == 1) {
 					animation = 1;
 				} else if(moveDirection == -1) {
@@ -106,7 +106,7 @@ public class EnemyDemon extends Character {
 		}
 		
 		if(!this.isEating && !this.isStunned) {
-			animeSpeed = 100;
+			animeSpeed = 200;
 		}
 		
 		if(floorCollision((int)((x+40)/16), (int)((x+55)/16), (int)((x+70)/16), (int)((y+67)/16), (int)((y+66)/16), (int)((y+65)/16))) {
@@ -158,7 +158,7 @@ public class EnemyDemon extends Character {
 	}
 	
 	public Rectangle getBounds() {
-		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+20), (int)(y-CanvasGame.map.MapY+30), 30, 50);
+		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+20), (int)(y-CanvasGame.map.MapY+30), 50, 50);
 		return r;
 	}
 	
