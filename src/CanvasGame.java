@@ -6,9 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
-
 import net.java.games.input.Component;
-import net.java.games.input.Controller;
 
 public class CanvasGame extends Canvas {
 	public static CanvasGame instance = null;
@@ -25,6 +23,7 @@ public class CanvasGame extends Canvas {
 	public static BufferedImage charsetVegetarian;
 	public static BufferedImage tileset;
 	public BufferedImage loadingScreen = GamePanel.loadImage("backgrounds/loading_background.png");
+	public BufferedImage key = GamePanel.loadImage("sprites/key.png");
 	
 	public static String strMap01 = new String("maps/hell_01.map");
 	public static String strMap02 = new String("maps/hell_02.map");
@@ -60,6 +59,9 @@ public class CanvasGame extends Canvas {
 	public int respawnTime = 2000;
 	public static int deathCounter = 0;
 	public static int projectilesCounter = 0;
+	
+	boolean playSound = true;
+	public static Audio keyPick = new Audio("res/audio/key.mp3");
 	
 	public CanvasGame(int levelId) {
 		instance = this;
@@ -358,6 +360,18 @@ public class CanvasGame extends Canvas {
 				dbg.setColor(Color.MAGENTA);
 				dbg.fillRect((e.blockX<<4)-map.MapX, (e.blockY<<4)-map.MapY, 16, 64);
 			}
+			if(e.itemId == 10 && !billy.haveKey && !zombie.haveKey) {
+				dbg.drawImage(key, (e.blockX<<4)-map.MapX, (e.blockY<<4)-map.MapY, ((e.blockX<<4)-map.MapX)+key.getWidth(),
+						((e.blockY<<4)-map.MapY)+key.getHeight(), 0, 0, key.getWidth(), key.getHeight(), null);
+			}
+		}
+		
+		if(billy.haveKey || zombie.haveKey) {
+			if(playSound) {
+				keyPick.play();
+				playSound = false;
+			}
+			dbg.drawImage(key, 60, 29, 60+key.getWidth(), 29+key.getHeight(), 0, 0, key.getWidth(), key.getHeight(), null);
 		}
 		
 		for(int i = 0; i < projectilesList.size(); i++){
@@ -408,7 +422,6 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_SPACE)	{ B_KEY_FIRE  = true; }
 		if(keyCode == KeyEvent.VK_LEFT)		{ Z_KEY_LEFT  = true; }
 		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_KEY_RIGHT = true; }
-		if(keyCode == KeyEvent.VK_M)		{ billy.haveKey = true; zombie.haveKey = true; }
 		if(keyCode == KeyEvent.VK_UP)		{ Z_KEY_JUMP  = true; }
 		if(keyCode == KeyEvent.VK_F1)		{ SaveGame.save(); }
 		if(keyCode == KeyEvent.VK_L)		{ LoadGame.load(); }
@@ -430,7 +443,6 @@ public class CanvasGame extends Canvas {
 		if(keyCode == KeyEvent.VK_SPACE)	{ B_KEY_FIRE  = false; }
 		if(keyCode == KeyEvent.VK_LEFT)		{ Z_KEY_LEFT  = false; }
 		if(keyCode == KeyEvent.VK_RIGHT)	{ Z_KEY_RIGHT = false; }
-		if(keyCode == KeyEvent.VK_M)		{ Z_KEY_RIGHT = false; }
 		if(keyCode == KeyEvent.VK_UP)		{ Z_KEY_JUMP  = false; }
 	}
 

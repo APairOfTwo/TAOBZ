@@ -52,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		Audio.setVolume(volume);
 		bgMusic = new Audio("res/audio/Clearside-Assimilator.mp3");
-		//bgMusic.play();
+		bgMusic.play();
 		
 		if (buffImage == null){
 			buffImage = new BufferedImage(PANEL_WIDTH, PANEL_HEIGHT, BufferedImage.TYPE_INT_ARGB);

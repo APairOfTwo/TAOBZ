@@ -182,15 +182,20 @@ public class CharZombie extends Character {
 		
 		for(Element e : CanvasGame.gameElements.elementsList) {
 			if(e.itemId == 9) {
-				if(GamePanel.levelId == 1 && haveKey) {
+				if(GamePanel.levelId == 3 && haveKey) {
 					if(this.getBounds().intersects((e.blockX<<4)-CanvasGame.map.MapX, (e.blockY<<4)-CanvasGame.map.MapY, 16, 64)) {
 						GamePanel.canvasActive = new CanvasResult();
 					}
 				}
-				if(GamePanel.levelId != 1) {
+				if(GamePanel.levelId != 3) {
 					if(this.getBounds().intersects((e.blockX<<4)-CanvasGame.map.MapX, (e.blockY<<4)-CanvasGame.map.MapY, 16, 64)) {
 						GamePanel.canvasActive = new CanvasResult();
 					}
+				}
+			}
+			if(e.itemId == 10) {
+				if(this.getBounds().intersects((e.blockX<<4)-CanvasGame.map.MapX, (e.blockY<<4)-CanvasGame.map.MapY, 16, 32)) {
+					haveKey = true;
 				}
 			}
 		}
