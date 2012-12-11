@@ -138,7 +138,7 @@ public class CharBilly extends Character {
 			}
 		}
 		
-		if(floorCollision((int)((x+10)/16), (int)((x+25)/16), (int)((x+40)/16), (int)((y+64)/16), (int)((y+62)/16), (int)((y+60)/16))) {
+		if(floorCollision((int)((x+20)/16), (int)((x+30)/16), (int)((x+40)/16), (int)((y+64)/16), (int)((y+62)/16), (int)((y+61)/16))) {
 			y = oldY;
 			if((int)oldY % 16 != 0) {
 				y -= 1;
@@ -148,16 +148,16 @@ public class CharBilly extends Character {
 			onTheFloor = false;
 		}
 		
-		if(lateralCollision((int)((x+5)/16), (int)((x+45)/16), (int)((y+40)/16), (int)((y+35)/16), (int)((y+35)/16))) {
+		if(lateralCollision((int)((x+15)/16), (int)((x+45)/16), (int)((y+20)/16), (int)((y+30)/16), (int)((y+40)/16))) {
 			x = oldX;
 		}
 		
-		if(topCollision((int)((x+20)/16), (int)((x+25)/16), (int)((x+30)/16), (int)((y+15)/16), (int)((y+20)/16))) {
+		if(topCollision((int)((x+30)/16), (int)((x+35)/16), (int)((x+30)/16), (int)((y+10)/16), (int)((y+9)/16))) {
 			y = oldY;
 			jumpSpeed = jumpSpeed / 2;
 		}
 		
-		if(spykeCollision((int)((x+15)/16), (int)((x+35)/16), (int)((y+10)/16), (int)((y+45)/16))) {
+		if(spykeCollision((int)((x+5)/16), (int)((x+50)/16), (int)((y+62)/16), (int)((y+6)/16))) {
 			bloodAngle = Math.atan2(100, 1);
 			bloodAngle += Math.PI;
 			for(int i = 0; i < 20; i++) {

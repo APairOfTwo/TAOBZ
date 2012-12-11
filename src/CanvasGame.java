@@ -34,7 +34,7 @@ public class CanvasGame extends Canvas {
 	public static String strTileset02 = new String("maps/hell_tileset2.png");
 	public static String strTileset03 = new String("maps/hell_tileset3.png");
 	
-	public static String strElements01 = new String("csv/demon.csv");
+	public static String strElements01 = new String("csv/hell_01.csv");
 	public static String strElements02 = new String("csv/hell_02.csv");
 	public static String strElements03 = new String("csv/hell_03.csv");
 	
@@ -72,7 +72,7 @@ public class CanvasGame extends Canvas {
 		charsetZombie = GamePanel.loadImage("sprites/zombie.png");
 		charsetDemon = GamePanel.loadImage("sprites/demon.png");
 		charsetVegetarian = GamePanel.loadImage("sprites/spritesheet_mummy.png");
-		charsetGargoyle = GamePanel.loadImage("sprites/gargoyle4.png");
+		charsetGargoyle = GamePanel.loadImage("sprites/gargoyle5.png");
 		charsetBerserker = GamePanel.loadImage("sprites/berserker4.png");
 		
 		MOUSE_X = 0;
