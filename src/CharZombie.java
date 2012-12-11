@@ -19,7 +19,7 @@ public class CharZombie extends Character {
 	public static BufferedImage bmpMeat;
 	
 	public CharZombie(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
-		super(x, y, charset, charsetX, charsetY, 60, 60, 4);
+		super(x, y, charset, charsetX, charsetY, 63, 64, 4);
 		this.spawnX = x;
 		this.spawnY = y;
 		bmpMeat = GamePanel.loadImage("sprites/meat.png");
@@ -129,7 +129,7 @@ public class CharZombie extends Character {
 			}
 		}
 		
-		if(floorCollision((int)((x+10)/16), (int)((x+25)/16), (int)((x+40)/16), (int)((y+50)/16), (int)((y+50)/16), (int)((y+45)/16))) {
+		if(floorCollision((int)((x+10)/16), (int)((x+25)/16), (int)((x+40)/16), (int)((y+64)/16), (int)((y+62)/16), (int)((y+60)/16))) {
 			y = oldY;
 			if((int)oldY % 16 != 0) {
 				y -= 1;
