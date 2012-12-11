@@ -229,7 +229,7 @@ public class CharZombie extends Character {
 			for(int i = CanvasGame.checkpoints.size()-1; i >= 0; i--) {
 				if(CanvasGame.checkpoints.get(i).isActive) {
 					x = CanvasGame.checkpoints.get(i).x;
-					y = CanvasGame.checkpoints.get(i).y;
+					y = CanvasGame.checkpoints.get(i).y-16;
 					break;
 				} else if(i == 0) {
 					x = spawnX;
