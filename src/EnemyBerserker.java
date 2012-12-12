@@ -145,7 +145,7 @@ public class EnemyBerserker extends Character {
 			x = oldX;
 		}
 		
-		if(spykeCollision((int)((x+19)/16), (int)((x+61)/16), (int)((y+20)/16), (int)((y+115)/16))) {
+		if(spykeCollision((int)((x+20)/16), (int)((x+50)/16), (int)((y+30)/16), (int)((y+110)/16))) {
 			bloodAngle = Math.atan2(100, 1);
 			bloodAngle += Math.PI;
 			for(int i = 0; i < 20; i++) {

@@ -152,7 +152,7 @@ public class EnemyGargoyle extends Character {
 		}
 		
 		if(this.isStunned || this.isFollowing || this.isEating) {
-			if(spykeCollision((int)((x+25)/16), (int)((x+85)/16), (int)((y+20)/16), (int)((y+110)/16))) {
+			if(spykeCollision((int)((x+25)/16), (int)((x+45)/16), (int)((y+20)/16), (int)((y+110)/16))) {
 				bloodAngle = Math.atan2(100, 1);
 				bloodAngle += Math.PI;
 				for(int i = 0; i < 20; i++) {

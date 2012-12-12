@@ -161,7 +161,7 @@ public class CharBilly extends Character {
 			jumpSpeed = jumpSpeed / 2;
 		}
 		
-		if(spykeCollision((int)((x+5)/16), (int)((x+50)/16), (int)((y+62)/16), (int)((y+6)/16))) {
+		if(spykeCollision((int)((x+20)/16), (int)((x+40)/16), (int)((y+54)/16), (int)((y+12)/16))) {
 			bloodAngle = Math.atan2(100, 1);
 			bloodAngle += Math.PI;
 			for(int i = 0; i < 20; i++) {

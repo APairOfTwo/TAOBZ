@@ -88,7 +88,7 @@ public class EnemyVegetarian extends Character {
 			}
 		}
 		
-		if(spykeCollision((int)((x+20)/16), (int)((x+40)/16), (int)((y+15)/16), (int)((y+75)/16))) {
+		if(spykeCollision((int)((x+25)/16), (int)((x+35)/16), (int)((y+15)/16), (int)((y+65)/16))) {
 			bloodAngle = Math.atan2(100, 1);
 			bloodAngle += Math.PI;
 			for(int i = 0; i < 20; i++) {

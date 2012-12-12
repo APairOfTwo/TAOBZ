@@ -127,7 +127,7 @@ public class EnemyDemon extends Character {
 			}
 		}
 		
-		if(spykeCollision((int)((x+25)/16), (int)((x+85)/16), (int)((y+67)/16), (int)((y+30)/16))) {
+		if(spykeCollision((int)((x+40)/16), (int)((x+70)/16), (int)((y+65)/16), (int)((y+30)/16))) {
 			bloodAngle = Math.atan2(100, 1);
 			bloodAngle += Math.PI;
 			for(int i = 0; i < 20; i++) {

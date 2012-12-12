@@ -152,7 +152,7 @@ public class CharZombie extends Character {
 			jumpSpeed = jumpSpeed / 2;
 		}
 		
-		if(spykeCollision((int)((x+5)/16), (int)((x+50)/16), (int)((y+5)/16), (int)((y+60)/16))) {
+		if(spykeCollision((int)((x+10)/16), (int)((x+40)/16), (int)((y+24)/16), (int)((y+60)/16))) {
 			bloodAngle = Math.atan2(100, 1);
 			bloodAngle += Math.PI;
 			for(int i = 0; i < 20; i++) {

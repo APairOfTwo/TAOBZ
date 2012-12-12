@@ -31,9 +31,9 @@ public class GamePanel extends JPanel implements Runnable {
 	public static int levelId = 1;
 	
 	private static DisplayMode[] BEST_DISPLAY_MODES = new DisplayMode[] {
-        new DisplayMode(800, 600, 32, 0),
-        new DisplayMode(800, 600, 16, 0),
-        new DisplayMode(800, 600, 8, 0)
+        new DisplayMode(800, 600, 32, DisplayMode.REFRESH_RATE_UNKNOWN),
+        new DisplayMode(800, 600, 16, DisplayMode.REFRESH_RATE_UNKNOWN),
+        new DisplayMode(800, 600, 8, DisplayMode.REFRESH_RATE_UNKNOWN)
     };
 	public static GraphicsDevice device;
 	public static JFrame app;
