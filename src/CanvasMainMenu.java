@@ -19,6 +19,8 @@ public class CanvasMainMenu extends Canvas {
 		btnLoadGame = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 75, "buttons/btnLoadOn.png", "buttons/btnLoadOff.png");
 		btnOptions = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 150, "buttons/btnOptionsOn.png", "buttons/btnOptionsOff.png");
 		btnExit = new GameButton(GamePanel.PANEL_WIDTH/2 - 50, GamePanel.PANEL_HEIGHT/2 + 225, "buttons/btnExitOn.png", "buttons/btnExitOff.png");
+		GamePanel.selectedBilly = false;
+		GamePanel.selectedZombie = false;
 	}
 	
 	@Override

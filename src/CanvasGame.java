@@ -89,7 +89,8 @@ public class CanvasGame extends Canvas {
 	@Override
 	public void selfSimulates(long diffTime) {
 		updateGamepads();
-		
+		System.out.println("B: "+GamePanel.selectedBilly);
+		System.out.println("Z: "+GamePanel.selectedZombie);
 		if(!loading) {
 			for(Character c : heroes) {
 				if(c.isAlive) {
