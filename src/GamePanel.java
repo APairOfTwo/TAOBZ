@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable {
 	long diffTime, previousTime;
 	public static Canvas canvasActive = null;
 	public boolean gameOver = false;
-	public static Audio bgMusic;
+	public static Audio menuMusic;
 	public static float volume = 1.0f;
 	public static boolean isCoop = false;
 	public static boolean selectedBilly = false;
@@ -51,8 +51,8 @@ public class GamePanel extends JPanel implements Runnable {
 		requestFocus();
 		
 		Audio.setVolume(volume);
-		bgMusic = new Audio("res/audio/Clearside-Assimilator.mp3");
-		bgMusic.play();
+		menuMusic = new Audio("res/audio/TeddyPicker.mp3");
+		menuMusic.play();
 		
 		if (buffImage == null){
 			buffImage = new BufferedImage(PANEL_WIDTH, PANEL_HEIGHT, BufferedImage.TYPE_INT_ARGB);

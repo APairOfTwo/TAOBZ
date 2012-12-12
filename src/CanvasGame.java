@@ -52,7 +52,7 @@ public class CanvasGame extends Canvas {
 	public static boolean MOUSE_PRESSED;
 	public static int MOUSE_X, MOUSE_Y;
 	public static int MOUSE_CLICK_X, MOUSE_CLICK_Y;
-	public boolean loading;
+	public static boolean loading;
 	public int loadTime;
 	public int mapPositionX;
 	public int mapPositionY;
@@ -62,13 +62,14 @@ public class CanvasGame extends Canvas {
 	
 	boolean playSound = true;
 	public static Audio keyPick = new Audio("res/audio/key.mp3");
+	public static Audio music;
 	
 	public CanvasGame(int levelId) {
 		instance = this;
 		
 		GamePanel.app.setCursor(GamePanel.myCursor);
 		
-		GamePanel.bgMusic.close();
+		GamePanel.menuMusic.close();
 		
 		charsetBilly = GamePanel.loadImage("sprites/billy.png");
 		charsetZombie = GamePanel.loadImage("sprites/zombie.png");
@@ -187,6 +188,8 @@ public class CanvasGame extends Canvas {
 			if(loadTime >= 4000) {
 				loadTime = 0;
 				loading = false;
+				music.play();
+				System.out.println("aqui");
 			}
 		}
 	}
@@ -399,13 +402,6 @@ public class CanvasGame extends Canvas {
 			}
 		}
 		
-//		for(Element e : CanvasGame.gameElements.elementsList) {
-//			if(e.itemId == 9) {
-//				dbg.setColor(Color.CYAN);
-//				dbg.fillRect((e.blockX<<4)-map.MapX, (e.blockY<<4)-map.MapY, 16, 64);
-//			}
-//		}
-		
 		if(loading) {
 			dbg.setColor(Color.BLACK);
 			dbg.fillRect(0, 0, GamePanel.PANEL_WIDTH, GamePanel.PANEL_HEIGHT);
@@ -487,6 +483,8 @@ public class CanvasGame extends Canvas {
 			projectilesList.clear();
 			checkpoints.clear();
 			gameElements.elementsList.clear();
+			if(music != null) music.close();
+			music = new Audio("res/audio/FluorescentAdolescent.mp3");
 			tileset = GamePanel.loadImage(strTileset01);
 			map = new TileMap(CanvasGame.tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
 			map.OpenMap(strMap01);
@@ -499,6 +497,8 @@ public class CanvasGame extends Canvas {
 			projectilesList.clear();
 			checkpoints.clear();
 			gameElements.elementsList.clear();
+			if(music != null) music.close();
+			music = new Audio("res/audio/CryingLightning.mp3");
 			tileset = GamePanel.loadImage(strTileset02);
 			map = new TileMap(CanvasGame.tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
 			map.OpenMap(strMap02);
@@ -511,6 +511,8 @@ public class CanvasGame extends Canvas {
 			projectilesList.clear();
 			checkpoints.clear();
 			gameElements.elementsList.clear();
+			if(music != null) music.close();
+			music = new Audio("res/audio/505.mp3");
 			tileset = GamePanel.loadImage(strTileset03);
 			map = new TileMap(CanvasGame.tileset, (GamePanel.PANEL_WIDTH>>4)+(((GamePanel.PANEL_WIDTH&0x000f)>0)?1:0), (GamePanel.PANEL_HEIGHT>>4)+(((GamePanel.PANEL_HEIGHT%16)>0)?1:0));
 			map.OpenMap(strMap03);

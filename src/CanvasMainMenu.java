@@ -67,13 +67,7 @@ public class CanvasMainMenu extends Canvas {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent k){
-		int keyCode = k.getKeyCode();
-		if(keyCode == KeyEvent.VK_ESCAPE){
-			//closeThisCanvas();
-			GamePanel.bgMusic.close();
-		}
-	}
+	public void keyPressed(KeyEvent k){ }
 
 	@Override
 	public void keyReleased(KeyEvent k){ }

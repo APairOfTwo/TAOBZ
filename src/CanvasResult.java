@@ -45,8 +45,12 @@ public class CanvasResult extends Canvas {
 		else { btnRetry.setState(0); }
 		
 		if(MOUSE_PRESSED && btnContinue.isMouseOver(MOUSE_CLICK_X, MOUSE_CLICK_Y)) {
-			GamePanel.levelId += 1;
-			GamePanel.changeMap(GamePanel.levelId);
+			if(GamePanel.levelId >= 3) {
+				GamePanel.canvasActive = new CanvasFinal();
+			} else {
+				GamePanel.levelId += 1;
+				GamePanel.changeMap(GamePanel.levelId);
+			}
 			MOUSE_PRESSED = false;
 		}
 		

@@ -52,6 +52,9 @@ public class CanvasPause extends Canvas {
 			CanvasGame.heroes.clear();
 			CanvasGame.deathCounter = 0;
 			CanvasGame.projectilesCounter = 0;
+			if(CanvasGame.music != null) CanvasGame.music.close();
+			GamePanel.menuMusic = new Audio("res/audio/TeddyPicker.mp3");
+			GamePanel.menuMusic.play();
 			GamePanel.canvasActive = new CanvasMainMenu();
 			MOUSE_PRESSED = false;
 		}
