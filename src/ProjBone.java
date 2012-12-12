@@ -52,8 +52,7 @@ public class ProjBone extends Projectile {
 	
 	@Override
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
-		dbg.setColor(Color.BLACK);
-		dbg.fillOval((int)(x-mapX-2), (int)(y-mapY-2), 10, 10);
+		//dbg.setColor(Color.BLACK);
 		dbg.drawImage(bmp, (int)(x-mapX), (int)(y-mapY), (int)((x+frameWidth)-mapX), (int)((y+frameHeight)-mapY), 0, 0, frameWidth, frameHeight, null);
 	}
 }

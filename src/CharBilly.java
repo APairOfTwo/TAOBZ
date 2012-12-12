@@ -140,7 +140,6 @@ public class CharBilly extends Character {
 		
 		if(floorCollision((int)((x+20)/16), (int)((x+30)/16), (int)((x+40)/16), (int)((y+64)/16), (int)((y+62)/16), (int)((y+61)/16))) {
 			y = oldY;
-			System.out.println("floor");
 			if((int)oldY % 16 != 0) {
 				y -= 1;
 			}
@@ -151,7 +150,6 @@ public class CharBilly extends Character {
 		
 		if(lateralCollision((int)((x+17)/16), (int)((x+43)/16), (int)((y+20)/16), (int)((y+30)/16), (int)((y+40)/16))) {
 			x = oldX;
-			System.out.println("lateral");
 		}
 		
 		if(lateralCollision((int)((x+17)/16), (int)((x+43)/16), (int)((y+45)/16), (int)((y+50)/16), (int)((y+60)/16))) {

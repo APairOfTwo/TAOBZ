@@ -189,7 +189,6 @@ public class CanvasGame extends Canvas {
 				loadTime = 0;
 				loading = false;
 				music.play();
-				System.out.println("aqui");
 			}
 		}
 	}
@@ -359,10 +358,6 @@ public class CanvasGame extends Canvas {
 		map.selfDraws(dbg);
 		
 		for(Element e : gameElements.elementsList) {
-			if(e.itemId == 8) {
-				dbg.setColor(Color.MAGENTA);
-				dbg.fillRect((e.blockX<<4)-map.MapX, (e.blockY<<4)-map.MapY, 16, 64);
-			}
 			if(e.itemId == 10 && !billy.haveKey && !zombie.haveKey) {
 				dbg.drawImage(key, (e.blockX<<4)-map.MapX, (e.blockY<<4)-map.MapY, ((e.blockX<<4)-map.MapX)+key.getWidth(),
 						((e.blockY<<4)-map.MapY)+key.getHeight(), 0, 0, key.getWidth(), key.getHeight(), null);
@@ -391,15 +386,6 @@ public class CanvasGame extends Canvas {
 		}
 		for(Character c : heroes) {
 			c.selfDraws(dbg, map.MapX, map.MapY);
-		}
-		
-		if(GamePanel.isCoop) {
-			if(!billy.isAlive) {
-				
-			}
-			if(!zombie.isAlive) {
-				
-			}
 		}
 		
 		if(loading) {

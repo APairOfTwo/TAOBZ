@@ -14,6 +14,7 @@ public class EnemyGargoyle extends Character {
 	
 	public EnemyGargoyle(float x, float y, BufferedImage charset, int charsetX, int charsetY) {
 		super(x, y, charset, charsetX, charsetY, 110, 120, 4);
+		radius = 40;
 		spawnX = x;
 		spawnY = y;
 		speed = DEFAULT_SPEED;

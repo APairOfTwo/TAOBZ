@@ -80,7 +80,6 @@ public class Character extends Sprite {
 
 	@Override
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
-		dbg.draw(getBounds());
 		dbg.drawImage(charset, (int)(x-mapX), (int)(y-mapY), (int)((x+frameWidth)-mapX), (int)((y+frameHeight)-mapY),
 				(frameWidth*frame+charsetX*charsetWidth), (frameHeight*animation+charsetY*charsetHeight),
 				(frameWidth*frame+frameWidth+charsetX*charsetWidth), (frameHeight*animation+frameHeight+charsetY*charsetHeight), null);
