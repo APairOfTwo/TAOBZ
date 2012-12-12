@@ -1,9 +1,10 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 
 public class ProjBone extends Projectile {
-	float boneRadius = 4;
+	float boneRadius = 10;
 
 	public ProjBone(float x, float y, float velX, float velY, BufferedImage bmp, Object pai) {
 		super(x, y, velX, velY, bmp, pai);
@@ -51,8 +52,8 @@ public class ProjBone extends Projectile {
 	
 	@Override
 	public void selfDraws(Graphics2D dbg, int mapX, int mapY) {
-		//dbg.setColor(Color.BLACK);
-		//dbg.fillOval((int)(x-mapX-2), (int)(y-mapY-2), 4, 4);
+		dbg.setColor(Color.BLACK);
+		dbg.fillOval((int)(x-mapX-2), (int)(y-mapY-2), 10, 10);
 		dbg.drawImage(bmp, (int)(x-mapX), (int)(y-mapY), (int)((x+frameWidth)-mapX), (int)((y+frameHeight)-mapY), 0, 0, frameWidth, frameHeight, null);
 	}
 }

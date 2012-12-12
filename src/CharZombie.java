@@ -139,11 +139,11 @@ public class CharZombie extends Character {
 			onTheFloor = false;
 		}
 		
-		if(lateralCollision((int)((x+8)/16), (int)((x+42)/16), (int)((y+20)/16), (int)((y+30)/16), (int)((y+35)/16))) {
+		if(lateralCollision((int)((x+7)/16), (int)((x+43)/16), (int)((y+20)/16), (int)((y+30)/16), (int)((y+35)/16))) {
 			x = oldX;
 		}
 		
-		if(lateralCollision((int)((x+8)/16), (int)((x+42)/16), (int)((y+40)/16), (int)((y+45)/16), (int)((y+50)/16))) {
+		if(lateralCollision((int)((x+7)/16), (int)((x+43)/16), (int)((y+40)/16), (int)((y+45)/16), (int)((y+50)/16))) {
 			x = oldX;
 		}
 		
@@ -223,7 +223,7 @@ public class CharZombie extends Character {
 	}
 	
 	public Rectangle getBounds() {
-		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+10), (int)(y-CanvasGame.map.MapY+5), 40, 50);
+		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+12), (int)(y-CanvasGame.map.MapY+10), 38, 50);
 		return r;
 	}
 	

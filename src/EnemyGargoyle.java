@@ -151,7 +151,7 @@ public class EnemyGargoyle extends Character {
 		}
 		
 		if(this.isStunned || this.isFollowing || this.isEating) {
-			if(spykeCollision((int)((x+25)/16), (int)((x+85)/16), (int)((y+20)/16), (int)((y+85)/16))) {
+			if(spykeCollision((int)((x+25)/16), (int)((x+85)/16), (int)((y+20)/16), (int)((y+110)/16))) {
 				bloodAngle = Math.atan2(100, 1);
 				bloodAngle += Math.PI;
 				for(int i = 0; i < 20; i++) {
@@ -176,7 +176,7 @@ public class EnemyGargoyle extends Character {
 	}
 	
 	public Rectangle getBounds() {
-		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+25), (int)(y-CanvasGame.map.MapY+35), 50, 80);
+		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+35), (int)(y-CanvasGame.map.MapY+50), 55, 55);
 		return r;
 	}
 	

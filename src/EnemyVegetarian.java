@@ -119,7 +119,7 @@ public class EnemyVegetarian extends Character {
 	}
 	
 	public Rectangle getBounds() {
-		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+16), (int)(y-CanvasGame.map.MapY+21), 25, 54);
+		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+16), (int)(y-CanvasGame.map.MapY+21), 25, 40);
 		return r;
 	}
 	

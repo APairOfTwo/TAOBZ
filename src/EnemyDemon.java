@@ -158,7 +158,7 @@ public class EnemyDemon extends Character {
 	}
 	
 	public Rectangle getBounds() {
-		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+20), (int)(y-CanvasGame.map.MapY+30), 50, 50);
+		Rectangle r = new Rectangle((int)(x-CanvasGame.map.MapX+23), (int)(y-CanvasGame.map.MapY+30), 53, 40);
 		return r;
 	}
 	

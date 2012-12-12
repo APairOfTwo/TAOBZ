@@ -141,7 +141,7 @@ public class EnemyBerserker extends Character {
 			onTheFloor = false;
 		}
 		
-		if(lateralCollision((int)((x+19)/16), (int)((x+61)/16), (int)((y+70)/16), (int)((y+50)/16), (int)((y+30)/16))) {
+		if(lateralCollision((int)((x+18)/16), (int)((x+52)/16), (int)((y+70)/16), (int)((y+50)/16), (int)((y+30)/16))) {
 			x = oldX;
 		}
 		
