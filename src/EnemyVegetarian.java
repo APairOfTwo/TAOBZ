@@ -127,6 +127,16 @@ public class EnemyVegetarian extends Character {
 	public void hitByProjectile(Projectile p) {
 		if(p.getClass() == ProjBone.class){
 			isStunned = true;
+			speed = 0;
+			bloodAngle = Math.atan2(100, 1);
+			bloodAngle += Math.PI;
+			for(int i = 0; i < 20; i++) {
+				bloodAuxAngle = bloodAngle - (Math.PI/4) + ((Math.PI/2) * Math.random());
+				vel = (float)(150 + 100 * Math.random());
+				vX = (float)(Math.cos(bloodAuxAngle) * vel);
+				vY = (float)(Math.sin(bloodAuxAngle) * vel);
+				CanvasGame.effectsList.add(new Effect(x+frameWidth/2, y+frameHeight/2, vX, vY, 300, 255, 255, 255));
+			}
 			proj = p;
 		}
 	}

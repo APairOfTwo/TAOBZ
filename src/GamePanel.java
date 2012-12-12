@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public static boolean isCoop = false;
 	public static boolean selectedBilly = false;
 	public static boolean selectedZombie = false;
+	public static boolean showFps = true;
 	public static int levelId = 1;
 	
 	private static DisplayMode[] BEST_DISPLAY_MODES = new DisplayMode[] {
@@ -173,8 +174,10 @@ public class GamePanel extends JPanel implements Runnable {
 		if(canvasActive != null) {
 			canvasActive.selfDraws(dbg);
 		}
-		dbg.setColor(Color.WHITE);
-		dbg.drawString("FPS: "+fps, 10, 20);
+		if(showFps) {
+			dbg.setColor(Color.WHITE);
+			dbg.drawString("FPS: "+fps, 10, 20);
+		}
 	}
 
 	public void paintComponent(Graphics g) {

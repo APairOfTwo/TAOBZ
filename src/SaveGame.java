@@ -22,7 +22,7 @@ public class SaveGame {
 		try {
 			txtWriter = new FileWriter("system\\SAVE.txt");
 		    saveOut = new BufferedWriter(txtWriter);
-		    mapId = GamePanel.levelId;
+		    mapId = GamePanel.levelId+1;
 		    saveOut.write(Integer.toString(mapId)+"\n");
 		    saveOut.write(Integer.toString(gameMode));
 		    saveOut.close();
