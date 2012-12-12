@@ -38,7 +38,7 @@ public class CharZombie extends Character {
 		
 		if((x < 5)) { x = 5; }
 		if((y < 5)) { y = 5; }
-		if((x+frameWidth > (CanvasGame.map.Largura << 4)-5)) { x = (((CanvasGame.map.Largura << 4)-5)-frameWidth); }
+		if((x+frameWidth > (CanvasGame.map.Largura << 4)-2)) { x = (((CanvasGame.map.Largura << 4)-2)-frameWidth); }
 		if((y+frameHeight > (CanvasGame.map.Altura << 4)-5)) { isAlive = false; }
 		
 		if(numShotsMeat <= 0) {
